@@ -1,1 +1,9 @@
-console.log('Este va a ser el server');
+import { createApp } from './app.js';
+
+
+const app = createApp()
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`API de login escuchando en puerto ${PORT}`);
+});
