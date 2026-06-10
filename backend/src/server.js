@@ -5,5 +5,5 @@ const app = createApp()
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`API de login escuchando en puerto ${PORT}`);
+    console.log(`App escuchando en puerto ${PORT}`);
 });
