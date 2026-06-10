@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 
-function App() {
+export function App() {
     return (
         <>
             <h1>Admin Album de Figuritas Mundial 2026</h1>
@@ -12,5 +12,3 @@ function App() {
         </>
     );
 };
-
-export default App;

@@ -1,5 +1,5 @@
 export class Figurita {
-    constructor(numeroFigurita) {
-        this.numeroFigurita = numeroFigurita;
+    constructor(posicionPagina) {
+        this.posicionPagina = posicionPagina;
     };
 };

@@ -1,7 +1,8 @@
 export class PaginaSeleccion {
-    constructor(numeroPagina, Seleccion, figuritas) {
+    constructor(numeroPagina, Seleccion, especiales, jugadores) {
         this.numeroPagina = numeroPagina;
         this.Seleccion = Seleccion;
-        this.figuritas = figuritas;
+        this.especiales = especiales;
+        this.jugadores = jugadores;
     };
 };
