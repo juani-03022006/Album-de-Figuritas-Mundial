@@ -3,6 +3,7 @@ import Posicion from './Posicion.js';
 import Seleccion from './Seleccion.js';
 import FiguritaEspecial from './FiguritaEspecial.js';
 import FiguritaJugador from './FiguritaJugador.js';
+import sequelize from '../sequelizeConnection.js';
 
 
 // Figuritas del tipo jugador
@@ -41,4 +42,6 @@ Figurita.belongsTo(Seleccion, {
     as: 'seleccion'
 });
 
+
+await sequelize.sync();
 export { Figurita, FiguritaEspecial, FiguritaJugador, Seleccion, Posicion };

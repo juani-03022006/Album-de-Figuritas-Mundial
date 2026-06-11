@@ -46,5 +46,4 @@ FiguritaJugador.init(
     }
 );
 
-await FiguritaJugador.sync();
 export default FiguritaJugador;

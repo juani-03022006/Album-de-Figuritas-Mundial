@@ -27,5 +27,4 @@ FiguritaEspecial.init(
     }
 );
 
-await FiguritaEspecial.sync();
 export default FiguritaEspecial;

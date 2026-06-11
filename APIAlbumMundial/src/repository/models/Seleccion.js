@@ -40,5 +40,4 @@ Seleccion.init(
     }
 );
 
-await Seleccion.sync();
 export default Seleccion;

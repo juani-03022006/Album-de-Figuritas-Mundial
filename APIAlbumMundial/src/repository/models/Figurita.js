@@ -36,5 +36,4 @@ Figurita.init(
     }
 );
 
-await Figurita.sync();
 export default Figurita;

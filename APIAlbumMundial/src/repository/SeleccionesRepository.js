@@ -3,13 +3,15 @@ import { Seleccion } from './models/index.js';
 
 class SeleccionRepository {
     async createSeleccion({ nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta }) {
-        return Seleccion.create({
+        const seleccionNueva = await Seleccion.create({
             nombreSeleccion: nombreSeleccion,
             nombrePais: nombrePais,
             banderaPais: banderaPais,
             nroDesde: nroDesde,
             nroHasta: nroHasta
         });
+
+        return seleccionNueva;
     };
 
     async getSeleccion(idSeleccion) {
@@ -25,7 +27,7 @@ class SeleccionRepository {
     }
 
     async modifySeleccion({ idSeleccion, nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta }) {
-        const seleccion = this.getSeleccion(idSeleccion);
+        const seleccion = await this.getSeleccion(idSeleccion);
 
         seleccion.set({
             nombreSeleccion: nombreSeleccion,

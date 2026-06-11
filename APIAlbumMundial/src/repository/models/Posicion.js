@@ -24,5 +24,4 @@ Posicion.init(
     }
 );
 
-await Posicion.sync();
 export default Posicion;
