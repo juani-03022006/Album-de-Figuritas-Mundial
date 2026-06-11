@@ -1,0 +1,28 @@
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../sequelizeConnection.js';
+
+
+class Posicion extends Model { };
+
+Posicion.init(
+    {
+        idPosicion: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        descripcion: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        }
+    },
+    {
+        sequelize,
+        modelName: 'Posicion',
+        tableName: 'posiciones',
+        timestamps: false
+    }
+);
+
+await Posicion.sync();
+export default Posicion;
