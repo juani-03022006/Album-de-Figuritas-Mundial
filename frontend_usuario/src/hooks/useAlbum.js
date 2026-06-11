@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { DEFAULT_USER_ID } from '../config/api.js';
-import { fetchUserAlbum, getMockAlbumResponse } from '../services/albumService.js';
+import { fetchUserAlbum } from '../services/albumService.js';
 
 export function useAlbum(userId = DEFAULT_USER_ID) {
-  const [album, setAlbum] = useState({ userId: '', selections: [] });
+  const [album, setAlbum] = useState({ usuarioId: '', selecciones: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isUsingMockData, setIsUsingMockData] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -14,7 +13,6 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
     async function loadAlbum() {
       setIsLoading(true);
       setError(null);
-      setIsUsingMockData(false);
 
       try {
         const data = await fetchUserAlbum(userId);
@@ -22,15 +20,12 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
         setAlbum(data);
       } catch (requestError) {
         if (!isMounted) return;
-
-        if (import.meta.env.DEV) {
-          setAlbum(getMockAlbumResponse());
-          setIsUsingMockData(true);
-          setError(null);
-        } else {
-          setAlbum({ userId, selections: [] });
-          setError(requestError.message);
-        }
+        setAlbum({ usuarioId: userId, selecciones: [] });
+        setError(
+          requestError.response?.data?.message ||
+            requestError.message ||
+            'No se pudo cargar el álbum'
+        );
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -46,9 +41,8 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
   }, [userId]);
 
   return {
-    selections: album.selections,
+    selecciones: album.selecciones,
     isLoading,
     error,
-    isUsingMockData,
   };
 }

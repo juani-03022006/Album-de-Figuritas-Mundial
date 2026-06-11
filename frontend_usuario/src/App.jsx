@@ -4,27 +4,28 @@ import { AlbumHeader } from './components/album/AlbumHeader';
 import { AlbumStatus } from './components/album/AlbumStatus';
 import { TeamNavigator } from './components/album/TeamNavigator';
 import { useAlbum } from './hooks/useAlbum';
-import { countOwnedStickers } from './services/albumService';
+import { TOTAL_FIGURITAS } from './constants/albumLayout';
+import { countOwnedFiguritas } from './services/albumService';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState(0);
-  const { selections, isLoading, error, isUsingMockData } = useAlbum();
+  const { selecciones, isLoading, error } = useAlbum();
 
-  const currentTeam = selections[currentPage] ?? null;
+  const currentTeam = selecciones[currentPage] ?? null;
 
   const ownedCount = useMemo(() => {
     if (!currentTeam) return 0;
-    return countOwnedStickers(currentTeam.stickers);
+    return countOwnedFiguritas(currentTeam.figuritas);
   }, [currentTeam]);
 
   function nextTeam() {
-    if (selections.length === 0) return;
-    setCurrentPage((prev) => (prev + 1) % selections.length);
+    if (selecciones.length === 0) return;
+    setCurrentPage((prev) => (prev + 1) % selecciones.length);
   }
 
   function prevTeam() {
-    if (selections.length === 0) return;
-    setCurrentPage((prev) => (prev - 1 + selections.length) % selections.length);
+    if (selecciones.length === 0) return;
+    setCurrentPage((prev) => (prev - 1 + selecciones.length) % selecciones.length);
   }
 
   return (
@@ -33,12 +34,11 @@ export function App() {
         <AlbumHeader
           team={currentTeam}
           ownedCount={ownedCount}
-          totalCount={currentTeam.stickers.length}
-          isUsingMockData={isUsingMockData}
+          totalCount={TOTAL_FIGURITAS}
         />
       )}
 
-      <AlbumStatus isLoading={isLoading} error={error} hasSelections={selections.length > 0} />
+      <AlbumStatus isLoading={isLoading} error={error} hasSelections={selecciones.length > 0} />
 
       {currentTeam && <AlbumDoublePage team={currentTeam} />}
 

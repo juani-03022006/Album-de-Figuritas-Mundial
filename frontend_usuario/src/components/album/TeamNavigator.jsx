@@ -19,9 +19,9 @@ export function TeamNavigator({ team, onPrevious, onNext }) {
         <span
           key={team.id}
           className="text-xl font-bold text-center transition-colors duration-700 animate-in slide-in-from-bottom-2 fade-in duration-300"
-          style={{ fontFamily: "'Kanit', sans-serif", color: team.colors.accent1 }}
+          style={{ fontFamily: "'Kanit', sans-serif", color: team.colores.accent1 }}
         >
-          {team.name}
+          {team.nombre}
         </span>
       </div>
 

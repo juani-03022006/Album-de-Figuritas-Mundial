@@ -1,10 +1,18 @@
 import express from 'express';
+import cors from 'cors';
+import { createAlbumRoutes } from './routes/albumRoutes.js';
 
+export function createApp(models) {
+  const app = express();
 
-export function createApp() {
-    const app = express();
+  app.use(cors());
+  app.use(express.json());
 
-    app.get('/', (req, res) => {res.send('Hello World!')});
+  app.get('/', (_req, res) => {
+    res.json({ message: 'API Album de Figuritas Mundial 2026' });
+  });
 
-    return app;
-};
+  app.use('/api', createAlbumRoutes(models));
+
+  return app;
+}
