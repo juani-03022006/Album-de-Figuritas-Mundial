@@ -18,6 +18,12 @@ class SeleccionRepository {
         return seleccion;
     };
 
+    async getSelecciones() {
+        const selecciones = await Seleccion.findAll();
+
+        return selecciones;
+    }
+
     async modifySeleccion({ idSeleccion, nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta }) {
         const seleccion = this.getSeleccion(idSeleccion);
 
