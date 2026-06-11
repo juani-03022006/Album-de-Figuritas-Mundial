@@ -1,6 +1,6 @@
 function createSeleccionesController(SeleccionesService) {
     if (!SeleccionesService || typeof SeleccionesService.obtenerSelecciones !== 'function') {
-        throw new Error('El Servicio de Selecciones es invalido!');
+        throw new Error('El Servicio de Selecciones es inválido!');
     };
 
     return {
@@ -15,9 +15,10 @@ function createSeleccionesController(SeleccionesService) {
 
         modifySeleccion: async (req, res) => {
             try {
+                const idSeleccionModificada = req.params.id;
                 const seleccionModificada = req.body;
 
-                const result = await SeleccionesService.modificarSeleccion(seleccionModificada);
+                const result = await SeleccionesService.modificarSeleccion(idSeleccionModificada, seleccionModificada);
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);
@@ -28,11 +29,8 @@ function createSeleccionesController(SeleccionesService) {
             try {
                 const nuevaSeleccion = req.body;
 
-                if (!nuevaSeleccion) {
-                    throw new Error('Los datos de la selección son obligatorios.');
-                };
-
                 const result = await SeleccionesService.crearSeleccion(nuevaSeleccion);
+                res.status(200).json(result);
             } catch (error) {
                 console.error(error);
             };

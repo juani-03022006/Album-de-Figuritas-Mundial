@@ -12,8 +12,8 @@ class SeleccionesService {
         return selecciones;
     };
 
-    async modificarSeleccion(seleccionModificada) {
-        const seleccion = await this.SeleccionesRepository.modifySeleccion(seleccionModificada);
+    async modificarSeleccion(idSeleccionModificada, datosSeleccionModificada) {
+        const seleccion = await this.SeleccionesRepository.modifySeleccion(idSeleccionModificada, datosSeleccionModificada);
         return seleccion;
     };
 

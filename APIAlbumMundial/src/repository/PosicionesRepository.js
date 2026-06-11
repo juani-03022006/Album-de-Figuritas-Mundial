@@ -8,15 +8,7 @@ class PosicionesRepository {
         return posiciones;
     };
 
-    async createPosicion({ descripcion }) {
-        const nuevaPosicion = await Posicion.create({
-            descripcion: descripcion
-        });
-
-        return nuevaPosicion;
-    };
-
-    async modifyPosicion({ idPosicion, descripcion }) {
+    async modifyPosicion(idPosicion, { descripcion }) {
         const posicion = await Posicion.findOne({ where: { idPosicion } });
 
         posicion.set({
@@ -25,6 +17,14 @@ class PosicionesRepository {
         await posicion.save();
 
         return posicion;
+    };
+
+    async createPosicion({ descripcion }) {
+        const nuevaPosicion = await Posicion.create({
+            descripcion: descripcion
+        });
+
+        return nuevaPosicion;
     };
 };
 
