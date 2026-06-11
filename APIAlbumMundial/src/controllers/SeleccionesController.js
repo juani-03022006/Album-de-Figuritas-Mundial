@@ -21,7 +21,7 @@ function createSeleccionesController({ SeleccionesService }) {
                     throw new Error('Los datos de la selección son obligatorios.');
                 };
 
-                const result = await SeleccionesService.moificarSeleccion(seleccionModificada);
+                const result = await SeleccionesService.modificarSeleccion(seleccionModificada);
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);
