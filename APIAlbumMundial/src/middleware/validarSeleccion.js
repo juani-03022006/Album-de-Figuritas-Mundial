@@ -15,7 +15,7 @@ export const validarSeleccion = (req, res, next) => {
 
     if (typeof banderaPais !== 'string' || banderaPais.trim() === '') {
         return res.status(400).json({
-            error: 'Bandera de pois inválida.'
+            error: 'Bandera de pais inválida.'
         });
     };
 

@@ -1,4 +1,4 @@
-function createSeleccionesController({ SeleccionesService }) {
+function createSeleccionesController(SeleccionesService) {
     if (!SeleccionesService || typeof SeleccionesService.obtenerSelecciones !== 'function') {
         throw new Error('El Servicio de Selecciones es invalido!');
     };
@@ -16,10 +16,6 @@ function createSeleccionesController({ SeleccionesService }) {
         modifySeleccion: async (req, res) => {
             try {
                 const seleccionModificada = req.body;
-
-                if (!seleccionModificada) {
-                    throw new Error('Los datos de la selección son obligatorios.');
-                };
 
                 const result = await SeleccionesService.modificarSeleccion(seleccionModificada);
                 res.status(200).json(result);

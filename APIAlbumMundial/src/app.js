@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { ALLOWED_ORIGINS } from './allowedOrigins.js';
+import routerSelecciones from './routes/selecciones.js';
 
 
 export function createApp() {
@@ -11,7 +12,7 @@ export function createApp() {
         origin: ALLOWED_ORIGINS
     }));
 
-    app.get('/selecciones', (req, res) => {res.send('Endpoint GET de selecciones.')});
+    app.use('/selecciones', routerSelecciones);
 
     return app;
 };
