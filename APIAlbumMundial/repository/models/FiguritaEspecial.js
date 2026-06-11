@@ -25,4 +25,7 @@ FiguritaEspecial.init(
         tableName: 'figurita_especial',
         timestamps: false
     }
-)
+);
+
+await FiguritaEspecial.sync();
+export default FiguritaEspecial;

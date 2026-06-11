@@ -44,4 +44,7 @@ FiguritaJugador.init(
         tableName: 'figurita_jugador',
         timestamps: false
     }
-)
+);
+
+await FiguritaJugador.sync();
+export default FiguritaJugador;
