@@ -2,10 +2,11 @@ import { Router } from 'express';
 import { validarPosicion } from '../middleware/validarPosicion.js';
 import createPosicionesController from '../controllers/PosicionesController.js';
 import PosicionesService from '../services/PosicionesService.js';
-import PosicionesRepository from '../repository/PosicionesRepository';
+import PosicionesRepository from '../repository/PosicionesRepository.js';
 
 
 const posicionesRepository = new PosicionesRepository();
+console.log(posicionesRepository);
 const posicionesService = new PosicionesService(posicionesRepository);
 const posicionesController = createPosicionesController(posicionesService);
 

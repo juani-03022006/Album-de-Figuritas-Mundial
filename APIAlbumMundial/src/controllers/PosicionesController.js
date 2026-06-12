@@ -15,9 +15,10 @@ function createPosicionesController(PosicionesService) {
 
         modifyPosicion: async (req, res) => {
             try {
+                const idNuevaPosicion = req.params.id;
                 const posicionModificada = req.body;
 
-                const result = await PosicionesService.modificarPosicion(posicionModificada);
+                const result = await PosicionesService.modificarPosicion(idNuevaPosicion, posicionModificada);
                 return res.status(200).json(result);
             } catch (error) {
                 console.error(error);
@@ -26,10 +27,9 @@ function createPosicionesController(PosicionesService) {
 
         createPosicion: async (req, res) => {
             try {
-                const idNuevaPosicion = req.params.id;
                 const nuevaPosicion = req.body;
 
-                const result = await PosicionesService.crearPosicion(idNuevaPosicion, nuevaPosicion);
+                const result = await PosicionesService.crearPosicion(nuevaPosicion);
                 return res.status(200).json(result);
             } catch (error) {
                 console.error(error);

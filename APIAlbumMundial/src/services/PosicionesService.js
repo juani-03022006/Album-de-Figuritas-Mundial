@@ -1,6 +1,6 @@
 class PosicionesService {
     constructor(PosicionesRepository) {
-        if (!PosicionesRepository || typeof PosicionesRepository.createSeleccion !== 'function') {
+        if (!PosicionesRepository || typeof PosicionesRepository.createPosicion !== 'function') {
             throw new Error('El Repositorio de posiciones es obligatorio!');
         };
 

@@ -14,6 +14,7 @@ Posicion.init(
         descripcion: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         }
     },
     {

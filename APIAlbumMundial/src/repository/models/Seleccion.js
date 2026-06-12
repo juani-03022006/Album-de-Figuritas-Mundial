@@ -14,22 +14,43 @@ Seleccion.init(
         nombreSeleccion: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
         nombrePais: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true
         },
         banderaPais: {
             type: DataTypes.CHAR,
             allowNull: false,
+            unique: true
         },
         nroDesde: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: true
         },
         nroHasta: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: true
+        },
+        colorPrincipal: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        colorAcento1: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        colorAcento2: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        colorTitulo: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     },
     {
