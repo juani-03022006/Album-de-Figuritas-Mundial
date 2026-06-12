@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { validarSeleccion } from '../middleware/validarSeleccion.js';
 import createSeleccionesController from '../controllers/SeleccionesController.js';
 import SeleccionesService from '../services/SeleccionesService.js';
-import SeleccionRepository from '../repository/SeleccionesRepository.js';
+import SeleccionRepository from '../repositories/SeleccionesRepository.js';
 
 
 const seleccionesRepository = new SeleccionRepository();
