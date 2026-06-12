@@ -22,7 +22,7 @@ Seleccion.init(
             unique: true
         },
         banderaPais: {
-            type: DataTypes.CHAR,
+            type: DataTypes.STRING,
             allowNull: false,
             unique: true
         },

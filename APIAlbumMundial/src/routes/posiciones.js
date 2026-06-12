@@ -6,7 +6,6 @@ import PosicionesRepository from '../repositories/PosicionesRepository.js';
 
 
 const posicionesRepository = new PosicionesRepository();
-console.log(posicionesRepository);
 const posicionesService = new PosicionesService(posicionesRepository);
 const posicionesController = createPosicionesController(posicionesService);
 
