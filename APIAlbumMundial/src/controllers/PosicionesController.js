@@ -7,7 +7,7 @@ function createPosicionesController(PosicionesService) {
         getPosiciones: async (req, res) => {
             try {
                 const posiciones = await PosicionesService.obtenerPosiciones();
-                return res.status(200).json(posiciones);
+                res.status(200).json(posiciones);
             } catch (error) {
                 console.error(error);
             };
@@ -19,7 +19,7 @@ function createPosicionesController(PosicionesService) {
                 const posicionModificada = req.body;
 
                 const result = await PosicionesService.modificarPosicion(idNuevaPosicion, posicionModificada);
-                return res.status(200).json(result);
+                res.status(200).json(result);
             } catch (error) {
                 console.error(error);
             };
@@ -30,7 +30,7 @@ function createPosicionesController(PosicionesService) {
                 const nuevaPosicion = req.body;
 
                 const result = await PosicionesService.crearPosicion(nuevaPosicion);
-                return res.status(200).json(result);
+                res.status(200).json(result);
             } catch (error) {
                 console.error(error);
             };

@@ -4,25 +4,59 @@ function createFiguritasController(FiguritasService) {
     };
 
     return {
-        getFiguritas: (req, res) => {
+        getJugadores: (req, res) => {
             try {
-                const figuritas = await FiguritasService.obtenerFiguritas();
-                return res.status(200).json(figuritas);
+                const figuritas = await FiguritasService.obtenerJugadores();
+                res.status(200).json(figuritas);
             } catch (error) {
                 console.error(error);
             };
         },
 
-        modifyFigurita: (req, res) => {
+        getEspeciales: (req, res) => {
             try {
-                const idFigurita = req.params.id;
-                const figuritaModificada = req.body;
-
-                const result = await FiguritasService.modificarFigurita(idFigurita, figuritaModificada);
-                return res.status(200).json(result);
+                const figuritas = await FiguritasService.obtenerEspeciales();
+                res.status(200).json(figuritas);
             } catch (error) {
                 console.error(error);
             };
+        },
+
+        modifyJugador: (req, res) => {
+            try {
+                const idJugador = req.params.id;
+                const jugadorModificado = req.body;
+
+                const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado);
+                res.status(200).json(result);
+            } catch (error) {
+                console.error(error);
+            };
+        },
+
+        modifyEspecial: (req, res) => {
+            try {
+                const idEspecial = req.params.id;
+                const especialModificada = req.body;
+
+                const result = await FiguritasService.modificarEspecial(idEspecial, especialModificada);
+                res.status(200).json(result);
+            } catch (error) {
+                console.error(error);
+            };
+        },
+
+        createFigurita: (req, res) => {
+            try {
+                const figuritaNueva = req.body;
+
+                const result = await FiguritasService.crearFigurita(figuritaNueva);
+                res.status(200).json(result);
+            } catch (error) {
+                console.error(error); 
+            };
         }
-    }
-}
+    };
+};
+
+export default createFiguritasController;

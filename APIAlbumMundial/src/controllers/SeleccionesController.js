@@ -7,7 +7,7 @@ function createSeleccionesController(SeleccionesService) {
         getSelectiones: async (req, res) => {
             try {
                 const selecciones = await SeleccionesService.obtenerSelecciones();
-                return res.status(200).json(selecciones);
+                res.status(200).json(selecciones);
             } catch (error) {
                 console.log(error);
             };
