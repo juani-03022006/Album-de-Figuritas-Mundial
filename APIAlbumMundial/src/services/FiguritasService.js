@@ -1,6 +1,6 @@
 class FiguritasService {
     constructor(FiguritasRepository) {
-        if (!FiguritasRepository || typeof FiguritasRepository.createFigurita !== 'function') {
+        if (!FiguritasRepository || typeof FiguritasRepository.createJugador !== 'function') {
             throw new Error('El Repositorio de figuritas es obligatorio!');
         };
 
@@ -36,4 +36,6 @@ class FiguritasService {
         const especialModificada = await this.FiguritasRepository.modifyEspecial(idEspecialModificada, datosNuevosEspecial);
         return especialModificada;
     };
-}
+};
+
+export default FiguritasService;

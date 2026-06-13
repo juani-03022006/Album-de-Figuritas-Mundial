@@ -1,5 +1,15 @@
 export const validarSeleccion = (req, res, next) => {
-    const { nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta, colorPrincipal, colorAcento1, colorAcento2, colorTitulo } = req.body;
+    const {
+        nombreSeleccion,
+        nombrePais,
+        banderaPais,
+        nroDesde,
+        nroHasta,
+        colorPrincipal,
+        colorAcento1,
+        colorAcento2,
+        colorTitulo
+    } = req.body;
 
     if (typeof nombreSeleccion !== 'string' || nombreSeleccion.trim() === '') {
         return res.status(400).json({

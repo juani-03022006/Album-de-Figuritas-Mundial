@@ -13,7 +13,7 @@ Figurita.hasOne(FiguritaJugador, {
 });
 FiguritaJugador.belongsTo(Figurita, {
     foreignKey: 'idFigurita',
-    as: 'jugador'
+    as: 'figurita'
 });
 
 // Figuritas del tipo Especial
@@ -23,12 +23,13 @@ Figurita.hasOne(FiguritaEspecial, {
 });
 FiguritaEspecial.belongsTo(Figurita, {
     foreignKey: 'idFigurita',
-    as: 'especial'
+    as: 'figurita'
 });
 
 // Posicion del jugador
 Posicion.hasOne(FiguritaJugador, {
-    foreignKey: 'idPosicion'
+    foreignKey: 'idPosicion',
+    as: 'posicion'
 });
 FiguritaJugador.belongsTo(Posicion, {
     foreignKey: 'idPosicion',
@@ -37,7 +38,8 @@ FiguritaJugador.belongsTo(Posicion, {
 
 // Figuritas de cada selecion
 Seleccion.hasMany(Figurita, {
-    foreignKey: 'idSeleccion'
+    foreignKey: 'idSeleccion',
+    as: 'seleccion'
 });
 Figurita.belongsTo(Seleccion, {
     foreignKey: 'idSeleccion',

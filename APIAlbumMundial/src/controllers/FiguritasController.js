@@ -1,10 +1,10 @@
 function createFiguritasController(FiguritasService) {
-    if (!FiguritasService || typeof FiguritasService.obtenerFiguritas !== 'function') {
+    if (!FiguritasService || typeof FiguritasService.obtenerJugadores !== 'function') {
         throw new Error('El Servicio de Figuritas es inválido!');
     };
 
     return {
-        getJugadores: (req, res) => {
+        getJugadores: async (req, res) => {
             try {
                 const figuritas = await FiguritasService.obtenerJugadores();
                 res.status(200).json(figuritas);
@@ -13,7 +13,7 @@ function createFiguritasController(FiguritasService) {
             };
         },
 
-        createJugador: (req, res) => {
+        createJugador: async (req, res) => {
             try {
                 const nuevoJugador = req.body;
 
@@ -24,10 +24,10 @@ function createFiguritasController(FiguritasService) {
             };
         },
 
-        modifyJugador: (req, res) => {
+        modifyJugador: async (req, res) => {
             try {
                 const idJugador = req.params.id;
-                const jugadorModificado = req.body;
+                const jugadorModificado = req.body.jugador;
 
                 const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado);
                 res.status(200).json(result);
@@ -36,7 +36,7 @@ function createFiguritasController(FiguritasService) {
             };
         },
         
-        getEspeciales: (req, res) => {
+        getEspeciales: async (req, res) => {
             try {
                 const figuritas = await FiguritasService.obtenerEspeciales();
                 res.status(200).json(figuritas);
@@ -45,7 +45,7 @@ function createFiguritasController(FiguritasService) {
             };
         },
 
-        createEspecial: (req, res) => {
+        createEspecial: async (req, res) => {
             try {
                 const nuevaEspecial = req.body;
 
@@ -56,7 +56,7 @@ function createFiguritasController(FiguritasService) {
             };
         },
 
-        modifyEspecial: (req, res) => {
+        modifyEspecial: async (req, res) => {
             try {
                 const idEspecial = req.params.id;
                 const especialModificada = req.body;

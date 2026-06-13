@@ -5,8 +5,8 @@ class FiguritasRepository {
     async getJugadores() {
         const jugadores = await FiguritaJugador.findAll({
             include: [
-                Posicion,
-                Figurita
+                { model: Posicion, as: 'posicion' },
+                { model: Figurita, as: 'figurita' }
             ]
         });
 
