@@ -13,6 +13,26 @@ class FiguritasRepository {
         return jugadores;
     };
 
+    async createJugador(datosJugador) {
+        const nuevoJugador = await Figurita.create(datosJugador, {
+            include: [{
+                model: FiguritaJugador,
+                as: 'jugador'
+            }]
+        });
+
+        return nuevoJugador;
+    };
+
+    async modifyJugador(idJugador, datosNuevosJugador) {
+        const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
+
+        jugador.set(datosNuevosJugador);
+        jugador.save();
+
+        return jugador;
+    };
+
     async getEspeciales() {
         const especiales = await FiguritaEspecial.findAll({
             include: [
@@ -23,29 +43,15 @@ class FiguritasRepository {
         return especiales;
     };
 
-    async createFigurita(datosFigurita) {
-        const nuevaFigurita = await Figurita.create(datosFigurita, {
-            include: [(
-                datosFigurita.tipo === 'j' ? {
-                    model: FiguritaJugador,
-                    as: 'jugador'
-                } : {
-                    model: FiguritaEspecial,
-                    as: 'especial'
-                }
-            )]
+    async createEspecial(datosEspecial) {
+        const nuevaFigurita = await Figurita.create(datosEspecial, {
+            include: [{
+                model: FiguritaEspecial,
+                as: 'especial'
+            }]
         });
 
         return nuevaFigurita;
-    };
-
-    async modifyJugador(idJugador, datosNuevosJugador) {
-        const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
-
-        jugador.set(datosNuevosJugador);
-        jugador.save();
-
-        return jugador;
     };
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {

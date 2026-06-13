@@ -13,23 +13,23 @@ function createPosicionesController(PosicionesService) {
             };
         },
 
-        modifyPosicion: async (req, res) => {
+        createPosicion: async (req, res) => {
             try {
-                const idNuevaPosicion = req.params.id;
-                const posicionModificada = req.body;
+                const nuevaPosicion = req.body;
 
-                const result = await PosicionesService.modificarPosicion(idNuevaPosicion, posicionModificada);
+                const result = await PosicionesService.crearPosicion(nuevaPosicion);
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);
             };
         },
 
-        createPosicion: async (req, res) => {
+        modifyPosicion: async (req, res) => {
             try {
-                const nuevaPosicion = req.body;
+                const idNuevaPosicion = req.params.id;
+                const posicionModificada = req.body;
 
-                const result = await PosicionesService.crearPosicion(nuevaPosicion);
+                const result = await PosicionesService.modificarPosicion(idNuevaPosicion, posicionModificada);
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);

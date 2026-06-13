@@ -12,14 +12,14 @@ class SeleccionesService {
         return selecciones;
     };
 
-    async modificarSeleccion(idSeleccionModificada, datosSeleccionModificada) {
-        const seleccion = await this.SeleccionesRepository.modifySeleccion(idSeleccionModificada, datosSeleccionModificada);
-        return seleccion;
-    };
-
     async crearSeleccion(datosSeleccionNueva) {
         const seleccionNueva = await this.SeleccionesRepository.createSeleccion(datosSeleccionNueva);
         return seleccionNueva;
+    };
+
+    async modificarSeleccion(idSeleccionModificada, datosSeleccionModificada) {
+        const seleccion = await this.SeleccionesRepository.modifySeleccion(idSeleccionModificada, datosSeleccionModificada);
+        return seleccion;
     };
 };
 

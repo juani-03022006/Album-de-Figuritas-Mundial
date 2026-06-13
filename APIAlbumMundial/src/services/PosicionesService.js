@@ -12,14 +12,14 @@ class PosicionesService {
         return posiciones;
     };
 
-    async modificarPosicion(idPosicionModificada, posicionModificada) {
-        const posicion = await this.PosicionesRepository.modifyPosicion(idPosicionModificada, posicionModificada);
-        return posicion;
-    };
-
     async crearPosicion(datosPosicionNueva) {
         const nuevaPosicion = await this.PosicionesRepository.createPosicion(datosPosicionNueva);
         return nuevaPosicion;
+    };
+
+    async modificarPosicion(idPosicionModificada, posicionModificada) {
+        const posicion = await this.PosicionesRepository.modifyPosicion(idPosicionModificada, posicionModificada);
+        return posicion;
     };
 };
 

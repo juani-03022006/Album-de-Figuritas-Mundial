@@ -12,6 +12,17 @@ function createSeleccionesController(SeleccionesService) {
                 console.log(error);
             };
         },
+        
+        createSeleccion: async (req, res) => {
+            try {
+                const nuevaSeleccion = req.body;
+
+                const result = await SeleccionesService.crearSeleccion(nuevaSeleccion);
+                res.status(200).json(result);
+            } catch (error) {
+                console.error(error);
+            };
+        },
 
         modifySeleccion: async (req, res) => {
             try {
@@ -19,17 +30,6 @@ function createSeleccionesController(SeleccionesService) {
                 const seleccionModificada = req.body;
 
                 const result = await SeleccionesService.modificarSeleccion(idSeleccionModificada, seleccionModificada);
-                res.status(200).json(result);
-            } catch (error) {
-                console.error(error);
-            };
-        },
-
-        createSeleccion: async (req, res) => {
-            try {
-                const nuevaSeleccion = req.body;
-
-                const result = await SeleccionesService.crearSeleccion(nuevaSeleccion);
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);

@@ -12,9 +12,9 @@ class FiguritasService {
         return jugadores;
     };
 
-    async obtenerEspeciales() {
-        const especiales = await this.FiguritasRepository.getEspeciales();
-        return especiales;
+    async crearJugador(datosJugador) {
+        const nuevoJugador = await this.FiguritasRepository.createJugador(datosJugador);
+        return nuevoJugador;
     };
 
     async modificarJugador(idJugadorModificado, datosNuevosJugador) {
@@ -22,10 +22,18 @@ class FiguritasService {
         return jugadorModificado;
     };
 
+    async obtenerEspeciales() {
+        const especiales = await this.FiguritasRepository.getEspeciales();
+        return especiales;
+    };
+
+    async crearEspecial(datosEspecial) {
+        const nuevaEspecial = await this.FiguritasRepository.createEspecial(datosEspecial);
+        return nuevaEspecial;
+    };
+
     async modificarEspecial(idEspecialModificada, datosNuevosEspecial) {
         const especialModificada = await this.FiguritasRepository.modifyEspecial(idEspecialModificada, datosNuevosEspecial);
         return especialModificada;
     };
-
-    async crearFigurita(datosFigurita) {};
 }

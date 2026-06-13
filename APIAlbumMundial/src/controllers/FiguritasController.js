@@ -13,12 +13,14 @@ function createFiguritasController(FiguritasService) {
             };
         },
 
-        getEspeciales: (req, res) => {
+        createJugador: (req, res) => {
             try {
-                const figuritas = await FiguritasService.obtenerEspeciales();
-                res.status(200).json(figuritas);
+                const nuevoJugador = req.body;
+
+                const result = await FiguritasService.crearJugador(nuevoJugador);
+                res.status(200).json(result);
             } catch (error) {
-                console.error(error);
+                console.error(error); 
             };
         },
 
@@ -28,6 +30,26 @@ function createFiguritasController(FiguritasService) {
                 const jugadorModificado = req.body;
 
                 const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado);
+                res.status(200).json(result);
+            } catch (error) {
+                console.error(error);
+            };
+        },
+        
+        getEspeciales: (req, res) => {
+            try {
+                const figuritas = await FiguritasService.obtenerEspeciales();
+                res.status(200).json(figuritas);
+            } catch (error) {
+                console.error(error);
+            };
+        },
+
+        createEspecial: (req, res) => {
+            try {
+                const nuevaEspecial = req.body;
+
+                const result = await FiguritasService.crearEspecial(nuevaEspecial);
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);
@@ -43,17 +65,6 @@ function createFiguritasController(FiguritasService) {
                 res.status(200).json(result);
             } catch (error) {
                 console.error(error);
-            };
-        },
-
-        createFigurita: (req, res) => {
-            try {
-                const figuritaNueva = req.body;
-
-                const result = await FiguritasService.crearFigurita(figuritaNueva);
-                res.status(200).json(result);
-            } catch (error) {
-                console.error(error); 
             };
         }
     };
