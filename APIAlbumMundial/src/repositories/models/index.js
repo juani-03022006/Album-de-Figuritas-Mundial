@@ -8,7 +8,8 @@ import sequelize from '../sequelizeConnection.js';
 
 // Figuritas del tipo jugador
 Figurita.hasOne(FiguritaJugador, {
-    foreignKey: 'idFigurita'
+    foreignKey: 'idFigurita',
+    as: 'jugador'
 });
 FiguritaJugador.belongsTo(Figurita, {
     foreignKey: 'idFigurita',
@@ -17,7 +18,8 @@ FiguritaJugador.belongsTo(Figurita, {
 
 // Figuritas del tipo Especial
 Figurita.hasOne(FiguritaEspecial, {
-    foreignKey: 'idFigurita'
+    foreignKey: 'idFigurita',
+    as: 'especial'
 });
 FiguritaEspecial.belongsTo(Figurita, {
     foreignKey: 'idFigurita',

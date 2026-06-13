@@ -14,29 +14,17 @@ class SeleccionRepository {
         return selecciones;
     };
 
-    async modifySeleccion(idSeleccion, { nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta }) {
+    async modifySeleccion(idSeleccion, datosSeleccion) {
         const seleccion = await this.getSeleccion(idSeleccion);
 
-        seleccion.set({
-            nombreSeleccion: nombreSeleccion,
-            nombrePais: nombrePais,
-            banderaPais: banderaPais,
-            nroDesde: nroDesde,
-            nroHasta: nroHasta
-        });
+        seleccion.set(datosSeleccion);
 
         await seleccion.save();
         return seleccion;
     };
 
-    async createSeleccion({ nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta }) {
-        const seleccionNueva = await Seleccion.create({
-            nombreSeleccion: nombreSeleccion,
-            nombrePais: nombrePais,
-            banderaPais: banderaPais,
-            nroDesde: nroDesde,
-            nroHasta: nroHasta
-        });    
+    async createSeleccion(datosSeleccion) {
+        const seleccionNueva = await Seleccion.create(datosSeleccion);    
 
         return seleccionNueva;
     };
