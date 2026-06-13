@@ -15,10 +15,9 @@ class FiguritasRepository {
 
     async createJugador(datosJugador) {
         const nuevoJugador = await Figurita.create(datosJugador, {
-            include: [{
-                model: FiguritaJugador,
-                as: 'jugador'
-            }]
+            include: [
+                { model: FiguritaJugador, as: 'jugador' }
+            ]
         });
 
         return nuevoJugador;
@@ -36,7 +35,7 @@ class FiguritasRepository {
     async getEspeciales() {
         const especiales = await FiguritaEspecial.findAll({
             include: [
-                Figurita
+                { model: Figurita, as: 'figurita' }
             ]
         });
 
@@ -45,10 +44,9 @@ class FiguritasRepository {
 
     async createEspecial(datosEspecial) {
         const nuevaFigurita = await Figurita.create(datosEspecial, {
-            include: [{
-                model: FiguritaEspecial,
-                as: 'especial'
-            }]
+            include: [
+                { model: FiguritaEspecial, as: 'especial' }
+            ]
         });
 
         return nuevaFigurita;
