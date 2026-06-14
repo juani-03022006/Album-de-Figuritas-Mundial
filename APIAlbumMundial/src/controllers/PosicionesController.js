@@ -9,7 +9,7 @@ function createPosicionesController(PosicionesService) {
                 const posiciones = await PosicionesService.obtenerPosiciones();
                 res.status(200).json(posiciones);
             } catch (error) {
-                console.error(error);
+                res.status(500).json(error);
             };
         },
 
@@ -20,7 +20,7 @@ function createPosicionesController(PosicionesService) {
                 const result = await PosicionesService.crearPosicion(nuevaPosicion);
                 res.status(200).json(result);
             } catch (error) {
-                console.error(error);
+                res.status(500).json(error);
             };
         },
 
@@ -32,7 +32,7 @@ function createPosicionesController(PosicionesService) {
                 const result = await PosicionesService.modificarPosicion(idNuevaPosicion, posicionModificada);
                 res.status(200).json(result);
             } catch (error) {
-                console.error(error);
+                res.status(500).json(error);
             };
         }
     };

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validarSeleccion } from '../middleware/validarSeleccion.js';
+import { middlewareValidacionSeleccion } from '../middleware/validarSeleccion.js';
 import createSeleccionesController from '../controllers/SeleccionesController.js';
 import SeleccionesService from '../services/SeleccionesService.js';
 import SeleccionRepository from '../repositories/SeleccionesRepository.js';
@@ -12,7 +12,7 @@ const seleccionesController = createSeleccionesController(seleccionesService);
 const routerSelecciones = Router();
 
 routerSelecciones.get('/', seleccionesController.getSelectiones);
-routerSelecciones.post('/', validarSeleccion, seleccionesController.createSeleccion);
-routerSelecciones.put('/:id', validarSeleccion, seleccionesController.modifySeleccion);
+routerSelecciones.post('/', middlewareValidacionSeleccion, seleccionesController.createSeleccion);
+routerSelecciones.put('/:id', middlewareValidacionSeleccion, seleccionesController.modifySeleccion);
 
 export default routerSelecciones;

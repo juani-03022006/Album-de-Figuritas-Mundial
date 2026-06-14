@@ -1,16 +1,4 @@
-export const validarSeleccion = (req, res, next) => {
-    const {
-        nombreSeleccion,
-        nombrePais,
-        banderaPais,
-        nroDesde,
-        nroHasta,
-        colorPrincipal,
-        colorAcento1,
-        colorAcento2,
-        colorTitulo
-    } = req.body;
-
+function validarSeleccion({ nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta, colorPrincipal, colorAcento1, colorAcento2, colorTitulo }) {
     if (typeof nombreSeleccion !== 'string' || nombreSeleccion.trim() === '') {
         return res.status(400).json({
             error: 'Nombre de Seleccion inválido.'
@@ -64,6 +52,9 @@ export const validarSeleccion = (req, res, next) => {
             error: 'Color Titulo es inválido.'
         });
     };
+}
 
+export const middlewareValidacionSeleccion = (req, res, next) => {
+    validarSeleccion(req.body);
     next();
 };

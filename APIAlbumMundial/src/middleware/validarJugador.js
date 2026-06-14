@@ -1,7 +1,4 @@
-export const validarJugador = (req, res, next) => {
-    // console.log(req.body.jugador);
-    const { nombre, apellido, estatura, peso, fechaNacimiento, idPosicion } = req.body.jugador;
-
+function validarJugador({ nombre, apellido, estatura, peso, fechaNacimiento, idPosicion }) {
     if (typeof nombre !== 'string' || nombre.trim() === '') {
         return res.status(400).json({
             error: 'Nombre de Jugador inválido.'
@@ -37,6 +34,19 @@ export const validarJugador = (req, res, next) => {
             error: 'ID de Posicion de Jugador inválido.'
         });
     };
+};
+
+export const middlewareValidacionJugador = (req, res, next) => {
+    validarJugador(req.body.jugador);
+    next();
+};
+
+export const middlewareValidacionJugadores = (req, res, next) => {
+    const arrayJugadores = req.body;
+
+    arrayJugadores.forEach(jugador => {
+        validarJugador(jugador.jugador);
+    });
 
     next();
 };

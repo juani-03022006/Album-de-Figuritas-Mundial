@@ -9,7 +9,7 @@ function createSeleccionesController(SeleccionesService) {
                 const selecciones = await SeleccionesService.obtenerSelecciones();
                 res.status(200).json(selecciones);
             } catch (error) {
-                console.log(error);
+                res.status(500).json(error);
             };
         },
         
@@ -20,7 +20,7 @@ function createSeleccionesController(SeleccionesService) {
                 const result = await SeleccionesService.crearSeleccion(nuevaSeleccion);
                 res.status(200).json(result);
             } catch (error) {
-                console.error(error);
+                res.status(500).json(error);
             };
         },
 
@@ -32,7 +32,7 @@ function createSeleccionesController(SeleccionesService) {
                 const result = await SeleccionesService.modificarSeleccion(idSeleccionModificada, seleccionModificada);
                 res.status(200).json(result);
             } catch (error) {
-                console.error(error);
+                res.status(500).json(error);
             };
         }
     };
