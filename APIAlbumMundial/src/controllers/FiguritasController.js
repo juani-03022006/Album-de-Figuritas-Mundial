@@ -42,9 +42,8 @@ function createFiguritasController(FiguritasService) {
             try {
                 const idJugador = req.params.id;
                 const jugadorModificado = req.body;
-                const rutaFoto = req.file?.path;
 
-                const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado, rutaFoto);
+                const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
@@ -89,9 +88,8 @@ function createFiguritasController(FiguritasService) {
             try {
                 const idEspecial = req.params.id;
                 const especialModificada = req.body;
-                const rutaFoto = req.file?.path;
 
-                const result = await FiguritasService.modificarEspecial(idEspecial, especialModificada, rutaFoto);
+                const result = await FiguritasService.modificarEspecial(idEspecial, especialModificada);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);

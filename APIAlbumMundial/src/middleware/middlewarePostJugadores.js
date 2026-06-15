@@ -1,5 +1,6 @@
 import { validarFigurita } from './validarFigurita.js';
 import { validarJugador } from './validarJugador.js';
+import { validarFoto } from './validarFoto.js';
 import { validarZip } from './validarZip.js';
 
 

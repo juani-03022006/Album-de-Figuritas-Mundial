@@ -1,4 +1,3 @@
-import { validarFigurita } from './validarFigurita.js';
 import { validarJugador } from './validarJugador.js';
 
 

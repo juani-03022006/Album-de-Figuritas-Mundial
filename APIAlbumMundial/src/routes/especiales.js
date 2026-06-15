@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { middlewareValidacionFigurita, middlewareValidacionFiguritas } from '../middleware/validarFigurita.js';
-import { middlewareValidacionEspecial, middlewareValidacionEspeciales } from '../middleware/validarEspecial.js';
 import createFiguritasController from '../controllers/FiguritasController.js';
 import FiguritasService from '../services/FiguritasService.js';
 import FiguritasRepository from '../repositories/FiguritasRepository.js';
+import { middlewarePostEspecial, middlewarePostEspeciales } from '../middleware/middlewarePostEspeciales.js';
 
 
 const figuritasRepository = new FiguritasRepository();
@@ -13,8 +12,8 @@ const figuritasController = createFiguritasController(figuritasService);
 const routerEspeciales = new Router();
 
 routerEspeciales.get('/', figuritasController.getEspeciales);
-routerEspeciales.post('/', middlewareValidacionFigurita, middlewareValidacionEspecial, figuritasController.createEspecial);
-routerEspeciales.put('/', middlewareValidacionEspecial, figuritasController.modifyEspecial);
-routerEspeciales.post('/many', middlewareValidacionFiguritas, middlewareValidacionEspeciales, figuritasController.createEspeciales);
+routerEspeciales.post('/', middlewarePostEspecial, figuritasController.createEspecial);
+routerEspeciales.post('/many', middlewarePostEspeciales, figuritasController.createEspeciales);
+routerEspeciales.put('/:id', middlewareValidacionEspecial, figuritasController.modifyEspecial);
 
 export default routerEspeciales;
