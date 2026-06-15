@@ -1,12 +1,11 @@
 import multer from 'multer';
-import path from 'path';
 import { esArchivoPermitido } from '../utils/utilsFiltrado.js';
 import { extensionesPermitidas, tiposPermitidos } from '../consts/constsFiltradoZip.js';
 
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/tmp');
+        cb(null, './src/uploads/tmp');
     },
 
     filename: (req, file, cb) => {
@@ -16,7 +15,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (esArchivoPermitido(file, extensionesPermitidas, tiposPermitidos)) {
+    if (!esArchivoPermitido(file, extensionesPermitidas, tiposPermitidos)) {
         return cb(new Error('El archivo debe ser un ZIP'));
     };
 

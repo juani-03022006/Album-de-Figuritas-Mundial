@@ -5,19 +5,19 @@ import { validarZip } from './validarZip.js';
 
 
 export const middlewarePostJugador = (req, res, next) => {
-    validarFigurita(req.body);
-    validarJugador(req.body.jugador);
+    validarFigurita(req.body, res);
+    validarJugador(JSON.parse(req.body.jugador), res);
     validarFoto(req.file);
 
     next();
 };
 
 export const middlewarePostJugadores = (req, res, next) => {
-    const arrayJugadores = req.body;
+    const arrayJugadores = JSON.parse(req.body.jugadores);
 
     arrayJugadores.forEach(jugador => {
-        validarFigurita(jugador);
-        validarJugador(jugador.jugador);
+        validarFigurita(jugador, res);
+        validarJugador(jugador.jugador, res);
     });
     validarZip(req.file);
 

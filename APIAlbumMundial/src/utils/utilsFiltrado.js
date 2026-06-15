@@ -1,3 +1,6 @@
+import path from 'path';
+
+
 export const esArchivoPermitido = (file, extensionesPermitidas, tiposPermitidos) => {
     const extension = path.extname(file.originalname).toLowerCase();
 
@@ -5,5 +8,5 @@ export const esArchivoPermitido = (file, extensionesPermitidas, tiposPermitidos)
 
     const mimeValido = tiposPermitidos.includes(file.mimetype);
 
-    return !extensionValida || !mimeValido
+    return extensionValida && mimeValido;
 };

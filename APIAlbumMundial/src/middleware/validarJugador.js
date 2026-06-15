@@ -1,4 +1,4 @@
-export function validarJugador({ nombre, apellido, estatura, peso, fechaNacimiento, idPosicion }) {
+export function validarJugador({ nombre, apellido, estatura, peso, fechaNacimiento, idPosicion }, res) {
     if (typeof nombre !== 'string' || nombre.trim() === '') {
         return res.status(400).json({
             error: 'Nombre de Jugador inválido.'

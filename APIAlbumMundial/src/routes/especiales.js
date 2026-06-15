@@ -16,6 +16,6 @@ const routerEspeciales = new Router();
 routerEspeciales.get('/', figuritasController.getEspeciales);
 routerEspeciales.post('/', middlewarePostEspecial, uploadEspecial.single('fotoEspecial'), figuritasController.createEspecial);
 routerEspeciales.post('/many', middlewarePostEspeciales, uploadEspeciales.single('fotosEspeciales'), figuritasController.createEspeciales);
-routerEspeciales.put('/:id', middlewareValidacionEspecial, figuritasController.modifyEspecial);
+// routerEspeciales.put('/:id', middlewareValidacionEspecial, figuritasController.modifyEspecial);
 
 export default routerEspeciales;

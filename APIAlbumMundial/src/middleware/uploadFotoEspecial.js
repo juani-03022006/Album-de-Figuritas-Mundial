@@ -1,5 +1,4 @@
 import multer from 'multer';
-import path from 'path';
 import { esArchivoPermitido } from '../utils/utilsFiltrado.js';
 import { extensionesPermitidas, tiposPermitidos } from '../consts/constsFiltradoFotos.js';
 
@@ -15,7 +14,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (esArchivoPermitido(file, extensionesPermitidas, tiposPermitidos)) {
+    if (!esArchivoPermitido(file, extensionesPermitidas, tiposPermitidos)) {
         return cb(new Error('Tipo de archivo no permitido'));
     };
     

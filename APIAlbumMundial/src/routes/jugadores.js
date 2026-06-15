@@ -15,8 +15,8 @@ const figuritasController = createFiguritasController(figuritasService);
 const routerJugadores = new Router();
 
 routerJugadores.get('/', figuritasController.getJugadores);
-routerJugadores.post('/', middlewarePostJugador, uploadJugador.single('fotoJugador'), figuritasController.createJugador);
-routerJugadores.post('/many', middlewarePostJugadores, uploadJugadores.single('fotosJugadores'), figuritasController.createJugadores);
-routerJugadores.put('/:id', middlewarePutJugador, figuritasController.modifyJugador);
+routerJugadores.post('/',uploadJugador.single('fotoJugador'), middlewarePostJugador, figuritasController.createJugador);
+routerJugadores.post('/many', uploadJugadores.single('fotosJugadores'), middlewarePostJugadores, figuritasController.createJugadores);
+// routerJugadores.put('/:id', middlewarePutJugador, figuritasController.modifyJugador);
 
 export default routerJugadores;

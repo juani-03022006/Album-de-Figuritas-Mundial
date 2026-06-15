@@ -1,11 +1,12 @@
-export function validarFigurita({ nroFigurita, pathToPic, tipo, idSeleccion }) {
-    if (typeof nroFigurita !== 'number') {
+export function validarFigurita({ nroFigurita, nombreFoto, tipo, idSeleccion }, res) {
+    
+    if (typeof Number(nroFigurita) !== 'number') {
         return res.status(400).json({
             error: 'Número de figurita inválido.'
         });
     };
 
-    if (typeof pathToPic !== 'string' || pathToPic.trim() === '') {
+    if (typeof nombreFoto !== 'string' || nombreFoto.trim() === '') {
         return res.status(400).json({
             error: 'Foto de figurita inválida.'
         });
@@ -17,7 +18,7 @@ export function validarFigurita({ nroFigurita, pathToPic, tipo, idSeleccion }) {
         });
     };
 
-    if (typeof idSeleccion !== 'number') {
+    if (typeof Number(idSeleccion) !== 'number') {
         return res.status(400).json({
             error: 'ID de selección inválido.'
         });
