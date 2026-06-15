@@ -1,4 +1,4 @@
-import { sequelize } from '../config/database.js';
+import { sequelize } from '../../../../db/config/database.js';
 import { Posicion } from './Posicion.js';
 import { Seleccion } from './Seleccion.js';
 import { Figurita } from './Figurita.js';

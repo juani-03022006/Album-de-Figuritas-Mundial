@@ -5,10 +5,10 @@ import routerSelecciones from './routes/selecciones.js';
 import routerPosiciones from './routes/posiciones.js';
 import routerJugadores from './routes/jugadores.js';
 import routerEspeciales from './routes/especiales.js';
-import routerAlbum from './routes/album.js';
+import { createAlbumRoutes } from './routes/album.js';
 
 
-export function createApp() {
+export function createApp(models) {
     const app = express();
 
     app.use(express.json());
@@ -16,10 +16,11 @@ export function createApp() {
         origin: ALLOWED_ORIGINS
     }));
 
+    app.use('/album', createAlbumRoutes(models));
     app.use('/selecciones', routerSelecciones);
     app.use('/posiciones', routerPosiciones);
     app.use('/jugadores', routerJugadores);
     app.use('/especiales', routerEspeciales);
-    app.use('/album', routerAlbum);
+    
     return app;
 };
