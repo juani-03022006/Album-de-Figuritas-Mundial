@@ -12,7 +12,7 @@ export function createApp(models) {
     res.json({ message: 'API Album de Figuritas Mundial 2026' });
   });
 
-  app.use('/api', createAlbumRoutes(models));
+  app.use('/apiUsuario', createAlbumRoutes(models));
 
   return app;
 }
