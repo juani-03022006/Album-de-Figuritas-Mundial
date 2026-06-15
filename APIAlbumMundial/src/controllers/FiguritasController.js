@@ -17,7 +17,7 @@ function createFiguritasController(FiguritasService) {
         createJugador: async (req, res) => {
             try {
                 const nuevoJugador = req.body;
-                const rutaFoto = req.file.path;
+                const rutaFoto = req.file.path.replace(/^public\//, '');
 
                 const result = await FiguritasService.crearJugador(nuevoJugador, rutaFoto);
                 res.status(200).json(result);
@@ -63,7 +63,7 @@ function createFiguritasController(FiguritasService) {
         createEspecial: async (req, res) => {
             try {
                 const nuevaEspecial = req.body;
-                const rutaFoto = req.file.path;
+                const rutaFoto = req.file.path.replace(/^public\//, '');
 
                 const result = await FiguritasService.crearEspecial(nuevaEspecial, rutaFoto);
                 res.status(200).json(result);
