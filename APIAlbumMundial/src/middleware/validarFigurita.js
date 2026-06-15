@@ -1,4 +1,4 @@
-function validarFigurita({ nroFigurita, pathToPic, tipo, idSeleccion }) {
+export function validarFigurita({ nroFigurita, pathToPic, tipo, idSeleccion }) {
     if (typeof nroFigurita !== 'number') {
         return res.status(400).json({
             error: 'Número de figurita inválido.'
@@ -23,18 +23,3 @@ function validarFigurita({ nroFigurita, pathToPic, tipo, idSeleccion }) {
         });
     };
 };
-
-export const middlewareValidacionFigurita = (req, res, next) => {
-    validarFigurita(req.body);
-    next();
-};
-
-export const middlewareValidacionFiguritas = (req, res, next) => {
-    const arrayFiguritas = req.body;
-
-    arrayFiguritas.forEach(figurita => {
-        validarFigurita(figurita);
-    });
-
-    next();
-}

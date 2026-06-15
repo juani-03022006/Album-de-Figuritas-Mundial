@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { middlewareValidacionFiguritas, middlewareValidacionFigurita } from '../middleware/validarFigurita.js';
-import { middlewareValidacionJugador, middlewareValidacionJugadores } from '../middleware/validarJugador.js';
+import { middlewarePostJugador, middlewarePostJugadores } from '../middleware/middlewarePostJugadores.js';
+import { middlewarePutJugador } from '../middleware/middlewarePutJugador.js';
 import createFiguritasController from '../controllers/FiguritasController.js';
 import FiguritasService from '../services/FiguritasService.js';
 import FiguritasRepository from '../repositories/FiguritasRepository.js';
@@ -13,8 +13,8 @@ const figuritasController = createFiguritasController(figuritasService);
 const routerJugadores = new Router();
 
 routerJugadores.get('/', figuritasController.getJugadores);
-routerJugadores.post('/', middlewareValidacionFigurita, middlewareValidacionJugador, figuritasController.createJugador);
-routerJugadores.put('/:id', middlewareValidacionJugador, figuritasController.modifyJugador);
-routerJugadores.post('/many', middlewareValidacionFiguritas, middlewareValidacionJugadores, figuritasController.createJugadores);
+routerJugadores.post('/', middlewarePostJugador, figuritasController.createJugador);
+routerJugadores.post('/many', middlewarePostJugadores, figuritasController.createJugadores);
+routerJugadores.put('/:id', middlewarePutJugador, figuritasController.modifyJugador);
 
 export default routerJugadores;

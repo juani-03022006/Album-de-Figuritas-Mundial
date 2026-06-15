@@ -17,19 +17,21 @@ function createFiguritasController(FiguritasService) {
         createJugador: async (req, res) => {
             try {
                 const nuevoJugador = req.body;
+                const rutaFoto = req.file.path;
 
-                const result = await FiguritasService.crearJugador(nuevoJugador);
+                const result = await FiguritasService.crearJugador(nuevoJugador, rutaFoto);
                 res.status(200).json(result);
             } catch (error) {
-                res.status(500).json(error); 
-            };
+                res.status(500).json(error);
+            }
         },
 
         createJugadores: async (req, res) => {
             try {
-                const arrayNuevosJugadores = req.body;
+                const jugadores = JSON.parse(req.body.jugadores);
+                const archivoZipFotos = req.file.path;
 
-                const result = await FiguritasService.crearJugadores(arrayNuevosJugadores);
+                const result = await FiguritasService.crearJugadores(jugadores, archivoZipFotos);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
@@ -39,15 +41,16 @@ function createFiguritasController(FiguritasService) {
         modifyJugador: async (req, res) => {
             try {
                 const idJugador = req.params.id;
-                const jugadorModificado = req.body.jugador;
+                const jugadorModificado = req.body;
+                const rutaFoto = req.file?.path;
 
-                const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado);
+                const result = await FiguritasService.modificarJugador(idJugador, jugadorModificado, rutaFoto);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
             };
         },
-        
+
         // Para especiales
         getEspeciales: async (req, res) => {
             try {
@@ -61,8 +64,9 @@ function createFiguritasController(FiguritasService) {
         createEspecial: async (req, res) => {
             try {
                 const nuevaEspecial = req.body;
+                const rutaFoto = req.file.path;
 
-                const result = await FiguritasService.crearEspecial(nuevaEspecial);
+                const result = await FiguritasService.crearEspecial(nuevaEspecial, rutaFoto);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
@@ -71,9 +75,10 @@ function createFiguritasController(FiguritasService) {
 
         createEspeciales: async (req, res) => {
             try {
-                const arrayNuevasEspeciales = req.body;
+                const especiales = JSON.parse(req.body.especiales);
+                const archivoZipFotos = req.file.path;
 
-                const result = await FiguritasService.crearEspeciales(arrayNuevasEspeciales);
+                const result = await FiguritasService.crearEspeciales(especiales, zipPath);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
@@ -84,8 +89,9 @@ function createFiguritasController(FiguritasService) {
             try {
                 const idEspecial = req.params.id;
                 const especialModificada = req.body;
+                const rutaFoto = req.file?.path;
 
-                const result = await FiguritasService.modificarEspecial(idEspecial, especialModificada);
+                const result = await FiguritasService.modificarEspecial(idEspecial, especialModificada, rutaFoto);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
