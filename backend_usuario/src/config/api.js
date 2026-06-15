@@ -1,0 +1,1 @@
+API_ALBUM_URL = 'http://localhost:3100';

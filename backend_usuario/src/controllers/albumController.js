@@ -1,10 +1,10 @@
 import { getAlbumByUsuarioCodigo } from '../services/albumService.js';
 
-export function createAlbumController(models) {
+export function createAlbumController() {
   return {
     async getAlbum(req, res) {
       try {
-        const album = await getAlbumByUsuarioCodigo(req.params.usuarioId, models);
+        const album = await getAlbumByUsuarioCodigo(req.params.usuarioId);
         res.json(album);
       } catch (error) {
         res.status(error.statusCode || 500).json({
