@@ -1,26 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import { ALLOWED_ORIGINS } from './allowedOrigins.js';
-import routerSelecciones from './routes/selecciones.js';
-import routerPosiciones from './routes/posiciones.js';
-import routerJugadores from './routes/jugadores.js';
-import routerEspeciales from './routes/especiales.js';
 import { createAlbumRoutes } from './routes/album.js';
 
-
 export function createApp(models) {
-    const app = express();
+  const app = express();
 
-    app.use(express.json());
-    app.use(cors({
-        origin: ALLOWED_ORIGINS
-    }));
+  app.use(express.json());
+  app.use(cors({
+    origin: ALLOWED_ORIGINS,
+  }));
 
-    app.use('/album', createAlbumRoutes(models));
-    app.use('/selecciones', routerSelecciones);
-    app.use('/posiciones', routerPosiciones);
-    app.use('/jugadores', routerJugadores);
-    app.use('/especiales', routerEspeciales);
-    
-    return app;
-};
+  app.get('/', (_req, res) => {
+    res.json({ message: 'API Album Mundial' });
+  });
+
+  app.use('/album', createAlbumRoutes(models));
+
+  return app;
+}
