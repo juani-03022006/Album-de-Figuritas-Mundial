@@ -21,7 +21,7 @@ Seleccion.init(
             allowNull: false,
             unique: true
         },
-        banderaPais: {
+        pathBanderaPais: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true

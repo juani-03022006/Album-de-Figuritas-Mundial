@@ -11,6 +11,15 @@ class FiguritasService {
         this.FiguritasRepository = FiguritasRepository;
     };
 
+    // Para figuritas
+    async eliminarFigurita(idFigurita) {
+        try {
+            const result = await this.FiguritasRepository.deleteFigurita(idFigurita);
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
+
     // Para jugadores
     async obtenerJugadores() {
         try {
@@ -34,8 +43,6 @@ class FiguritasService {
         try {
             datosJugador.pathToPic = `uploads/jugadores/${datosJugador.nombreFoto}`;
             delete datosJugador.nombreFoto;
-
-            console.log(datosJugador);
 
             const nuevoJugador = await this.FiguritasRepository.createJugador(datosJugador);
             return nuevoJugador;
@@ -84,7 +91,7 @@ class FiguritasService {
             const especiales = await this.FiguritasRepository.getEspeciales();
             return especiales;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 
@@ -96,7 +103,7 @@ class FiguritasService {
             const nuevaEspecial = await this.FiguritasRepository.createEspecial(datosEspecial);
             return nuevaEspecial;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 
@@ -113,7 +120,7 @@ class FiguritasService {
             const nuevasEspeciales = await this.FiguritasRepository.createEspeciales(arrayDatosEspeciales);
             return nuevasEspeciales;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         } finally {
             await fs.unlink(archivoZipFotos);
         };
@@ -124,7 +131,7 @@ class FiguritasService {
             const especialModificada = await this.FiguritasRepository.modifyEspecial(idEspecialModificada, datosNuevosEspecial);
             return especialModificada;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 };

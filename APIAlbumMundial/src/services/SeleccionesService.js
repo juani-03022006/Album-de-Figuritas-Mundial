@@ -8,13 +8,24 @@ class SeleccionesService {
     };
 
     async obtenerSelecciones() {
-        const selecciones = await this.SeleccionesRepository.getSelecciones();
-        return selecciones;
+        try {
+            const selecciones = await this.SeleccionesRepository.getSelecciones();
+            return selecciones;
+        } catch (error) {
+            console.error(error);
+        };
     };
 
-    async crearSeleccion(datosSeleccionNueva) {
-        const seleccionNueva = await this.SeleccionesRepository.createSeleccion(datosSeleccionNueva);
-        return seleccionNueva;
+    async crearSeleccion(datosSeleccion) {
+        try {
+            datosSeleccion.pathBanderaPais = `uploads/selecciones/${datosSeleccion.banderaPais}`;
+            delete datosSeleccion.banderaPais;
+
+            const seleccionNueva = await this.SeleccionesRepository.createSeleccion(datosSeleccionNueva);
+            return seleccionNueva;
+        } catch (error) {
+            console.error(error);
+        };
     };
 
     async modificarSeleccion(idSeleccionModificada, datosSeleccionModificada) {

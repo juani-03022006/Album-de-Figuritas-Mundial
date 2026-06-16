@@ -1,4 +1,4 @@
-function validarSeleccion({ nombreSeleccion, nombrePais, banderaPais, nroDesde, nroHasta, colorPrincipal, colorAcento1, colorAcento2, colorTitulo }) {
+function validarSeleccion({ nombreSeleccion, nombrePais, pathBandera, nroDesde, nroHasta, colorPrincipal, colorAcento1, colorAcento2, colorTitulo }) {
     if (typeof nombreSeleccion !== 'string' || nombreSeleccion.trim() === '') {
         return res.status(400).json({
             error: 'Nombre de Seleccion inválido.'
@@ -11,7 +11,7 @@ function validarSeleccion({ nombreSeleccion, nombrePais, banderaPais, nroDesde, 
         });
     };
 
-    if (typeof banderaPais !== 'string' || banderaPais.trim() === '') {
+    if (typeof pathBandera !== 'string' || pathBandera.trim() === '') {
         return res.status(400).json({
             error: 'Bandera de pais inválida.'
         });

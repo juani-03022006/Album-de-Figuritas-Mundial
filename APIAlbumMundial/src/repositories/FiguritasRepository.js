@@ -2,6 +2,21 @@ import { Figurita, FiguritaEspecial, FiguritaJugador, Posicion } from './models/
 
 
 class FiguritasRepository {
+    async deleteFigurita(idFigurita) {
+        try {
+            const jugador = await FiguritaJugador.findOne({ where: { idFigurita: idFigurita } });
+
+            if (jugador) {
+                await jugador.destroy();
+            };
+
+            const result = await Figurita.destroy({ where: { idFigurita } });
+            return result;
+        } catch (error) {
+            throw new Error(error);
+        };
+    }
+
     async getJugadores() {
         const jugadores = await FiguritaJugador.findAll({
             include: [
