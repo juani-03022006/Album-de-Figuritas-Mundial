@@ -7,7 +7,7 @@ function generarSeleccionesController(SeleccionesService) {
         getSelecciones: async (req, res) => {
             try {
                 const selecciones = await SeleccionesService.obtenerSelecciones();
-                
+
                 console.log('Obteniendo las Selecciones...');
                 res.status(200).json(selecciones);
             } catch (error) {
@@ -27,7 +27,8 @@ function generarSeleccionesController(SeleccionesService) {
             };
         },
 
-        modifySeleccion: async (req, res) => {try {
+        modifySeleccion: async (req, res) => {
+            try {
                 console.log('Modificando seleccion...');
                 const idSeleccion = req.params.id
                 const nuevosDatosSeleccion = req.body;
@@ -36,7 +37,8 @@ function generarSeleccionesController(SeleccionesService) {
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
-            };}
+            };
+        }
     };
 };
 

@@ -32,15 +32,6 @@ class PosicionesAPI {
             console.error(error);
         };
     };
-
-    async deletePosicion(idPosicion) {
-        try {
-            const result = await axios.delete(`${this.urlAPI}/posiciones/${idPosicion}`);
-            return result.data;
-        } catch (error) {
-            console.error(error);
-        };
-    };
 };
 
 export default PosicionesAPI;
