@@ -14,5 +14,6 @@ const routerPosiciones = new Router();
 routerPosiciones.get('/', posicionesController.getPosiciones);
 routerPosiciones.post('/', middlewareValidacionPosicion, posicionesController.createPosicion);
 routerPosiciones.put('/:id', middlewareValidacionPosicion, posicionesController.modifyPosicion);
+routerPosiciones.delete('/:id', posicionesController.deletePosicion);
 
 export default routerPosiciones;

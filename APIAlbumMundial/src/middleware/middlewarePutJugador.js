@@ -2,7 +2,6 @@ import { validarJugador } from './validarJugador.js';
 
 
 export const middlewarePutJugador = (req, res, next) => {
-    validarJugador(req.body.jugador);
-
+    validarJugador(JSON.parse(req.body.jugador), res);
     next();
 };

@@ -21,6 +21,11 @@ class PosicionesService {
         const posicion = await this.PosicionesRepository.modifyPosicion(idPosicionModificada, posicionModificada);
         return posicion;
     };
+
+    async eliminarPosicion(idPosicion) {
+        const posicion = await this.PosicionesRepository.deletePosicion(idPosicion);
+        return posicion;
+    }
 };
 
 export default PosicionesService;

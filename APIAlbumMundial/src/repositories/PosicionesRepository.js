@@ -26,6 +26,11 @@ class PosicionesRepository {
 
         return posicion;
     };
+
+    async deletePosicion(idPosicion) {
+        const posiconEliminada = await Posicion.destroy({ where: { idPosicion } });
+        return posiconEliminada;
+    }
 };
 
 export default PosicionesRepository;

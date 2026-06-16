@@ -34,6 +34,17 @@ function createPosicionesController(PosicionesService) {
             } catch (error) {
                 res.status(500).json(error);
             };
+        },
+
+        deletePosicion: async (req, res) => {
+            try {
+                const idPosicion = req.params.id;
+
+                const result = await PosicionesService.eliminarPosicion(idPosicion);
+                res.status(200).json(result);
+            } catch (error) {
+                res.status(500).json(error);
+            };
         }
     };
 };
