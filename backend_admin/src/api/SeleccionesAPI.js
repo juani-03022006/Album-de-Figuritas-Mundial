@@ -11,7 +11,7 @@ class SeleccionesAPI {
             const result = await axios.get(`${this.urlAPI}/selecciones/`);
             return result.data;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
     
@@ -20,7 +20,7 @@ class SeleccionesAPI {
             const result = await axios.post(`${this.urlAPI}/selecciones/`, datosNuevaSeleccion);
             return result.data;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 
@@ -29,7 +29,7 @@ class SeleccionesAPI {
             const result = await axios.put(`${this.urlAPI}/selecciones/${idSeleccion}`, datosSeleccion);
             return result.data;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 };

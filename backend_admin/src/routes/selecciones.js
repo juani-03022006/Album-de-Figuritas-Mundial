@@ -11,5 +11,7 @@ const seleccionesController = generarSeleccionesController(seleccionesService);
 const routerSelecciones = Router();
 
 routerSelecciones.get('/', seleccionesController.getSelecciones);
+routerSelecciones.post('/', seleccionesController.createSeleccion);
+routerSelecciones.put('/:id', seleccionesController.modifySeleccion);
 
 export default routerSelecciones;

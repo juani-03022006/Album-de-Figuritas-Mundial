@@ -15,9 +15,28 @@ function generarSeleccionesController(SeleccionesService) {
             };
         },
 
-        createSeleccion: async (req, res) => {},
+        createSeleccion: async (req, res) => {
+            try {
+                console.log('Añadiendo seleccion...');
+                const datosSeleccion = req.body;
+                const result = await SeleccionesService.crearSeleccion(datosSeleccion);
 
-        modifySeleccion: async (req, res) => {}
+                res.status(200).json(result);
+            } catch (error) {
+                res.status(500).json(error);
+            };
+        },
+
+        modifySeleccion: async (req, res) => {try {
+                console.log('Modificando seleccion...');
+                const idSeleccion = req.params.id
+                const nuevosDatosSeleccion = req.body;
+                const result = await SeleccionesService.modificarSeleccion(idSeleccion, nuevosDatosSeleccion);
+
+                res.status(200).json(result);
+            } catch (error) {
+                res.status(500).json(error);
+            };}
     };
 };
 

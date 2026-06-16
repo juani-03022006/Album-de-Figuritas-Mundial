@@ -12,9 +12,15 @@ class SeleccionesService {
         return selecciones;
     };
 
-    async crearSeleccion(datosSeleccionNueva) { };
+    async crearSeleccion(datosSeleccionNueva) {
+        const nuevaSeleccion = await this.SeleccionesRepository.createSeleccion(datosSeleccionNueva);
+        return nuevaSeleccion;
+    };
 
-    async modificarSeleccion(idSeleccionModificada, datosSeleccionModificada) { };
+    async modificarSeleccion(idSeleccion, datosSeleccion) {
+        const seleccionModifcada = await this.SeleccionesRepository.modifySeleccion(idSeleccion, datosSeleccion);
+        return seleccionModifcada;
+    };
 };
 
 export default SeleccionesService;
