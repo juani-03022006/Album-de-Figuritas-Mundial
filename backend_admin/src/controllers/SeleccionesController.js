@@ -4,8 +4,21 @@ function generarSeleccionesController(SeleccionesService) {
     };
 
     return {
-        getSelecciones: async (req, res) => {},
+        getSelecciones: async (req, res) => {
+            try {
+                const selecciones = await SeleccionesService.obtenerSelecciones();
+                
+                console.log('Obteniendo las Selecciones...');
+                res.status(200).json(selecciones);
+            } catch (error) {
+                res.status(500).json(error);
+            };
+        },
 
         createSeleccion: async (req, res) => {},
-    }
-}
+
+        modifySeleccion: async (req, res) => {}
+    };
+};
+
+export default generarSeleccionesController;

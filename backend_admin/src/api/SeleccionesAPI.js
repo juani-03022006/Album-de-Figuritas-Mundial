@@ -32,8 +32,6 @@ class SeleccionesAPI {
             console.error(error);
         };
     };
-
-    async getAlbumPorSelecciones() {};
 };
 
 export default SeleccionesAPI;
