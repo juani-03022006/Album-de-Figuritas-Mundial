@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 export const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: path.join(__dirname, '../DB/figuritas.db'),
+  storage: path.join(__dirname, '../../DB/figuritas.db'),
   logging: false,
 });
 
