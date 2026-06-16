@@ -14,6 +14,16 @@ function createFiguritasController(FiguritasService) {
             };
         },
 
+        getJugadoresPorSeleccion: async (req, res) => {
+            try {
+                const idSeleccion = req.params.id
+                const figuritas = await FiguritasService.obtenerJugadoresPorSeleccion(idSeleccion);
+                res.status(200).json(figuritas);
+            } catch (error) {
+                res.status(500).json(error);
+            };
+        },
+
         createJugador: async (req, res) => {
             try {
                 const nuevoJugador = req.body;

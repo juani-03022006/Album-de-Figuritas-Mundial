@@ -13,6 +13,17 @@ class FiguritasRepository {
         return jugadores;
     };
 
+    async getJugadoresPorSeleccion(idSeleccion) {
+        const jugadores = await FiguritaJugador.findAll({
+            include: [
+                { model: Posicion, as: 'posicion' },
+                { model: Figurita, as: 'figurita', where: { idSeleccion } }
+            ]
+        });
+
+        return jugadores;
+    };
+
     async createJugador(datosJugador) {
         const nuevoJugador = await Figurita.create(datosJugador, {
             include: [

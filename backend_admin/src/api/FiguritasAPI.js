@@ -7,6 +7,11 @@ class FiguritasAPI {
         this.urlAPI = urlAPI;
     };
 
+    async getJugadoresPorSeleccion(idSeleccion) {
+        const result = await axios.get(`${this.urlAPI}/jugadores/seleccion/${idSeleccion}`);
+        return result.data;
+    }
+
     async createJugador(datosJugador, fotoJugador) {
         const formJugador = new FormData();
 
@@ -22,6 +27,6 @@ class FiguritasAPI {
         const result = await axios.post(`${this.urlAPI}/jugadores/`, formJugador, {
             headers: formJugador.getHeaders()
         });
-        return response.data;
+        return result.data;
     };
 };

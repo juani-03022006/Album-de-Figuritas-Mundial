@@ -21,6 +21,15 @@ class FiguritasService {
         };
     };
 
+    async obtenerJugadoresPorSeleccion(idSeleccion) {
+        try {
+            const jugadores = await this.FiguritasRepository.getJugadoresPorSeleccion(idSeleccion);
+            return jugadores;
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
     async crearJugador(datosJugador) {
         try {
             datosJugador.pathToPic = `uploads/jugadores/${datosJugador.nombreFoto}`;
