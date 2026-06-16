@@ -27,9 +27,10 @@ const USE_GLOBAL_STICKER_NUMBERING = true;
 // Para resolver imágenes reales, ejecutar explícitamente: SEED_REMOTE_IMAGES=true npm run dev
 const RESOLVE_REMOTE_IMAGES = process.env.SEED_REMOTE_IMAGES === 'true';
 
-// Importante para tu frontend actual: si una figurita no está en UsuarioFigurita,
-// se ve como faltante y NO muestra foto. En demo conviene marcar todo como obtenido.
-const MARK_ALL_STICKERS_AS_OWNED = process.env.SEED_MARK_ALL_OWNED !== 'false';
+// Por defecto el usuario demo se crea SIN figuritas.
+// Si necesitás probar el álbum completo visible con demo, ejecutá una sola vez:
+// SEED_MARK_ALL_OWNED=true npm run dev
+const MARK_ALL_STICKERS_AS_OWNED = process.env.SEED_MARK_ALL_OWNED === 'true';
 
 const SPECIAL_STICKERS = [
   {
@@ -197,6 +198,12 @@ export async function seedDatabase(models) {
   const { Posicion, Seleccion, Figurita, Jugador, FigEspeciales, Usuario, UsuarioFigurita } =
     models;
 
+  const seleccionesExistentes = await Seleccion.count();
+  if (seleccionesExistentes > 0) {
+    console.log(`[seed] Base ya poblada: ${seleccionesExistentes} selecciones. No se vuelve a seedear.`);
+    return;
+  }
+
   if (worldCup2026Squads.length !== 48) {
     throw new Error(`El dataset debe tener 48 selecciones. Actualmente tiene ${worldCup2026Squads.length}.`);
   }
@@ -207,11 +214,11 @@ export async function seedDatabase(models) {
   const posicionRows = await Posicion.findAll();
   const posicionMap = Object.fromEntries(posicionRows.map((p) => [p.nombre, p.idPosicion]));
 
-  const usuario = await Usuario.create({
-    codigo: 'demo',
-    nombre: 'Usuario Demo',
+  const [usuario] = await Usuario.findOrCreate({
+    where: { codigo: 'demo' },
+    defaults: { nombre: 'Usuario Demo' },
   });
-  console.log('[seed] Usuario demo creado.');
+  console.log(`[seed] Usuario demo listo. Figuritas iniciales: ${MARK_ALL_STICKERS_AS_OWNED ? 'todas' : 'ninguna'}.`);
 
   for (const [teamIndex, rawTeam] of worldCup2026Squads.entries()) {
     if (rawTeam.plantel.length !== OFFICIAL_PLAYERS_PER_TEAM) {

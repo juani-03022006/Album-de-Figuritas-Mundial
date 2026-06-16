@@ -15,7 +15,7 @@ export const Figurita = sequelize.define(
     },
     pathTopic: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     tipo: {
       type: DataTypes.STRING,

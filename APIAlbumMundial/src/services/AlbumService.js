@@ -1,14 +1,31 @@
 import { worldCup2026Squads } from '../seeders/data/worldCup2026Squads.js';
 import { DEFAULT_TEAM_VISUALS, TEAM_VISUALS } from '../seeders/data/teamVisuals.js';
-import { resolveStickerImagesForTeam } from '../seeders/utils/imageResolver.js';
+import {
+  resolveStickerImagesForTeam,
+  THUMBNAIL_SIZES,
+} from '../seeders/utils/imageResolver.js';
 
 // Evita intentar resolver la misma selección muchas veces durante la misma ejecución.
 const resolvedSelectionsInMemory = new Set();
 
 const SHOULD_RESOLVE_LAZY_REMOTE_IMAGES = process.env.LAZY_REMOTE_IMAGES !== 'false';
+const FORCE_RESOLVE_LAZY_IMAGES = process.env.LAZY_IMAGE_FORCE_RESOLVE === 'true';
 
 const SPECIAL_STICKERS_COUNT = 3;
 const PLAYERS_PER_TEAM = 26;
+const DIRECT_SEARCH_TEAM_CODES = new Set(
+  String(process.env.LAZY_DIRECT_SEARCH_TEAM_CODES ?? 'ALL')
+    .split(',')
+    .map((code) => code.trim().toUpperCase())
+    .filter(Boolean)
+);
+const ENABLE_DIRECT_SEARCH_IMAGES = process.env.LAZY_DIRECT_SEARCH_IMAGES !== 'false';
+
+function shouldRefreshWithDirectSearch(seleccion) {
+  if (!ENABLE_DIRECT_SEARCH_IMAGES) return false;
+  if (DIRECT_SEARCH_TEAM_CODES.has('ALL') || DIRECT_SEARCH_TEAM_CODES.has('*')) return true;
+  return DIRECT_SEARCH_TEAM_CODES.has(String(seleccion?.codigo ?? '').toUpperCase());
+}
 
 function mapOrientacion(tipo) {
   return tipo === 'foto_equipo' ? 'landscape' : 'portrait';
@@ -34,9 +51,71 @@ function isRemoteImageUrl(url) {
   return cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://');
 }
 
+function isPlaceholderImageUrl(url) {
+  return String(url ?? '').includes('placehold.co/');
+}
+
+function isDirectSearchImageUrl(url) {
+  const cleanUrl = String(url ?? '');
+  return /^https:\/\/tse\d+\.mm\.bing\.net\/th\?/i.test(cleanUrl);
+}
+
+function getImageUrlParams(url) {
+  try {
+    return new URL(url).searchParams;
+  } catch {
+    return null;
+  }
+}
+
+function hasExpectedSize(url, expectedSize) {
+  const params = getImageUrlParams(url);
+  if (!params) return false;
+
+  return (
+    params.get('w') === String(expectedSize.width) &&
+    params.get('h') === String(expectedSize.height)
+  );
+}
+
+function getExpectedSizeForFigurita(figurita) {
+  return figurita.tipo === 'foto_equipo'
+    ? THUMBNAIL_SIZES.landscape
+    : THUMBNAIL_SIZES.portrait;
+}
+
+function isExpectedDirectSearchFiguritaUrl(figurita) {
+  const url = figurita?.pathTopic;
+  if (!isDirectSearchImageUrl(url)) return false;
+  return hasExpectedSize(url, getExpectedSizeForFigurita(figurita));
+}
+
+function isExpectedDirectSearchFlagUrl(url) {
+  if (!isDirectSearchImageUrl(url)) return false;
+  return hasExpectedSize(url, THUMBNAIL_SIZES.flag);
+}
+
+function areDirectSearchImagesResolved(figuritas, seleccion) {
+  if (!Array.isArray(figuritas) || figuritas.length === 0) return false;
+
+  const figuritasOk = figuritas.every((figurita) => isExpectedDirectSearchFiguritaUrl(figurita));
+  const flagOk = !seleccion?.flagUrl || isExpectedDirectSearchFlagUrl(seleccion.flagUrl);
+
+  return figuritasOk && flagOk;
+}
+
+function isResolvedRealImageUrl(url) {
+  const cleanUrl = String(url ?? '');
+
+  if (!isRemoteImageUrl(cleanUrl)) return false;
+  if (isPlaceholderImageUrl(cleanUrl)) return false;
+
+  return true;
+}
+
 function areImagesResolved(figuritas) {
   if (!Array.isArray(figuritas) || figuritas.length === 0) return false;
-  return figuritas.every((figurita) => isRemoteImageUrl(figurita.pathTopic));
+  return figuritas.every((figurita) => isResolvedRealImageUrl(figurita.pathTopic));
 }
 
 function getLocalStickerNumber(figurita, seleccion) {
@@ -53,7 +132,6 @@ function getLocalStickerNumber(figurita, seleccion) {
     return nroFigurita - nroDesde + 1;
   }
 
-  // Fallback por si se usa numeración local 1-29 en vez de numeración global.
   return nroFigurita;
 }
 
@@ -194,16 +272,17 @@ async function ensureSelectionImagesResolved({ models, seleccion, figuritas }) {
   const codigo = seleccion.codigo;
 
   if (!SHOULD_RESOLVE_LAZY_REMOTE_IMAGES) {
-    // El frontend necesita saber que no hay una búsqueda pendiente para no volver a pedir
-    // la misma selección en cada navegación cuando el modo lazy está desactivado.
     return { attempted: false, resolved: true };
   }
 
-  if (resolvedSelectionsInMemory.has(codigo)) {
+  if (resolvedSelectionsInMemory.has(codigo) && !FORCE_RESOLVE_LAZY_IMAGES) {
     return { attempted: true, resolved: true };
   }
 
-  if (areImagesResolved(figuritas)) {
+  const needsDirectSearchRefresh =
+    shouldRefreshWithDirectSearch(seleccion) && !areDirectSearchImagesResolved(figuritas, seleccion);
+
+  if (!FORCE_RESOLVE_LAZY_IMAGES && !needsDirectSearchRefresh && areImagesResolved(figuritas)) {
     resolvedSelectionsInMemory.add(codigo);
     return { attempted: false, resolved: true };
   }
@@ -230,8 +309,6 @@ async function ensureSelectionImagesResolved({ models, seleccion, figuritas }) {
   } catch (error) {
     console.warn(`[lazy-images] No se pudieron resolver imágenes de ${codigo}: ${error.message}`);
     resolvedSelectionsInMemory.add(codigo);
-    // Se devuelve true para evitar reintentos infinitos al volver a la misma página.
-    // Las figuritas conservan el fallback que ya estaba guardado en la base.
     return { attempted: true, resolved: true };
   }
 }
@@ -287,7 +364,6 @@ export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion
     figuritas,
   });
 
-  // Si se actualizaron URLs, recargo selección y figuritas para devolver el dato persistido en BD.
   if (imageStatus.attempted) {
     seleccion = await getSeleccionOrThrow(Seleccion, codigoSeleccion);
     figuritas = await getFiguritasBySeleccion({
