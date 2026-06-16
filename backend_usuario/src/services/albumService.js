@@ -1,8 +1,7 @@
 import { API_ALBUM_URL } from '../config/api.js';
 
-export async function getAlbumByUsuarioCodigo(codigoUsuario) {
-  const response = await fetch(`${API_ALBUM_URL}/album/usuarios/${codigoUsuario}/album`);
-
+async function requestApi(path) {
+  const response = await fetch(`${API_ALBUM_URL}${path}`);
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
@@ -12,4 +11,12 @@ export async function getAlbumByUsuarioCodigo(codigoUsuario) {
   }
 
   return data;
+}
+
+export async function getAlbumByUsuarioCodigo(codigoUsuario) {
+  return requestApi(`/album/usuarios/${codigoUsuario}/album`);
+}
+
+export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion) {
+  return requestApi(`/album/usuarios/${codigoUsuario}/selecciones/${codigoSeleccion}`);
 }

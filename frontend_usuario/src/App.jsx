@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AlbumDoublePage } from './components/album/AlbumDoublePage';
 import { AlbumHeader } from './components/album/AlbumHeader';
 import { AlbumStatus } from './components/album/AlbumStatus';
@@ -9,9 +9,14 @@ import { countOwnedFiguritas } from './services/albumService';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState(0);
-  const { selecciones, isLoading, error } = useAlbum();
+  const { selecciones, isLoading, isSelectionLoading, error, loadSelection } = useAlbum();
 
   const currentTeam = selecciones[currentPage] ?? null;
+
+  useEffect(() => {
+    if (!currentTeam?.id || currentTeam.imagenesResueltas) return;
+    loadSelection(currentTeam.id);
+  }, [currentTeam?.id, currentTeam?.imagenesResueltas, loadSelection]);
 
   const ownedCount = useMemo(() => {
     if (!currentTeam) return 0;
@@ -39,6 +44,12 @@ export function App() {
       )}
 
       <AlbumStatus isLoading={isLoading} error={error} hasSelections={selecciones.length > 0} />
+
+      {isSelectionLoading && currentTeam && (
+        <div className="mb-3 text-xs text-white/70 bg-white/10 px-3 py-1 rounded-full">
+          Buscando imágenes de {currentTeam.nombre}...
+        </div>
+      )}
 
       {currentTeam && <AlbumDoublePage team={currentTeam} />}
 
