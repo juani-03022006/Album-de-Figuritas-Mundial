@@ -8,18 +8,30 @@ class SeleccionesService {
     };
 
     async obtenerSelecciones() {
-        const selecciones = await this.SeleccionesAPI.getSelecciones();
-        return selecciones;
+        try {
+            const selecciones = await this.SeleccionesAPI.getSelecciones();
+            return selecciones;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
-    async crearSeleccion(datosSeleccionNueva) {
-        const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccionNueva);
-        return nuevaSeleccion;
+    async crearSeleccion(datosSeleccion, fotoSeleccion) {
+        try {
+            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion, fotoSeleccion);
+            return nuevaSeleccion;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async modificarSeleccion(idSeleccion, datosSeleccion) {
-        const seleccionModifcada = await this.SeleccionesAPI.modifySeleccion(idSeleccion, datosSeleccion);
-        return seleccionModifcada;
+        try {
+            const seleccionModifcada = await this.SeleccionesAPI.modifySeleccion(idSeleccion, datosSeleccion);
+            return seleccionModifcada;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 };
 

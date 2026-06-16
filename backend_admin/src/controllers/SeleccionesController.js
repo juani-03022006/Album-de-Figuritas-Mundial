@@ -19,7 +19,8 @@ function generarSeleccionesController(SeleccionesService) {
             try {
                 console.log('Añadiendo seleccion...');
                 const datosSeleccion = req.body;
-                const result = await SeleccionesService.crearSeleccion(datosSeleccion);
+                const fotoSeleccion = req.file;
+                const result = await SeleccionesService.crearSeleccion(datosSeleccion, fotoSeleccion);
 
                 res.status(200).json(result);
             } catch (error) {

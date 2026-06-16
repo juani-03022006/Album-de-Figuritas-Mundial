@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import generarSeleccionesController from '../controllers/SeleccionesController.js';
 import SeleccionesService from '../services/SeleccionesService.js';
-import SeleccionesAPI from '../api/SeleccionesAPI.js';
+import SeleccionesAPI from '../apis/SeleccionesAPI.js';
 
 
 const seleccionesApi = new SeleccionesAPI('http://localhost:3100');

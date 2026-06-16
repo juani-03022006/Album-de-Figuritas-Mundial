@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import generarPosicionesController from '../controllers/PosicionesController.js';
 import PosicionesService from '../services/PosicionesService.js';
-import PosicionesAPI from '../api/PosicionesAPI.js';
+import PosicionesAPI from '../apis/PosicionesAPI.js';
 
 
 const posicionesApi = new PosicionesAPI('http://localhost:3100');
