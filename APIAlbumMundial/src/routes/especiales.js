@@ -13,8 +13,8 @@ const figuritasController = createFiguritasController(figuritasService);
 
 const routerEspeciales = new Router();
 
-routerEspeciales.get('/', figuritasController.getEspeciales);
-routerEspeciales.post('/', middlewarePostEspecial, uploadEspecial.single('fotoEspecial'), figuritasController.createEspecial);
+routerEspeciales.get('/seleccion/:id', figuritasController.getEspecialesPorSeleccion);
+routerEspeciales.post('/', uploadEspecial.single('fotoEspecial'), middlewarePostEspecial, figuritasController.createEspecial);
 routerEspeciales.post('/many', middlewarePostEspeciales, uploadEspeciales.single('fotosEspeciales'), figuritasController.createEspeciales);
 // routerEspeciales.put('/:id', middlewareValidacionEspecial, figuritasController.modifyEspecial);
 

@@ -6,7 +6,7 @@ import { validarZip } from './validarZip.js';
 
 export const middlewarePostEspecial = (req, res, next) => {
     validarFigurita(req.body, res);
-    validarEspecial(req.body.especial);
+    validarEspecial(JSON.parse(req.body.especial), res);
     validarFoto(req.file);
 
     next();

@@ -4,6 +4,7 @@ import { ALLOWED_ORIGINS } from './allowedOrigins.js';
 import routerSelecciones from './routes/selecciones.js';
 import routerPosiciones from './routes/posiciones.js';
 import routerJugadores from './routes/jugadores.js';
+import routerEspeciales from './routes/especiales.js';
 
 
 export function createApp() {
@@ -17,6 +18,7 @@ export function createApp() {
     app.use('/selecciones', routerSelecciones);
     app.use('/posiciones', routerPosiciones);
     app.use('/jugadores', routerJugadores);
+    app.use('/especiales', routerEspeciales);
 
     return app;
 };

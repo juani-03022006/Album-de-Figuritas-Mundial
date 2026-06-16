@@ -74,9 +74,10 @@ function createFiguritasController(FiguritasService) {
         },
 
         // Para especiales
-        getEspeciales: async (req, res) => {
+        getEspecialesPorSeleccion: async (req, res) => {
             try {
-                const figuritas = await FiguritasService.obtenerEspeciales();
+                const idSeleccion = req.params.id;
+                const figuritas = await FiguritasService.obtenerEspecialesPorSeleccion(idSeleccion);
                 res.status(200).json(figuritas);
             } catch (error) {
                 res.status(500).json(error);

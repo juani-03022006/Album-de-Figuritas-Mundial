@@ -79,6 +79,16 @@ class FiguritasRepository {
         return especiales;
     };
 
+    async getEspecialesPorSeleccion(idSeleccion) {
+        const especiales = await FiguritaEspecial.findAll({
+            include: [
+                { model: Figurita, as: 'figurita', where: { idSeleccion } }
+            ]
+        });
+
+        return especiales;
+    };
+
     async createEspecial(datosEspecial) {
         const nuevaEspecial = await Figurita.create(datosEspecial, {
             include: [

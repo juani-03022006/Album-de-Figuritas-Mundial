@@ -86,9 +86,9 @@ class FiguritasService {
     };
 
     // Para especiales
-    async obtenerEspeciales() {
+    async obtenerEspecialesPorSeleccion(idSeleccion) {
         try {
-            const especiales = await this.FiguritasRepository.getEspeciales();
+            const especiales = await this.FiguritasRepository.getEspecialesPorSeleccion(idSeleccion);
             return especiales;
         } catch (error) {
             throw new Error(error);
