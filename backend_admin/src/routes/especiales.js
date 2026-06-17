@@ -13,7 +13,7 @@ const routerEspeciales = Router();
 
 routerEspeciales.get('/seleccion/:id', especialesController.getEspecialesPorSeleccion);
 routerEspeciales.post('/', uploadEspecial.single('fotoEspecial'), especialesController.createEspecial);
-// routerEspeciales.put('/:id', jugadoresController.modifyJugador);
+routerEspeciales.put('/:id', especialesController.modifyEspecial);
 // routerEspeciales.delete('/:id', jugadoresController.deleteJugador);
 
 export default routerEspeciales;

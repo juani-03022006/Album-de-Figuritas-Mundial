@@ -3,6 +3,8 @@ import Posicion from './Posicion.js';
 import Seleccion from './Seleccion.js';
 import FiguritaEspecial from './FiguritaEspecial.js';
 import FiguritaJugador from './FiguritaJugador.js';
+import Usuario from './Usuario.js';
+import UsuarioFigurita from './UsuarioFigurita.js';
 import sequelize from '../sequelizeConnection.js';
 
 
@@ -46,6 +48,18 @@ Figurita.belongsTo(Seleccion, {
     as: 'seleccion'
 });
 
+Usuario.belongsToMany(Figurita, {
+    through: UsuarioFigurita,
+    foreignKey: 'idUsuario',
+    otherKey: 'idFigurita',
+});
+
+Figurita.belongsToMany(Usuario, {
+    through: UsuarioFigurita,
+    foreignKey: 'idFigurita',
+    otherKey: 'idUsuario',
+});
+
 
 await sequelize.sync();
-export { Figurita, FiguritaEspecial, FiguritaJugador, Seleccion, Posicion };
+export { Figurita, FiguritaEspecial, FiguritaJugador, Seleccion, Posicion, Usuario, UsuarioFigurita };

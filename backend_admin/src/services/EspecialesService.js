@@ -25,10 +25,10 @@ class EspecialesService {
         };
     };
 
-    async modificarEspecial(idJugadorModificado, datosNuevosJugador) {
+    async modificarEspecial(idEspecial, datosEspecial) {
         try {
-            const jugadorModificado = await this.FiguritasAPI.modifyJugador(idJugadorModificado, datosNuevosJugador);
-            return jugadorModificado;
+            const result = await this.FiguritasAPI.modifyEspecial(idEspecial, datosEspecial);
+            return result;
         } catch (error) {
             throw new Error(error);
         };

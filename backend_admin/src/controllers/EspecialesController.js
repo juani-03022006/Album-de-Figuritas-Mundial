@@ -29,25 +29,25 @@ function generarEspecialesController(EspecialesService) {
             };
         },
 
-        modifyJugador: async (req, res) => {
+        modifyEspecial: async (req, res) => {
             try {
-                console.log('Modificando jugador...');
-                const idJugador = req.params.id;
-                const jugadorModificado = req.body;
+                console.log('Modificando especial...');
+                const idEspecial = req.params.id;
+                const datosEspecial = req.body;
 
-                const result = await EspecialesService.modificarJugador(idJugador, jugadorModificado);
+                const result = await EspecialesService.modificarEspecial(idEspecial, datosEspecial);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);
             };
         },
 
-        deleteJugador: async (req, res) => {
+        deleteEspecial: async (req, res) => {
             try {
-                console.log('Eliminando jugador...');
+                console.log('Eliminando especial...');
                 const idFigurita = req.params.id;
 
-                const result = await EspecialesService.eliminarJugador(idFigurita);
+                const result = await EspecialesService.eliminarEspecial(idFigurita);
                 res.status(200).json(result);
             } catch (error) {
                 res.status(500).json(error);

@@ -88,6 +88,15 @@ class FiguritasAPI {
             throw new Error(error);
         };
     };
+
+    async modifyEspecial(idEspecial, datosEspecial) {
+        try {
+            const result = await axios.put(`${this.urlAPI}/especiales/${idEspecial}`, datosEspecial);
+            return result.data;
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
 };
 
 export default FiguritasAPI;
