@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { DataTypes } from 'sequelize';
 import { createApp } from './app.js';
 import * as models from './repositories/models/index.js';
 import { seedDatabase } from './seeders/seedDatabase.js';
@@ -22,6 +23,20 @@ async function syncDatabase() {
   await models.sequelize.sync(SYNC_ALTER ? { alter: true } : undefined);
 }
 
+
+async function ensureRuntimeMigrations() {
+  const queryInterface = models.sequelize.getQueryInterface();
+  const usuarioColumns = await queryInterface.describeTable('Usuario');
+
+  if (!usuarioColumns.ultimoPaqueteAbiertoAt) {
+    console.log('[db] Agregando columna Usuario.ultimoPaqueteAbiertoAt para paquetes.');
+    await queryInterface.addColumn('Usuario', 'ultimoPaqueteAbiertoAt', {
+      type: DataTypes.DATE,
+      allowNull: true,
+    });
+  }
+}
+
 async function seedDatabaseIfNeeded() {
   const seleccionesCount = await models.Seleccion.count();
 
@@ -39,6 +54,7 @@ async function bootstrap() {
   }
 
   await syncDatabase();
+  await ensureRuntimeMigrations();
   await seedDatabaseIfNeeded();
 
   const app = createApp(models);

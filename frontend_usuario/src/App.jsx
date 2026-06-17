@@ -3,9 +3,12 @@ import { AlbumDoublePage } from './components/album/AlbumDoublePage';
 import { AlbumHeader } from './components/album/AlbumHeader';
 import { AlbumStatus } from './components/album/AlbumStatus';
 import { TeamNavigator } from './components/album/TeamNavigator';
+import { StickerPackButton } from './components/pack/StickerPackButton';
+import { StickerPackModal } from './components/pack/StickerPackModal';
 import { LoginScreen } from './components/auth/LoginScreen';
 import { useAuth } from './auth/useAuth';
 import { useAlbum } from './hooks/useAlbum';
+import { useStickerPack } from './hooks/useStickerPack';
 import { TOTAL_FIGURITAS } from './constants/albumLayout';
 import { countOwnedFiguritas } from './services/albumService';
 
@@ -25,10 +28,20 @@ export function App() {
   } = useAuth();
 
   const canLoadAlbum = isInitialized && isAuthenticated && Boolean(usuarioId);
-  const { selecciones, isLoading, isSelectionLoading, error, loadSelection } = useAlbum(
+  const {
+    selecciones,
+    isLoading,
+    isSelectionLoading,
+    error,
+    loadSelection,
+    markFiguritasAsOwned,
+  } = useAlbum(usuarioId, accessToken, canLoadAlbum);
+
+  const stickerPack = useStickerPack(
     usuarioId,
     accessToken,
-    canLoadAlbum
+    canLoadAlbum,
+    markFiguritasAsOwned
   );
 
   const currentTeam = selecciones[currentPage] ?? null;
@@ -69,6 +82,21 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white flex flex-col items-center justify-center p-4 md:p-8 font-sans overflow-x-hidden">
+      <StickerPackButton
+        estado={stickerPack.estado}
+        isLoading={stickerPack.isLoading}
+        onClick={stickerPack.openModal}
+      />
+
+      <StickerPackModal
+        isOpen={stickerPack.isModalOpen}
+        isOpening={stickerPack.isOpening}
+        error={stickerPack.error}
+        paqueteAbierto={stickerPack.paqueteAbierto}
+        onOpenPack={stickerPack.openPack}
+        onClose={stickerPack.closeModal}
+      />
+
       {authEnabled && (
         <div className="fixed right-4 top-4 z-50 flex items-center gap-3 rounded-full border border-white/10 bg-black/40 px-3 py-2 text-xs text-white/80 backdrop-blur">
           <span>{displayName}</span>

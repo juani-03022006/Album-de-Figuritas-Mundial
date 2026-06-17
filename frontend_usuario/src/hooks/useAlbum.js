@@ -8,6 +8,19 @@ function replaceSelection(selecciones, updatedSelection) {
   );
 }
 
+function markOwnedInSelections(selecciones, figuritaIds) {
+  const ownedIds = new Set(figuritaIds.map(Number).filter(Number.isFinite));
+
+  if (ownedIds.size === 0) return selecciones;
+
+  return selecciones.map((seleccion) => ({
+    ...seleccion,
+    figuritas: seleccion.figuritas.map((figurita) =>
+      ownedIds.has(Number(figurita.id)) ? { ...figurita, tiene: true } : figurita
+    ),
+  }));
+}
+
 export function useAlbum(userId = DEFAULT_USER_ID, accessToken = null, shouldLoad = true) {
   const [album, setAlbum] = useState({ usuarioId: '', selecciones: [] });
   const [isLoading, setIsLoading] = useState(Boolean(shouldLoad));
@@ -87,11 +100,20 @@ export function useAlbum(userId = DEFAULT_USER_ID, accessToken = null, shouldLoa
     [accessToken, shouldLoad, userId]
   );
 
+
+  const markFiguritasAsOwned = useCallback((figuritaIds) => {
+    setAlbum((prevAlbum) => ({
+      ...prevAlbum,
+      selecciones: markOwnedInSelections(prevAlbum.selecciones, figuritaIds),
+    }));
+  }, []);
+
   return {
     selecciones: album.selecciones,
     isLoading,
     isSelectionLoading,
     error,
     loadSelection,
+    markFiguritasAsOwned,
   };
 }

@@ -121,3 +121,55 @@ export function getFiguritaByNumber(figuritas, number) {
 export function countOwnedFiguritas(figuritas) {
   return figuritas.filter((figurita) => figurita.tiene).length;
 }
+
+export async function fetchStickerPackStatus(userId, accessToken = null) {
+  const endpoint = accessToken
+    ? `${API_BASE_URL}/me/paquete/estado`
+    : `${API_BASE_URL}/usuarios/${userId}/paquete/estado`;
+
+  const { data } = await axios.get(endpoint, getAuthConfig(accessToken));
+  return normalizePackStatus(data);
+}
+
+export async function openStickerPack(userId, accessToken = null) {
+  const endpoint = accessToken
+    ? `${API_BASE_URL}/me/paquete/abrir`
+    : `${API_BASE_URL}/usuarios/${userId}/paquete/abrir`;
+
+  const { data } = await axios.post(endpoint, undefined, getAuthConfig(accessToken));
+  return normalizeOpenedPack(data);
+}
+
+export function normalizePackStatus(data) {
+  return {
+    disponible: Boolean(data?.disponible),
+    intervaloHoras: Number(data?.intervaloHoras ?? 4),
+    figuritasPorPaquete: Number(data?.figuritasPorPaquete ?? 7),
+    ultimoPaqueteAbiertoAt: data?.ultimoPaqueteAbiertoAt ?? null,
+    proximoPaqueteDisponibleAt: data?.proximoPaqueteDisponibleAt ?? null,
+    milisegundosRestantes: Number(data?.milisegundosRestantes ?? 0),
+  };
+}
+
+export function normalizeOpenedPack(data) {
+  const figuritas = Array.isArray(data?.figuritas) ? data.figuritas : [];
+
+  return {
+    abiertoAt: data?.abiertoAt ?? null,
+    estado: normalizePackStatus(data?.estado),
+    figuritas: figuritas.map((figurita) => ({
+      id: Number(figurita?.id),
+      nroFigurita: Number(figurita?.nroFigurita),
+      nroLocal: Number(figurita?.nroLocal),
+      nombre: figurita?.nombre ?? '',
+      tipo: figurita?.tipo ?? '',
+      yaLaTenia: Boolean(figurita?.yaLaTenia),
+      seleccion: figurita?.seleccion
+        ? {
+            id: String(figurita.seleccion.id ?? '').toUpperCase(),
+            nombre: figurita.seleccion.nombre ?? '',
+          }
+        : null,
+    })),
+  };
+}

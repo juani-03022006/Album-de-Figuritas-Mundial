@@ -27,6 +27,7 @@ function buildKeycloakUserHeaders(usuarioAutenticado = null) {
 
 async function requestApi(path, options = {}) {
   const response = await fetch(`${API_ALBUM_URL}${path}`, {
+    method: options.method ?? 'GET',
     headers: options.headers ?? {},
   });
   const data = await response.json().catch(() => null);
@@ -34,6 +35,7 @@ async function requestApi(path, options = {}) {
   if (!response.ok) {
     const error = new Error(data?.message || 'Error al consultar la API del album');
     error.statusCode = response.status;
+    error.details = data?.details;
     throw error;
   }
 
@@ -57,6 +59,23 @@ export async function getSeleccionByUsuarioCodigo(
   const seleccion = encodeURIComponent(codigoSeleccion);
 
   return requestApi(`/album/usuarios/${codigo}/selecciones/${seleccion}`, {
+    headers: buildKeycloakUserHeaders(usuarioAutenticado),
+  });
+}
+
+export async function getEstadoPaqueteByUsuarioCodigo(codigoUsuario, usuarioAutenticado = null) {
+  const codigo = encodeURIComponent(codigoUsuario);
+
+  return requestApi(`/album/usuarios/${codigo}/paquete/estado`, {
+    headers: buildKeycloakUserHeaders(usuarioAutenticado),
+  });
+}
+
+export async function abrirPaqueteByUsuarioCodigo(codigoUsuario, usuarioAutenticado = null) {
+  const codigo = encodeURIComponent(codigoUsuario);
+
+  return requestApi(`/album/usuarios/${codigo}/paquete/abrir`, {
+    method: 'POST',
     headers: buildKeycloakUserHeaders(usuarioAutenticado),
   });
 }

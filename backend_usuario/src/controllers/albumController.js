@@ -1,5 +1,7 @@
 import {
+  abrirPaqueteByUsuarioCodigo,
   getAlbumByUsuarioCodigo,
+  getEstadoPaqueteByUsuarioCodigo,
   getSeleccionByUsuarioCodigo,
 } from '../services/albumService.js';
 
@@ -12,6 +14,7 @@ export function createAlbumController() {
       } catch (error) {
         res.status(error.statusCode || 500).json({
           message: error.message || 'Error interno del servidor',
+          details: error.details,
         });
       }
     },
@@ -26,6 +29,7 @@ export function createAlbumController() {
       } catch (error) {
         res.status(error.statusCode || 500).json({
           message: error.message || 'Error interno del servidor',
+          details: error.details,
         });
       }
     },
@@ -37,6 +41,7 @@ export function createAlbumController() {
       } catch (error) {
         res.status(error.statusCode || 500).json({
           message: error.message || 'Error interno del servidor',
+          details: error.details,
         });
       }
     },
@@ -52,6 +57,55 @@ export function createAlbumController() {
       } catch (error) {
         res.status(error.statusCode || 500).json({
           message: error.message || 'Error interno del servidor',
+          details: error.details,
+        });
+      }
+    },
+
+    async getEstadoPaquete(req, res) {
+      try {
+        const estado = await getEstadoPaqueteByUsuarioCodigo(req.params.usuarioId);
+        res.json(estado);
+      } catch (error) {
+        res.status(error.statusCode || 500).json({
+          message: error.message || 'Error interno del servidor',
+          details: error.details,
+        });
+      }
+    },
+
+    async abrirPaquete(req, res) {
+      try {
+        const paquete = await abrirPaqueteByUsuarioCodigo(req.params.usuarioId);
+        res.json(paquete);
+      } catch (error) {
+        res.status(error.statusCode || 500).json({
+          message: error.message || 'Error interno del servidor',
+          details: error.details,
+        });
+      }
+    },
+
+    async getMyEstadoPaquete(req, res) {
+      try {
+        const estado = await getEstadoPaqueteByUsuarioCodigo(req.user.usuarioId, req.user);
+        res.json(estado);
+      } catch (error) {
+        res.status(error.statusCode || 500).json({
+          message: error.message || 'Error interno del servidor',
+          details: error.details,
+        });
+      }
+    },
+
+    async abrirMyPaquete(req, res) {
+      try {
+        const paquete = await abrirPaqueteByUsuarioCodigo(req.user.usuarioId, req.user);
+        res.json(paquete);
+      } catch (error) {
+        res.status(error.statusCode || 500).json({
+          message: error.message || 'Error interno del servidor',
+          details: error.details,
         });
       }
     },
