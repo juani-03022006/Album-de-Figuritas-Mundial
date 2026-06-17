@@ -8,9 +8,9 @@ function replaceSelection(selecciones, updatedSelection) {
   );
 }
 
-export function useAlbum(userId = DEFAULT_USER_ID) {
+export function useAlbum(userId = DEFAULT_USER_ID, accessToken = null, shouldLoad = true) {
   const [album, setAlbum] = useState({ usuarioId: '', selecciones: [] });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(Boolean(shouldLoad));
   const [isSelectionLoading, setIsSelectionLoading] = useState(false);
   const [error, setError] = useState(null);
   const loadingSelectionCodes = useRef(new Set());
@@ -19,11 +19,17 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
     let isMounted = true;
 
     async function loadAlbum() {
+      if (!shouldLoad) {
+        setIsLoading(false);
+        setAlbum({ usuarioId: userId, selecciones: [] });
+        return;
+      }
+
       setIsLoading(true);
       setError(null);
 
       try {
-        const data = await fetchUserAlbum(userId);
+        const data = await fetchUserAlbum(userId, accessToken);
         if (!isMounted) return;
         setAlbum(data);
       } catch (requestError) {
@@ -31,6 +37,7 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
         setAlbum({ usuarioId: userId, selecciones: [] });
         setError(
           requestError.response?.data?.message ||
+            requestError.response?.data?.error ||
             requestError.message ||
             'No se pudo cargar el álbum'
         );
@@ -46,10 +53,12 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
     return () => {
       isMounted = false;
     };
-  }, [userId]);
+  }, [userId, accessToken, shouldLoad]);
 
   const loadSelection = useCallback(
     async (codigoSeleccion) => {
+      if (!shouldLoad) return;
+
       const codigo = String(codigoSeleccion ?? '').toUpperCase();
       if (!codigo || loadingSelectionCodes.current.has(codigo)) return;
 
@@ -58,7 +67,7 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
       setError(null);
 
       try {
-        const updatedSelection = await fetchUserSelection(userId, codigo);
+        const updatedSelection = await fetchUserSelection(userId, codigo, accessToken);
         setAlbum((prevAlbum) => ({
           ...prevAlbum,
           selecciones: replaceSelection(prevAlbum.selecciones, updatedSelection),
@@ -66,6 +75,7 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
       } catch (requestError) {
         setError(
           requestError.response?.data?.message ||
+            requestError.response?.data?.error ||
             requestError.message ||
             `No se pudo cargar la selección ${codigo}`
         );
@@ -74,7 +84,7 @@ export function useAlbum(userId = DEFAULT_USER_ID) {
         setIsSelectionLoading(false);
       }
     },
-    [userId]
+    [accessToken, shouldLoad, userId]
   );
 
   return {

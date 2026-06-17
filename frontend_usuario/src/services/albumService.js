@@ -1,23 +1,38 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../config/api.js';
 
+function getAuthConfig(accessToken) {
+  if (!accessToken) return undefined;
+
+  return {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+}
+
 /**
- * GET /apiUsuario/usuarios/:usuarioId/album
  * Carga el álbum completo como estructura de navegación.
+ * Con login usa /apiUsuario/me/album; sin login conserva la ruta de desarrollo por usuario explícito.
  */
-export async function fetchUserAlbum(userId) {
-  const { data } = await axios.get(`${API_BASE_URL}/usuarios/${userId}/album`);
+export async function fetchUserAlbum(userId, accessToken = null) {
+  const endpoint = accessToken
+    ? `${API_BASE_URL}/me/album`
+    : `${API_BASE_URL}/usuarios/${userId}/album`;
+
+  const { data } = await axios.get(endpoint, getAuthConfig(accessToken));
   return normalizeAlbumResponse(data);
 }
 
 /**
- * GET /apiUsuario/usuarios/:usuarioId/selecciones/:codigoSeleccion
  * Carga una sola selección. Esta ruta dispara la resolución lazy de imágenes en backend.
  */
-export async function fetchUserSelection(userId, codigoSeleccion) {
-  const { data } = await axios.get(
-    `${API_BASE_URL}/usuarios/${userId}/selecciones/${codigoSeleccion}`
-  );
+export async function fetchUserSelection(userId, codigoSeleccion, accessToken = null) {
+  const endpoint = accessToken
+    ? `${API_BASE_URL}/me/selecciones/${codigoSeleccion}`
+    : `${API_BASE_URL}/usuarios/${userId}/selecciones/${codigoSeleccion}`;
+
+  const { data } = await axios.get(endpoint, getAuthConfig(accessToken));
   return normalizeSeleccion(data);
 }
 
@@ -49,13 +64,13 @@ export function normalizeSeleccion(seleccion) {
     asociacion: seleccion?.asociacion ?? '',
     flagUrl: seleccion?.flagUrl ?? '',
     imagenesResueltas: Boolean(seleccion?.imagenesResueltas),
-    figuritas: figuritasOrdenadas,
     colores: {
       main: seleccion?.colores?.main ?? '#64748b',
       accent1: seleccion?.colores?.accent1 ?? '#94a3b8',
       accent2: seleccion?.colores?.accent2 ?? '#475569',
       text: seleccion?.colores?.text ?? '#ffffff',
     },
+    figuritas: figuritasOrdenadas,
   };
 }
 

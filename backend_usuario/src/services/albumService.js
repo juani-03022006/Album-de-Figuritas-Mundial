@@ -1,7 +1,34 @@
 import { API_ALBUM_URL } from '../config/api.js';
 
-async function requestApi(path) {
-  const response = await fetch(`${API_ALBUM_URL}${path}`);
+function buildKeycloakUserHeaders(usuarioAutenticado = null) {
+  const headers = {};
+
+  if (!usuarioAutenticado) return headers;
+
+  if (usuarioAutenticado.username) {
+    headers['x-keycloak-username'] = String(usuarioAutenticado.username);
+  }
+
+  const nombreCompleto = [usuarioAutenticado.nombre, usuarioAutenticado.apellido]
+    .filter(Boolean)
+    .join(' ')
+    .trim();
+
+  if (nombreCompleto) {
+    headers['x-keycloak-name'] = nombreCompleto;
+  }
+
+  if (usuarioAutenticado.email) {
+    headers['x-keycloak-email'] = String(usuarioAutenticado.email);
+  }
+
+  return headers;
+}
+
+async function requestApi(path, options = {}) {
+  const response = await fetch(`${API_ALBUM_URL}${path}`, {
+    headers: options.headers ?? {},
+  });
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
@@ -13,10 +40,23 @@ async function requestApi(path) {
   return data;
 }
 
-export async function getAlbumByUsuarioCodigo(codigoUsuario) {
-  return requestApi(`/album/usuarios/${codigoUsuario}/album`);
+export async function getAlbumByUsuarioCodigo(codigoUsuario, usuarioAutenticado = null) {
+  const codigo = encodeURIComponent(codigoUsuario);
+
+  return requestApi(`/album/usuarios/${codigo}/album`, {
+    headers: buildKeycloakUserHeaders(usuarioAutenticado),
+  });
 }
 
-export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion) {
-  return requestApi(`/album/usuarios/${codigoUsuario}/selecciones/${codigoSeleccion}`);
+export async function getSeleccionByUsuarioCodigo(
+  codigoUsuario,
+  codigoSeleccion,
+  usuarioAutenticado = null
+) {
+  const codigo = encodeURIComponent(codigoUsuario);
+  const seleccion = encodeURIComponent(codigoSeleccion);
+
+  return requestApi(`/album/usuarios/${codigo}/selecciones/${seleccion}`, {
+    headers: buildKeycloakUserHeaders(usuarioAutenticado),
+  });
 }

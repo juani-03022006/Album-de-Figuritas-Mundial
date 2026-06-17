@@ -1,4 +1,4 @@
-/** Grilla 4x4 por página. Cada celda referencia la posición local de la figurita dentro de la selección (1-29). */
+/** Grilla 4x4 por página. Cada celda referencia nroFigurita (1-29, únicos por selección). */
 export const LEFT_PAGE_ROWS = [
   [{ type: 'title' }, { nro: 1 }, { nro: 2, colSpan: 2 }],
   [{ nro: 3 }, { type: 'empty' }, { nro: 4 }, { nro: 5 }],

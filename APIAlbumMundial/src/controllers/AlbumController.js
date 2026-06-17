@@ -3,11 +3,23 @@ import {
   getSeleccionByUsuarioCodigo,
 } from '../services/AlbumService.js';
 
+function getPerfilUsuarioFromRequest(req) {
+  return {
+    username: req.get('x-keycloak-username') || null,
+    nombreCompleto: req.get('x-keycloak-name') || null,
+    email: req.get('x-keycloak-email') || null,
+  };
+}
+
 export function createAlbumController(models) {
   return {
     async getAlbum(req, res) {
       try {
-        const album = await getAlbumByUsuarioCodigo(req.params.usuarioId, models);
+        const album = await getAlbumByUsuarioCodigo(
+          req.params.usuarioId,
+          models,
+          getPerfilUsuarioFromRequest(req)
+        );
         res.json(album);
       } catch (error) {
         res.status(error.statusCode || 500).json({
@@ -21,7 +33,8 @@ export function createAlbumController(models) {
         const seleccion = await getSeleccionByUsuarioCodigo(
           req.params.usuarioId,
           req.params.codigoSeleccion,
-          models
+          models,
+          getPerfilUsuarioFromRequest(req)
         );
         res.json(seleccion);
       } catch (error) {

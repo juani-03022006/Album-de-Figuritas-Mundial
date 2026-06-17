@@ -175,13 +175,42 @@ async function getOwnedSet(UsuarioFigurita, usuario) {
   return new Set(ownedRows.map((row) => row.idFigurita));
 }
 
-async function getUsuarioOrThrow(Usuario, codigoUsuario) {
-  const usuario = await Usuario.findOne({ where: { codigo: codigoUsuario } });
+function normalizeCodigoUsuario(codigoUsuario) {
+  const codigo = String(codigoUsuario ?? '').trim();
 
-  if (!usuario) {
-    const error = new Error('Usuario no encontrado');
-    error.statusCode = 404;
+  if (!codigo) {
+    const error = new Error('Código de usuario inválido');
+    error.statusCode = 400;
     throw error;
+  }
+
+  return codigo;
+}
+
+function getNombreUsuarioDefault(codigoUsuario, perfilUsuario = {}) {
+  const nombreDesdePerfil = String(
+    perfilUsuario.nombreCompleto ||
+      perfilUsuario.nombre ||
+      perfilUsuario.username ||
+      codigoUsuario
+  ).trim();
+
+  return nombreDesdePerfil || codigoUsuario;
+}
+
+async function findOrCreateUsuario(Usuario, codigoUsuario, perfilUsuario = {}) {
+  const codigo = normalizeCodigoUsuario(codigoUsuario);
+
+  const [usuario, created] = await Usuario.findOrCreate({
+    where: { codigo },
+    defaults: {
+      codigo,
+      nombre: getNombreUsuarioDefault(codigo, perfilUsuario),
+    },
+  });
+
+  if (created) {
+    console.log(`[usuarios] Usuario creado automáticamente desde Keycloak: ${codigo}`);
   }
 
   return usuario;
@@ -313,11 +342,11 @@ async function ensureSelectionImagesResolved({ models, seleccion, figuritas }) {
   }
 }
 
-export async function getAlbumByUsuarioCodigo(codigoUsuario, models) {
+export async function getAlbumByUsuarioCodigo(codigoUsuario, models, perfilUsuario = {}) {
   const { Usuario, Seleccion, Figurita, Jugador, FigEspeciales, Posicion, UsuarioFigurita } =
     models;
 
-  const usuario = await getUsuarioOrThrow(Usuario, codigoUsuario);
+  const usuario = await findOrCreateUsuario(Usuario, codigoUsuario, perfilUsuario);
   const ownedSet = await getOwnedSet(UsuarioFigurita, usuario);
 
   const selecciones = await Seleccion.findAll({ order: [['idSeleccion', 'ASC']] });
@@ -342,11 +371,11 @@ export async function getAlbumByUsuarioCodigo(codigoUsuario, models) {
   };
 }
 
-export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion, models) {
+export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion, models, perfilUsuario = {}) {
   const { Usuario, Seleccion, Figurita, Jugador, FigEspeciales, Posicion, UsuarioFigurita } =
     models;
 
-  const usuario = await getUsuarioOrThrow(Usuario, codigoUsuario);
+  const usuario = await findOrCreateUsuario(Usuario, codigoUsuario, perfilUsuario);
   const ownedSet = await getOwnedSet(UsuarioFigurita, usuario);
   let seleccion = await getSeleccionOrThrow(Seleccion, codigoSeleccion);
 
