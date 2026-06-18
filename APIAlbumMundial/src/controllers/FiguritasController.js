@@ -1,5 +1,5 @@
 function createFiguritasController(FiguritasService) {
-    if (!FiguritasService || typeof FiguritasService.obtenerJugadores !== 'function') {
+    if (!FiguritasService || typeof FiguritasService.eliminarFigurita !== 'function') {
         throw new Error('El Servicio de Figuritas es inválido!');
     };
 

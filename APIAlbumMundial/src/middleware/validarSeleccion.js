@@ -11,7 +11,7 @@ function validarSeleccion(datosSeleccion) {
         });
     };
 
-    if (typeof datosSeleccion.urlBandera !== 'string' || datosSeleccion.pathBandera.trim() === '') {
+    if (typeof datosSeleccion.urlBandera !== 'string' || datosSeleccion.urlBandera.trim() === '') {
         return res.status(400).json({
             error: 'Bandera de pais inválida.'
         });
