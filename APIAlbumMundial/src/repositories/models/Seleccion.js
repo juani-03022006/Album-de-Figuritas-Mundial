@@ -21,7 +21,7 @@ Seleccion.init(
             allowNull: false,
             unique: true
         },
-        pathBanderaPais: {
+        urlBandera: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
@@ -51,6 +51,13 @@ Seleccion.init(
         colorTitulo: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        grupo: {
+            type: DataTypes.CHAR,
+            allowNull: false,
+            validate: {
+                is: /^[A-L]+$/
+            }
         }
     },
     {

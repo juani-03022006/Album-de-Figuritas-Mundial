@@ -16,7 +16,6 @@ function createSeleccionesController(SeleccionesService) {
         createSeleccion: async (req, res) => {
             try {
                 const nuevaSeleccion = req.body;
-                nuevaSeleccion.banderaPais = req.file.originalname;
 
                 const result = await SeleccionesService.crearSeleccion(nuevaSeleccion);
                 res.status(200).json(result);

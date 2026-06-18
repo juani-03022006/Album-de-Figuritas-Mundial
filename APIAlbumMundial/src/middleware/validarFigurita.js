@@ -1,14 +1,13 @@
-export function validarFigurita({ nroFigurita, nombreFoto, tipo, idSeleccion }, res) {
-    
-    if (typeof Number(nroFigurita) !== 'number') {
+function validarFigurita({ nroFigurita, urlFoto, tipo, idSeleccion }) {
+    if (typeof nroFigurita !== 'number') {
         return res.status(400).json({
             error: 'Número de figurita inválido.'
         });
     };
 
-    if (typeof nombreFoto !== 'string' || nombreFoto.trim() === '') {
+    if (typeof urlFoto !== 'string' || urlFoto.trim() === '') {
         return res.status(400).json({
-            error: 'Foto de figurita inválida.'
+            error: 'URL de Foto de figurita inválida.'
         });
     };
 
@@ -18,9 +17,14 @@ export function validarFigurita({ nroFigurita, nombreFoto, tipo, idSeleccion }, 
         });
     };
 
-    if (typeof Number(idSeleccion) !== 'number') {
+    if (typeof idSeleccion !== 'number') {
         return res.status(400).json({
             error: 'ID de selección inválido.'
         });
     };
+};
+
+export const middlewareValidacionFigurita = (req, res, next) => {
+    validarFigurita(req.body);
+    next();
 };

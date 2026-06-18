@@ -1,4 +1,4 @@
-export function validarJugador({ nombre, apellido, estatura, peso, fechaNacimiento, idPosicion }, res) {
+function validarJugador({ nombre, apellido, estatura, fechaNacimiento, idPosicion }) {
     if (typeof nombre !== 'string' || nombre.trim() === '') {
         return res.status(400).json({
             error: 'Nombre de Jugador inválido.'
@@ -17,12 +17,6 @@ export function validarJugador({ nombre, apellido, estatura, peso, fechaNacimien
         });
     };
 
-    if (typeof peso !== 'number' || peso <= 0) {
-        return res.status(400).json({
-            error: 'Peso de Jugador inválido.'
-        });
-    };
-
     if (typeof fechaNacimiento !== 'string' || nombre.trim() === '') {
         return res.status(400).json({
             error: 'Fecha de Nacimiento de Jugador inválida.'
@@ -34,4 +28,9 @@ export function validarJugador({ nombre, apellido, estatura, peso, fechaNacimien
             error: 'ID de Posicion de Jugador inválido.'
         });
     };
+};
+
+export const middlewareValidacionJugador = (req, res, next) => {
+    validarJugador(req.body.jugador);
+    next();
 };

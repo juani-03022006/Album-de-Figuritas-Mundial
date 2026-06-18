@@ -23,10 +23,6 @@ FiguritaJugador.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        peso: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         fechaNacimiento: {
             type: DataTypes.STRING,
             allowNull: false,

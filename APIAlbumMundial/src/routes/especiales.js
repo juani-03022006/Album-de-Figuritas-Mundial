@@ -1,21 +1,20 @@
 import { Router } from 'express';
-import { middlewarePostEspecial, middlewarePostEspeciales } from '../middleware/middlewarePostEspeciales.js';
-import { uploadEspecial } from '../middleware/uploadFotoEspecial.js';
-import { uploadEspeciales } from '../middleware/uploadZipFotosEspeciales.js';
-import createFiguritasController from '../controllers/FiguritasController.js';
-import FiguritasService from '../services/FiguritasService.js';
+import { middlewareValidacionFigurita } from '../middleware/validarFigurita.js'
+import { middlewareValidacionEspecial } from '../middleware/validarEspecial.js';
+import createEspecialesController from '../controllers/EspecialesController.js';
+import EspecialesService from '../services/EspecialesService.js';
 import FiguritasRepository from '../repositories/FiguritasRepository.js';
 
 
 const figuritasRepository = new FiguritasRepository();
-const figuritasService = new FiguritasService(figuritasRepository);
-const figuritasController = createFiguritasController(figuritasService);
+const especialesService = new EspecialesService(figuritasRepository);
+const especialesController = createEspecialesController(especialesService);
 
 const routerEspeciales = new Router();
 
-routerEspeciales.get('/seleccion/:id', figuritasController.getEspecialesPorSeleccion);
-routerEspeciales.post('/', uploadEspecial.single('fotoEspecial'), middlewarePostEspecial, figuritasController.createEspecial);
-routerEspeciales.post('/many', middlewarePostEspeciales, uploadEspeciales.single('fotosEspeciales'), figuritasController.createEspeciales);
-// routerEspeciales.put('/:id', middlewareValidacionEspecial, figuritasController.modifyEspecial);
+routerEspeciales.get('', especialesController.getEspeciales);
+routerEspeciales.get('/seleccion/:id', especialesController.getEspecialesPorSeleccion);
+routerEspeciales.post('', middlewareValidacionFigurita, middlewareValidacionEspecial, especialesController.createEspecial);
+routerEspeciales.put('/:id', middlewareValidacionEspecial, especialesController.modifyEspecial);
 
 export default routerEspeciales;

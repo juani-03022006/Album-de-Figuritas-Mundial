@@ -49,17 +49,6 @@ class FiguritasRepository {
         return nuevoJugador;
     };
 
-    async createJugadores(arrayDatosJugadores) {
-        const nuevosJugadores = [];
-
-        for (const datosJugador of arrayDatosJugadores) {
-            const nuevoJugador = await this.createJugador(datosJugador);
-            nuevosJugadores.push(nuevoJugador);
-        };
-
-        return nuevosJugadores;
-    };
-
     async modifyJugador(idJugador, datosNuevosJugador) {
         const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
 
@@ -97,17 +86,6 @@ class FiguritasRepository {
         });
 
         return nuevaEspecial;
-    };
-
-    async createEspeciales(arrayDatosEspeciales) {
-        const nuevasEspeciales = [];
-
-        for (const datosEspecial of arrayDatosEspeciales) {
-            const nuevaEspecial = await this.createEspecial(datosEspecial);
-            nuevasEspeciales.push(nuevaEspecial);
-        };
-
-        return nuevasEspeciales;
     };
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {

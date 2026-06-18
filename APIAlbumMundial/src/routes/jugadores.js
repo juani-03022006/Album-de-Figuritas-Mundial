@@ -1,24 +1,20 @@
 import { Router } from 'express';
-import { middlewarePostJugador, middlewarePostJugadores } from '../middleware/middlewarePostJugadores.js';
-import { middlewarePutJugador } from '../middleware/middlewarePutJugador.js';
-import { uploadJugador } from '../middleware/uploadFotoJugador.js';
-import { uploadJugadores } from '../middleware/uploadZipFotosJugadores.js';
-import createFiguritasController from '../controllers/FiguritasController.js';
-import FiguritasService from '../services/FiguritasService.js';
+import { middlewareValidacionFigurita } from '../middleware/validarFigurita.js';
+import { middlewareValidacionJugador } from '../middleware/validarJugador.js';
+import createJugadoresController from '../controllers/JugadoresController.js';
+import JugadoresService from '../services/JugadoresService.js'
 import FiguritasRepository from '../repositories/FiguritasRepository.js';
 
 
 const figuritasRepository = new FiguritasRepository();
-const figuritasService = new FiguritasService(figuritasRepository);
-const figuritasController = createFiguritasController(figuritasService);
+const jugadoresService = new JugadoresService(figuritasRepository);
+const jugadoresController = createJugadoresController(jugadoresService);
 
 const routerJugadores = new Router();
 
-routerJugadores.get('/', figuritasController.getJugadores);
-routerJugadores.get('/seleccion/:id', figuritasController.getJugadoresPorSeleccion);
-routerJugadores.post('/', uploadJugador.single('fotoJugador'), middlewarePostJugador, figuritasController.createJugador);
-routerJugadores.post('/many', uploadJugadores.single('fotosJugadores'), middlewarePostJugadores, figuritasController.createJugadores);
-routerJugadores.put('/:id', middlewarePutJugador, figuritasController.modifyJugador);
-routerJugadores.delete('/:id', figuritasController.deleteFigurita);
+routerJugadores.get('', jugadoresController.getJugadores);
+routerJugadores.get('/seleccion/:id', jugadoresController.getJugadoresPorSeleccion);
+routerJugadores.post('', middlewareValidacionFigurita, middlewareValidacionJugador, jugadoresController.createJugador);
+routerJugadores.put('/:id', middlewareValidacionJugador, jugadoresController.modifyJugador);
 
 export default routerJugadores;
