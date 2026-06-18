@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { uploadJugador } from '../middleware/uploadFotoJugador.js';
+import { middlewareValidacionFigurita } from '../middleware/validarFigurita.js';
+import { middlewareValidacionJugador } from '../middleware/validarJugador.js';
 import generarJugadoresController from '../controllers/JugadoresController.js';
 import JugadoresService from '../services/JugadoresService.js';
 import FiguritasAPI from '../apis/FiguritasAPI.js';
@@ -11,9 +12,10 @@ const jugadoresController = generarJugadoresController(jugadoresService);
 
 const routerJugadores = Router();
 
+routerJugadores.get('', jugadoresController.getJugadores);
 routerJugadores.get('/seleccion/:id', jugadoresController.getJugadoresPorSeleccion);
-routerJugadores.post('/', uploadJugador.single('fotoJugador'), jugadoresController.createJugador);
-routerJugadores.put('/:id', jugadoresController.modifyJugador);
+routerJugadores.post('', middlewareValidacionFigurita, middlewareValidacionJugador, jugadoresController.createJugador);
+routerJugadores.put('/:id', middlewareValidacionJugador, jugadoresController.modifyJugador);
 routerJugadores.delete('/:id', jugadoresController.deleteJugador);
 
 export default routerJugadores;

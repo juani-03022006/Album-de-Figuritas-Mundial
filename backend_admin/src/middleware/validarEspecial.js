@@ -1,12 +1,14 @@
 function validarEspecial({ nombre }) {
     if (typeof nombre !== 'string' || nombre.trim() === '') {
-        return res.status(400).json({
-            error: 'Nombre de Figurita inválido.'
-        });
+        throw new Error('Nombre de Figurita inválido.');
     };
 };
 
 export const middlewareValidacionEspecial = (req, res, next) => {
-    validarEspecial(req.body.especial);
-    next();
+    try {
+        validarEspecial(req.body.especial);
+        next();
+    } catch (error) {
+        res.status(400).json({ error: error });
+    };
 };

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
 
 
 class FiguritasAPI {
@@ -7,41 +6,37 @@ class FiguritasAPI {
         this.urlAPI = urlAPI;
     };
 
+    // Figuritas
     async deleteFigurita(idFigurita) {
         try {
-            const result = await axios.delete(`${this.urlAPI}/jugadores/${idFigurita}`);
+            const result = await axios.delete(`${this.urlAPI}/figuritas/${idFigurita}`);
             return result.data;
         } catch (error) {
             throw new Error(error);
         };
-    }
+    };
+
+    // Jugadores
+    async getJugadores() {
+        try {
+            const result = await axios.get(`${this.urlAPI}/figuritas/jugadores`)
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
 
     async getJugadoresPorSeleccion(idSeleccion) {
         try {
-            const result = await axios.get(`${this.urlAPI}/jugadores/seleccion/${idSeleccion}`);
+            const result = await axios.get(`${this.urlAPI}/figuritas/jugadores/seleccion/${idSeleccion}`);
             return result.data;
         } catch (error) {
             throw new Error(error);
         };
     }
 
-    async createJugador(datosJugador, fotoJugador) {
+    async createJugador(datosJugador) {
         try {
-            const formJugador = new FormData();
-
-            formJugador.append("nroFigurita", datosJugador.nroFigurita);
-            formJugador.append("nombreFoto", fotoJugador.originalname);
-            formJugador.append("tipo", datosJugador.tipo);
-            formJugador.append("idSeleccion", datosJugador.idSeleccion);
-            formJugador.append("jugador", datosJugador.jugador);
-            formJugador.append('fotoJugador', fotoJugador.buffer, {
-                filename: fotoJugador.originalname,
-                contentType: fotoJugador.mimetype
-            });
-
-            const result = await axios.post(`${this.urlAPI}/jugadores/`, formJugador, {
-                headers: formJugador.getHeaders()
-            });
+            const result = await axios.post(`${this.urlAPI}/figuritas/jugadores`, datosJugador);
             return result.data;
         } catch (error) {
             throw new Error(error);
@@ -50,8 +45,18 @@ class FiguritasAPI {
 
     async modifyJugador(idJugador, datosJugador) {
         try {
-            const result = await axios.put(`${this.urlAPI}/jugadores/${idJugador}`, datosJugador);
+            const result = await axios.put(`${this.urlAPI}/figuritas/jugadores/${idJugador}`, datosJugador);
             return result.data;
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
+
+    // Especiales
+    async getEspeciales() {
+        try {
+            const result = await axios.get(`${this.urlAPI}/figuritas/especiales`);
+            return result.data
         } catch (error) {
             throw new Error(error);
         };
@@ -59,30 +64,16 @@ class FiguritasAPI {
 
     async getEspecialesPorSeleccion(idSeleccion) {
         try {
-            const result = await axios.get(`${this.urlAPI}/especiales/seleccion/${idSeleccion}`);
+            const result = await axios.get(`${this.urlAPI}/figuritas/especiales/seleccion/${idSeleccion}`);
             return result.data;
         } catch (error) {
             throw new Error(error);
         };
     };
 
-    async createEspecial(datosEspecial, fotoEspecial) {
+    async createEspecial(datosEspecial) {
         try {
-            const formEspecial = new FormData();
-
-            formEspecial.append("nroFigurita", datosEspecial.nroFigurita);
-            formEspecial.append("nombreFoto", fotoEspecial.originalname);
-            formEspecial.append("tipo", datosEspecial.tipo);
-            formEspecial.append("idSeleccion", datosEspecial.idSeleccion);
-            formEspecial.append("especial", datosEspecial.especial);
-            formEspecial.append('fotoEspecial', fotoEspecial.buffer, {
-                filename: fotoEspecial.originalname,
-                contentType: fotoEspecial.mimetype
-            });
-
-            const result = await axios.post(`${this.urlAPI}/especiales/`, formEspecial, {
-                headers: formEspecial.getHeaders()
-            });
+            const result = await axios.post(`${this.urlAPI}/figuritas/especiales/`, datosEspecial);
             return result.data;
         } catch (error) {
             throw new Error(error);
@@ -91,7 +82,7 @@ class FiguritasAPI {
 
     async modifyEspecial(idEspecial, datosEspecial) {
         try {
-            const result = await axios.put(`${this.urlAPI}/especiales/${idEspecial}`, datosEspecial);
+            const result = await axios.put(`${this.urlAPI}/figuritas/especiales/${idEspecial}`, datosEspecial);
             return result.data;
         } catch (error) {
             throw new Error(error);

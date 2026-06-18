@@ -1,3 +1,5 @@
+import { buscarUrlBandera } from '../utils/buscarUrlBandera.js';
+
 class SeleccionesService {
     constructor(SeleccionesAPI) {
         if (!SeleccionesAPI || typeof SeleccionesAPI.createSeleccion !== 'function') {
@@ -16,9 +18,12 @@ class SeleccionesService {
         };
     };
 
-    async crearSeleccion(datosSeleccion, fotoSeleccion) {
+    async crearSeleccion(datosSeleccion) {
         try {
-            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion, fotoSeleccion);
+            const urlBandera = buscarUrlBandera(`Flag of ${datosSeleccion.nombrePais}.svg`);
+            datosSeleccion.urlBandera = urlBandera;
+
+            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion);
             return nuevaSeleccion;
         } catch (error) {
             throw new Error(error);
