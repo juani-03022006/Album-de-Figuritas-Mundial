@@ -1,12 +1,11 @@
-import { buscarUrlBandera } from '../utils/buscarUrlBandera.js';
-
 // Paletas pensadas para el diseño del frontend_usuario.
 // colorPrincipal = fondo de página, colorAcento1/colorAcento2 = formas decorativas,
 // colorTitulo = texto principal sobre colorPrincipal.
 
 export const TEAM_VISUALS = {
     ALG: {
-        asociacion: 'Fédération Algérienne de Football',
+        nombreSeleccion: 'Fédération Algérienne de Football',
+        nombrePais: 'Algeria',
         colorPrincipal: '#0A8F43',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#D21034',
@@ -14,7 +13,8 @@ export const TEAM_VISUALS = {
         grupo: 'J',
     },
     ARG: {
-        asociacion: 'Asociación del Fútbol Argentino',
+        nombreSeleccion: 'Asociación del Fútbol Argentino',
+        nombrePais: 'Argentina',
         colorPrincipal: '#75AADB',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#F6B40E',
@@ -22,7 +22,8 @@ export const TEAM_VISUALS = {
         grupo: 'J',
     },
     AUS: {
-        asociacion: 'Football Australia',
+        nombreSeleccion: 'Football Australia',
+        nombrePais: 'Australia',
         colorPrincipal: '#FFCD00',
         colorAcento1: '#00843D',
         colorAcento2: '#002664',
@@ -30,7 +31,8 @@ export const TEAM_VISUALS = {
         grupo: 'D',
     },
     AUT: {
-        asociacion: 'Österreichischer Fußball-Bund',
+        nombreSeleccion: 'Österreichischer Fußball-Bund',
+        nombrePais: 'Austria',
         colorPrincipal: '#EF3340',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#111111',
@@ -38,7 +40,8 @@ export const TEAM_VISUALS = {
         grupo: 'J',
     },
     BEL: {
-        asociacion: 'Royal Belgian Football Association',
+        nombreSeleccion: 'Royal Belgian Football Association',
+        nombrePais: 'Belgium',
         colorPrincipal: '#ED2939',
         colorAcento1: '#FAE042',
         colorAcento2: '#000000',
@@ -46,7 +49,8 @@ export const TEAM_VISUALS = {
         grupo: 'G',
     },
     BIH: {
-        asociacion: 'Football Association of Bosnia and Herzegovina',
+        nombreSeleccion: 'Football Association of Bosnia and Herzegovina',
+        nombrePais: 'Bosina and Herzegovina',
         colorPrincipal: '#005EB8',
         colorAcento1: '#FECB00',
         colorAcento2: '#FFFFFF',
@@ -54,7 +58,8 @@ export const TEAM_VISUALS = {
         grupo: 'B',
     },
     BRA: {
-        asociacion: 'Confederação Brasileira de Futebol',
+        nombreSeleccion: 'Confederação Brasileira de Futebol',
+        nombrePais: 'Brazil',
         colorPrincipal: '#FFDF00',
         colorAcento1: '#009C3B',
         colorAcento2: '#002776',
@@ -62,7 +67,8 @@ export const TEAM_VISUALS = {
         grupo: 'C',
     },
     CPV: {
-        asociacion: 'Federação Caboverdiana de Futebol',
+        nombreSeleccion: 'Federação Caboverdiana de Futebol',
+        nombrePais: 'Cape Verde',
         colorPrincipal: '#003893',
         colorAcento1: '#CF2027',
         colorAcento2: '#F7D116',
@@ -70,7 +76,8 @@ export const TEAM_VISUALS = {
         grupo: 'H',
     },
     CAN: {
-        asociacion: 'Canadian Soccer Association',
+        nombreSeleccion: 'Canadian Soccer Association',
+        nombrePais: 'Canada',
         colorPrincipal: '#D80621',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#111111',
@@ -78,7 +85,8 @@ export const TEAM_VISUALS = {
         grupo: 'B',
     },
     COL: {
-        asociacion: 'Federación Colombiana de Fútbol',
+        nombreSeleccion: 'Federación Colombiana de Fútbol',
+        nombrePais: 'Colombia',
         colorPrincipal: '#FCD116',
         colorAcento1: '#003893',
         colorAcento2: '#CE1126',
@@ -86,7 +94,8 @@ export const TEAM_VISUALS = {
         grupo: 'K',
     },
     COD: {
-        asociacion: 'Fédération Congolaise de Football-Association',
+        nombreSeleccion: 'Fédération Congolaise de Football-Association',
+        nombrePais: 'DR Congo',
         colorPrincipal: '#007FFF',
         colorAcento1: '#F7D618',
         colorAcento2: '#CE1021',
@@ -94,7 +103,8 @@ export const TEAM_VISUALS = {
         grupo: 'K',
     },
     CIV: {
-        asociacion: 'Fédération Ivoirienne de Football',
+        nombreSeleccion: 'Fédération Ivoirienne de Football',
+        nombrePais: 'Ivory Coast',
         colorPrincipal: '#F77F00',
         colorAcento1: '#009E60',
         colorAcento2: '#FFFFFF',
@@ -102,7 +112,8 @@ export const TEAM_VISUALS = {
         grupo: 'E',
     },
     CRO: {
-        asociacion: 'Croatian Football Federation',
+        nombreSeleccion: 'Croatian Football Federation',
+        nombrePais: 'Croatia',
         colorPrincipal: '#FF0000',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#171796',
@@ -110,7 +121,8 @@ export const TEAM_VISUALS = {
         grupo: 'L',
     },
     CUW: {
-        asociacion: 'Curaçao Football Federation',
+        nombreSeleccion: 'Curaçao Football Federation',
+        nombrePais: 'Curaçao',
         colorPrincipal: '#002B7F',
         colorAcento1: '#F9E814',
         colorAcento2: '#FFFFFF',
@@ -118,7 +130,8 @@ export const TEAM_VISUALS = {
         grupo: 'E',
     },
     CZE: {
-        asociacion: 'Football Association of the Czech Republic',
+        nombreSeleccion: 'Football Association of the Czech Republic',
+        nombrePais: 'Czech Republic',
         colorPrincipal: '#D7141A',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#11457E',
@@ -126,7 +139,8 @@ export const TEAM_VISUALS = {
         grupo: 'A',
     },
     ECU: {
-        asociacion: 'Federación Ecuatoriana de Fútbol',
+        nombreSeleccion: 'Federación Ecuatoriana de Fútbol',
+        nombrePais: 'Ecuador',
         colorPrincipal: '#FFDD00',
         colorAcento1: '#034EA2',
         colorAcento2: '#ED1C24',
@@ -134,7 +148,8 @@ export const TEAM_VISUALS = {
         grupo: 'E',
     },
     EGY: {
-        asociacion: 'Egyptian Football Association',
+        nombreSeleccion: 'Egyptian Football Association',
+        nombrePais: 'Egypt',
         colorPrincipal: '#CE1126',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#000000',
@@ -142,7 +157,8 @@ export const TEAM_VISUALS = {
         grupo: 'G',
     },
     ENG: {
-        asociacion: 'The Football Association',
+        nombreSeleccion: 'The Football Association',
+        nombrePais: 'England',
         colorPrincipal: '#FFFFFF',
         colorAcento1: '#CF142B',
         colorAcento2: '#00247D',
@@ -150,7 +166,8 @@ export const TEAM_VISUALS = {
         grupo: 'L',
     },
     FRA: {
-        asociacion: 'Fédération Française de Football',
+        nombreSeleccion: 'Fédération Française de Football',
+        nombrePais: 'France',
         colorPrincipal: '#0055A4',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#EF4135',
@@ -158,7 +175,8 @@ export const TEAM_VISUALS = {
         grupo: 'I',
     },
     GER: {
-        asociacion: 'Deutscher Fußball-Bund',
+        nombreSeleccion: 'Deutscher Fußball-Bund',
+        nombrePais: 'Germany',
         colorPrincipal: '#FFFFFF',
         colorAcento1: '#DD0000',
         colorAcento2: '#FFCE00',
@@ -166,7 +184,8 @@ export const TEAM_VISUALS = {
         grupo: 'E',
     },
     GHA: {
-        asociacion: 'Ghana Football Association',
+        nombreSeleccion: 'Ghana Football Association',
+        nombrePais: 'Ghana',
         colorPrincipal: '#FCD116',
         colorAcento1: '#006B3F',
         colorAcento2: '#CE1126',
@@ -174,7 +193,8 @@ export const TEAM_VISUALS = {
         grupo: 'L',
     },
     HAI: {
-        asociacion: 'Fédération Haïtienne de Football',
+        nombreSeleccion: 'Fédération Haïtienne de Football',
+        nombrePais: 'Haiti',
         colorPrincipal: '#00209F',
         colorAcento1: '#D21034',
         colorAcento2: '#FFFFFF',
@@ -182,7 +202,8 @@ export const TEAM_VISUALS = {
         grupo: 'C',
     },
     IRN: {
-        asociacion: 'Football Federation Islamic Republic of Iran',
+        nombreSeleccion: 'Football Federation Islamic Republic of Iran',
+        nombrePais: 'Iran',
         colorPrincipal: '#239F40',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#DA0000',
@@ -190,7 +211,8 @@ export const TEAM_VISUALS = {
         grupo: 'G',
     },
     IRQ: {
-        asociacion: 'Iraq Football Association',
+        nombreSeleccion: 'Iraq Football Association',
+        nombrePais: 'Iraq',
         colorPrincipal: '#CE1126',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#000000',
@@ -198,7 +220,8 @@ export const TEAM_VISUALS = {
         grupo: 'I',
     },
     JPN: {
-        asociacion: 'Japan Football Association',
+        nombreSeleccion: 'Japan Football Association',
+        nombrePais: 'Japan',
         colorPrincipal: '#FFFFFF',
         colorAcento1: '#BC002D',
         colorAcento2: '#1B2A6B',
@@ -206,7 +229,8 @@ export const TEAM_VISUALS = {
         grupo: 'F',
     },
     JOR: {
-        asociacion: 'Jordan Football Association',
+        nombreSeleccion: 'Jordan Football Association',
+        nombrePais: 'Jordan',
         colorPrincipal: '#007A3D',
         colorAcento1: '#CE1126',
         colorAcento2: '#000000',
@@ -214,7 +238,8 @@ export const TEAM_VISUALS = {
         grupo: 'J',
     },
     KOR: {
-        asociacion: 'Korea Football Association',
+        nombreSeleccion: 'Korea Football Association',
+        nombrePais: 'Republic of Korea',
         colorPrincipal: '#C60C30',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#003478',
@@ -222,7 +247,8 @@ export const TEAM_VISUALS = {
         grupo: 'A',
     },
     MEX: {
-        asociacion: 'Federación Mexicana de Fútbol',
+        nombreSeleccion: 'Federación Mexicana de Fútbol',
+        nombrePais: 'Mexico',
         colorPrincipal: '#006847',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#CE1126',
@@ -230,7 +256,8 @@ export const TEAM_VISUALS = {
         grupo: 'A',
     },
     MAR: {
-        asociacion: 'Fédération Royale Marocaine de Football',
+        nombreSeleccion: 'Fédération Royale Marocaine de Football',
+        nombrePais: 'Morroco',
         colorPrincipal: '#C1272D',
         colorAcento1: '#006233',
         colorAcento2: '#FFFFFF',
@@ -238,7 +265,8 @@ export const TEAM_VISUALS = {
         grupo: 'C',
     },
     NED: {
-        asociacion: 'Royal Dutch Football Association',
+        nombreSeleccion: 'Royal Dutch Football Association',
+        nombrePais: 'Netherlands',
         colorPrincipal: '#FF7F00',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#21468B',
@@ -246,7 +274,8 @@ export const TEAM_VISUALS = {
         grupo: 'F',
     },
     NZL: {
-        asociacion: 'New Zealand Football',
+        nombreSeleccion: 'New Zealand Football',
+        nombrePais: 'New Zealand',
         colorPrincipal: '#111111',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#00247D',
@@ -254,7 +283,8 @@ export const TEAM_VISUALS = {
         grupo: 'G',
     },
     NOR: {
-        asociacion: 'Norwegian Football Federation',
+        nombreSeleccion: 'Norwegian Football Federation',
+        nombrePais: 'Norway',
         colorPrincipal: '#BA0C2F',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#00205B',
@@ -262,7 +292,8 @@ export const TEAM_VISUALS = {
         grupo: 'I',
     },
     PAN: {
-        asociacion: 'Federación Panameña de Fútbol',
+        nombreSeleccion: 'Federación Panameña de Fútbol',
+        nombrePais: 'Panama',
         colorPrincipal: '#D21034',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#005293',
@@ -270,7 +301,8 @@ export const TEAM_VISUALS = {
         grupo: 'L',
     },
     PAR: {
-        asociacion: 'Asociación Paraguaya de Fútbol',
+        nombreSeleccion: 'Asociación Paraguaya de Fútbol',
+        nombrePais: 'Paraguay',
         colorPrincipal: '#D52B1E',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#0038A8',
@@ -278,7 +310,8 @@ export const TEAM_VISUALS = {
         grupo: 'D',
     },
     POR: {
-        asociacion: 'Federação Portuguesa de Futebol',
+        nombreSeleccion: 'Federação Portuguesa de Futebol',
+        nombrePais: 'Portugal',
         colorPrincipal: '#006600',
         colorAcento1: '#FF0000',
         colorAcento2: '#FFCC00',
@@ -286,7 +319,8 @@ export const TEAM_VISUALS = {
         grupo: 'K',
     },
     QAT: {
-        asociacion: 'Qatar Football Association',
+        nombreSeleccion: 'Qatar Football Association',
+        nombrePais: 'Qatar',
         colorPrincipal: '#8A1538',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#D4AF37',
@@ -294,7 +328,8 @@ export const TEAM_VISUALS = {
         grupo: 'B',
     },
     KSA: {
-        asociacion: 'Saudi Arabian Football Federation',
+        nombreSeleccion: 'Saudi Arabian Football Federation',
+        nombrePais: 'Saudi Arabia',
         colorPrincipal: '#006C35',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#D4AF37',
@@ -302,7 +337,8 @@ export const TEAM_VISUALS = {
         grupo: 'H',
     },
     SCO: {
-        asociacion: 'Scottish Football Association',
+        nombreSeleccion: 'Scottish Football Association',
+        nombrePais: 'Scotland',
         colorPrincipal: '#005EB8',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#001F4D',
@@ -310,7 +346,8 @@ export const TEAM_VISUALS = {
         grupo: 'C',
     },
     SEN: {
-        asociacion: 'Fédération Sénégalaise de Football',
+        nombreSeleccion: 'Fédération Sénégalaise de Football',
+        nombrePais: 'Senegal',
         colorPrincipal: '#00853F',
         colorAcento1: '#FDEF42',
         colorAcento2: '#E31B23',
@@ -318,7 +355,8 @@ export const TEAM_VISUALS = {
         grupo: 'I',
     },
     RSA: {
-        asociacion: 'South African Football Association',
+        nombreSeleccion: 'South African Football Association',
+        nombrePais: 'South Africa',
         colorPrincipal: '#007A4D',
         colorAcento1: '#FFB612',
         colorAcento2: '#000000',
@@ -326,7 +364,8 @@ export const TEAM_VISUALS = {
         grupo: 'A',
     },
     ESP: {
-        asociacion: 'Real Federación Española de Fútbol',
+        nombreSeleccion: 'Real Federación Española de Fútbol',
+        nombrePais: 'España',
         colorPrincipal: '#AA151B',
         colorAcento1: '#F1BF00',
         colorAcento2: '#0039A6',
@@ -334,7 +373,8 @@ export const TEAM_VISUALS = {
         grupo: 'H',
     },
     SWE: {
-        asociacion: 'Swedish Football Association',
+        nombreSeleccion: 'Swedish Football Association',
+        nombrePais: 'Sweden',
         colorPrincipal: '#006AA7',
         colorAcento1: '#FECC00',
         colorAcento2: '#FFFFFF',
@@ -342,7 +382,8 @@ export const TEAM_VISUALS = {
         grupo: 'F',
     },
     SUI: {
-        asociacion: 'Swiss Football Association',
+        nombreSeleccion: 'Swiss Football Association',
+        nombrePais: 'Switzerland',
         colorPrincipal: '#D52B1E',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#111111',
@@ -350,7 +391,8 @@ export const TEAM_VISUALS = {
         grupo: 'B',
     },
     TUN: {
-        asociacion: 'Fédération Tunisienne de Football',
+        nombreSeleccion: 'Fédération Tunisienne de Football',
+        nombrePais: 'Tunisia',
         colorPrincipal: '#E70013',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#111111',
@@ -358,7 +400,8 @@ export const TEAM_VISUALS = {
         grupo: 'F',
     },
     TUR: {
-        asociacion: 'Turkish Football Federation',
+        nombreSeleccion: 'Turkish Football Federation',
+        nombrePais: 'Turkey',
         colorPrincipal: '#E30A17',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#111111',
@@ -366,7 +409,8 @@ export const TEAM_VISUALS = {
         grupo: 'D',
     },
     URU: {
-        asociacion: 'Asociación Uruguaya de Fútbol',
+        nombreSeleccion: 'Asociación Uruguaya de Fútbol',
+        nombrePais: 'Uruguay',
         colorPrincipal: '#7BC8F6',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#FCD116',
@@ -374,7 +418,8 @@ export const TEAM_VISUALS = {
         grupo: 'H',
     },
     USA: {
-        asociacion: 'United States Soccer Federation',
+        nombreSeleccion: 'United States Soccer Federation',
+        nombrePais: 'United States of America',
         colorPrincipal: '#3C3B6E',
         colorAcento1: '#B22234',
         colorAcento2: '#FFFFFF',
@@ -382,7 +427,8 @@ export const TEAM_VISUALS = {
         grupo: 'D',
     },
     UZB: {
-        asociacion: 'Uzbekistan Football Association',
+        nombreSeleccion: 'Uzbekistan Football Association',
+        nombrePais: 'Uzbekistan',
         colorPrincipal: '#0099B5',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#1EB53A',
@@ -392,9 +438,7 @@ export const TEAM_VISUALS = {
 };
 
 export const DEFAULT_TEAM_VISUALS = {
-    searchName: null,
-    asociacion: 'Federación/Asociación nacional de fútbol',
-    urlBandera: buscarUrlBandera('Soccerball.svg'),
+    nombreSeleccion: 'Federación/Asociación nacional de fútbol',
     colorPrincipal: '#64748B',
     colorAcento1: '#CBD5E1',
     colorAcento2: '#334155',

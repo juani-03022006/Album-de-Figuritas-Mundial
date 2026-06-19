@@ -12,7 +12,7 @@ function createSeleccionesController(SeleccionesService) {
                 res.status(500).json(error);
             };
         },
-        
+
         createSeleccion: async (req, res) => {
             try {
                 const nuevaSeleccion = req.body;
