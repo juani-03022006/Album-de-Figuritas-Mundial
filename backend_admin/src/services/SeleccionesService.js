@@ -14,9 +14,18 @@ class SeleccionesService {
             const selecciones = await this.SeleccionesAPI.getSelecciones();
             return selecciones;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
+
+    async obtenerSeleccionPorNombrePais(nombrePais) {
+        try {
+            const seleccion = await this.SeleccionesAPI.getSeleccionPorNombrePais(nombrePais);
+            return seleccion;
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    }
 
     async crearSeleccion(datosSeleccion) {
         try {
@@ -26,7 +35,7 @@ class SeleccionesService {
             const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion);
             return nuevaSeleccion;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
 
@@ -35,7 +44,7 @@ class SeleccionesService {
             const seleccionModifcada = await this.SeleccionesAPI.modifySeleccion(idSeleccion, datosSeleccion);
             return seleccionModifcada;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
 };

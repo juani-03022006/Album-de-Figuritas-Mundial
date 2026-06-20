@@ -50,7 +50,7 @@ export const TEAM_VISUALS = {
     },
     BIH: {
         nombreSeleccion: 'Football Association of Bosnia and Herzegovina',
-        nombrePais: 'Bosina and Herzegovina',
+        nombrePais: 'Bosnia And Herzegovina',
         colorPrincipal: '#005EB8',
         colorAcento1: '#FECB00',
         colorAcento2: '#FFFFFF',
@@ -68,7 +68,7 @@ export const TEAM_VISUALS = {
     },
     CPV: {
         nombreSeleccion: 'Federação Caboverdiana de Futebol',
-        nombrePais: 'Cape Verde',
+        nombrePais: 'Cabo Verde',
         colorPrincipal: '#003893',
         colorAcento1: '#CF2027',
         colorAcento2: '#F7D116',
@@ -239,7 +239,7 @@ export const TEAM_VISUALS = {
     },
     KOR: {
         nombreSeleccion: 'Korea Football Association',
-        nombrePais: 'Republic of Korea',
+        nombrePais: 'Korea Republic',
         colorPrincipal: '#C60C30',
         colorAcento1: '#FFFFFF',
         colorAcento2: '#003478',
@@ -257,7 +257,7 @@ export const TEAM_VISUALS = {
     },
     MAR: {
         nombreSeleccion: 'Fédération Royale Marocaine de Football',
-        nombrePais: 'Morroco',
+        nombrePais: 'Morocco',
         colorPrincipal: '#C1272D',
         colorAcento1: '#006233',
         colorAcento2: '#FFFFFF',

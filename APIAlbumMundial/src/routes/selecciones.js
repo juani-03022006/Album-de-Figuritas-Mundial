@@ -11,7 +11,8 @@ const seleccionesController = createSeleccionesController(seleccionesService);
 
 const routerSelecciones = Router();
 
-routerSelecciones.get('', seleccionesController.getSelectiones);
+routerSelecciones.get('', seleccionesController.getSelecciones);
+routerSelecciones.get('/:nombrePais', seleccionesController.getSeleccionPorNombrePais);
 routerSelecciones.post('', middlewareValidacionSeleccion, seleccionesController.createSeleccion);
 routerSelecciones.put('/:id', middlewareValidacionSeleccion, seleccionesController.modifySeleccion);
 routerSelecciones.delete('/all', seleccionesController.deleteSelecciones);

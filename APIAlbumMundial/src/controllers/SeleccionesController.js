@@ -4,10 +4,20 @@ function createSeleccionesController(SeleccionesService) {
     };
 
     return {
-        getSelectiones: async (req, res) => {
+        getSelecciones: async (req, res) => {
             try {
                 const selecciones = await SeleccionesService.obtenerSelecciones();
                 res.status(200).json(selecciones);
+            } catch (error) {
+                res.status(500).json(error);
+            };
+        },
+
+        getSeleccionPorNombrePais: async (req, res) => {
+            try {
+                const nombrePais = req.params.nombrePais;
+                const seleccion = await SeleccionesService.obtenerSeleccionPorNombrePais(nombrePais);
+                res.status(200).json(seleccion);
             } catch (error) {
                 res.status(500).json(error);
             };
