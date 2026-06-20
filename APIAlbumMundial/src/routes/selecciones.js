@@ -14,5 +14,6 @@ const routerSelecciones = Router();
 routerSelecciones.get('', seleccionesController.getSelectiones);
 routerSelecciones.post('', middlewareValidacionSeleccion, seleccionesController.createSeleccion);
 routerSelecciones.put('/:id', middlewareValidacionSeleccion, seleccionesController.modifySeleccion);
+routerSelecciones.delete('/all', seleccionesController.deleteSelecciones);
 
 export default routerSelecciones;

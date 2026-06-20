@@ -33,6 +33,15 @@ class SeleccionesService {
             throw new Error(error);
         };
     };
+
+    async eliminarSelecciones() {
+        try {
+            const result = await this.SeleccionesRepository.deleteSelecciones();
+            return result;
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
 };
 
 export default SeleccionesService;

@@ -18,82 +18,113 @@ class FiguritasRepository {
     }
 
     async getJugadores() {
-        const jugadores = await FiguritaJugador.findAll({
-            include: [
-                { model: Posicion, as: 'posicion' },
-                { model: Figurita, as: 'figurita' }
-            ]
-        });
+        try {
+            const jugadores = await FiguritaJugador.findAll({
+                include: [
+                    { model: Posicion, as: 'posicion' },
+                    { model: Figurita, as: 'figurita' }
+                ]
+            });
 
-        return jugadores;
+            return jugadores;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async getJugadoresPorSeleccion(idSeleccion) {
-        const jugadores = await FiguritaJugador.findAll({
-            include: [
-                { model: Posicion, as: 'posicion' },
-                { model: Figurita, as: 'figurita', where: { idSeleccion } }
-            ]
-        });
+        try {
+            const jugadores = await FiguritaJugador.findAll({
+                include: [
+                    { model: Posicion, as: 'posicion' },
+                    { model: Figurita, as: 'figurita', where: { idSeleccion } }
+                ]
+            });
 
-        return jugadores;
+            return jugadores;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async createJugador(datosJugador) {
-        const nuevoJugador = await Figurita.create(datosJugador, {
-            include: [
-                { model: FiguritaJugador, as: 'jugador' }
-            ]
-        });
+        try {
+            const nuevoJugador = await Figurita.create(datosJugador, {
+                include: [
+                    { model: FiguritaJugador, as: 'jugador' }
+                ]
+            });
 
-        return nuevoJugador;
+            return nuevoJugador;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async modifyJugador(idJugador, datosNuevosJugador) {
-        const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
+        try {
+            const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
 
-        jugador.set(datosNuevosJugador);
-        jugador.save();
-
-        return jugador;
+            jugador.set(datosNuevosJugador);
+            jugador.save();
+            return jugador;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async getEspeciales() {
-        const especiales = await FiguritaEspecial.findAll({
-            include: [
-                { model: Figurita, as: 'figurita' }
-            ]
-        });
+        try {
+            const especiales = await FiguritaEspecial.findAll({
+                include: [
+                    { model: Figurita, as: 'figurita' }
+                ]
+            });
 
-        return especiales;
+            return especiales;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async getEspecialesPorSeleccion(idSeleccion) {
-        const especiales = await FiguritaEspecial.findAll({
-            include: [
-                { model: Figurita, as: 'figurita', where: { idSeleccion } }
-            ]
-        });
+        try {
+            const especiales = await FiguritaEspecial.findAll({
+                include: [
+                    { model: Figurita, as: 'figurita', where: { idSeleccion } }
+                ]
+            });
 
-        return especiales;
+            return especiales;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async createEspecial(datosEspecial) {
-        const nuevaEspecial = await Figurita.create(datosEspecial, {
-            include: [
-                { model: FiguritaEspecial, as: 'especial' }
-            ]
-        });
+        try {
+            const nuevaEspecial = await Figurita.create(datosEspecial, {
+                include: [
+                    { model: FiguritaEspecial, as: 'especial' }
+                ]
+            });
 
-        return nuevaEspecial;
+            return nuevaEspecial;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {
-        const especial = await FiguritaEspecial.findOne({ where: { idEspecial } });
+        try {
+            const especial = await FiguritaEspecial.findOne({ where: { idEspecial } });
 
-        especial.set(datosNuevosEspecial);
-        especial.save();
-        return especial;
+            especial.set(datosNuevosEspecial);
+            especial.save();
+            return especial;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 };
 

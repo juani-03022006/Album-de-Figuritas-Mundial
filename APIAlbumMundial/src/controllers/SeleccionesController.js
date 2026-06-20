@@ -34,6 +34,15 @@ function createSeleccionesController(SeleccionesService) {
             } catch (error) {
                 res.status(500).json(error);
             };
+        },
+        // Para testing
+        deleteSelecciones: async (req, res) => {
+            try {
+                const result = await SeleccionesService.eliminarSelecciones();
+                res.status(200).json(result);
+            } catch (error) {
+                res.status(500).json(error);
+            };
         }
     };
 };

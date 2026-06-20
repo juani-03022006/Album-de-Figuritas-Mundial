@@ -8,23 +8,39 @@ class PosicionesService {
     };
 
     async obtenerPosiciones() {
-        const posiciones = await this.PosicionesRepository.getPosiciones();
-        return posiciones;
+        try {
+            const posiciones = await this.PosicionesRepository.getPosiciones();
+            return posiciones;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async crearPosicion(datosPosicionNueva) {
-        const nuevaPosicion = await this.PosicionesRepository.createPosicion(datosPosicionNueva);
-        return nuevaPosicion;
+        try {
+            const nuevaPosicion = await this.PosicionesRepository.createPosicion(datosPosicionNueva);
+            return nuevaPosicion;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async modificarPosicion(idPosicionModificada, posicionModificada) {
-        const posicion = await this.PosicionesRepository.modifyPosicion(idPosicionModificada, posicionModificada);
-        return posicion;
+        try {
+            const posicion = await this.PosicionesRepository.modifyPosicion(idPosicionModificada, posicionModificada);
+            return posicion;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async eliminarPosicion(idPosicion) {
-        const posicion = await this.PosicionesRepository.deletePosicion(idPosicion);
-        return posicion;
+        try {
+            const posicion = await this.PosicionesRepository.deletePosicion(idPosicion);
+            return posicion;
+        } catch (error) {
+            throw new Error(error);
+        };
     }
 };
 
