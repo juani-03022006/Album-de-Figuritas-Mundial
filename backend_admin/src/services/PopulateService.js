@@ -78,7 +78,7 @@ class PopulateService {
     async populateDB() {
         try {
             // Primero Posiciones
-            // await this.#populatePosiciones();
+            await this.#populatePosiciones();
 
             // Despues Selecciones
             await this.#populateSelecciones();
