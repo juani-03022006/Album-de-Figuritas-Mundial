@@ -1,16 +1,28 @@
 function generarJugadoresController(JugadoresService) {
-    if (!JugadoresService || typeof JugadoresService.obtenerJugadoresPorSeleccion !== 'function') {
+    if (!JugadoresService || typeof JugadoresService.obtenerJugadores !== 'function') {
         throw new Error('El Servicio de Jugadores es inválido!');
     };
 
     return {
+        getJugadores: async (req, res) => {
+            try {
+                const jugadores = JugadoresService.obtenerJugadores();
+                console.log('Obteniendo jugadores...');
+
+                res.status(200).json(await jugadores);
+            } catch (error) {
+                res.status(500).json(error);
+            };
+        },
+
         getJugadoresPorSeleccion: async (req, res) => {
             try {
-                console.log('Obteniendo jugadores...');
                 const idSeleccion = req.params.id;
-                const jugadoresDeSeleccion = await JugadoresService.obtenerJugadoresPorSeleccion(idSeleccion);
 
-                res.status(200).json(jugadoresDeSeleccion);
+                const jugadoresDeSeleccion = JugadoresService.obtenerJugadoresPorSeleccion(idSeleccion);
+                console.log('Obteniendo jugadores...');
+
+                res.status(200).json(await jugadoresDeSeleccion);
             } catch (error) {
                 res.status(500).json(error);
             };
@@ -18,12 +30,11 @@ function generarJugadoresController(JugadoresService) {
 
         createJugador: async (req, res) => {
             try {
-                console.log('Añadiendo jugador...');
                 const datosJugador = req.body;
-                const fotoJugador = req.file;
-                const jugador = await JugadoresService.crearJugador(datosJugador, fotoJugador);
+                const jugador = JugadoresService.crearJugador(datosJugador);
 
-                res.status(200).json(jugador);
+                console.log('Añadiendo jugador...');
+                res.status(200).json(await jugador);
             } catch (error) {
                 res.status(500).json(error);
             };
@@ -31,12 +42,12 @@ function generarJugadoresController(JugadoresService) {
 
         modifyJugador: async (req, res) => {
             try {
-                console.log('Modificando jugador...');
                 const idJugador = req.params.id;
                 const jugadorModificado = req.body;
-
-                const result = await JugadoresService.modificarJugador(idJugador, jugadorModificado);
-                res.status(200).json(result);
+                const result = JugadoresService.modificarJugador(idJugador, jugadorModificado);
+                
+                console.log('Modificando jugador...');
+                res.status(200).json(await result);
             } catch (error) {
                 res.status(500).json(error);
             };
@@ -44,11 +55,11 @@ function generarJugadoresController(JugadoresService) {
 
         deleteJugador: async (req, res) => {
             try {
-                console.log('Eliminando jugador...');
                 const idFigurita = req.params.id;
-
-                const result = await JugadoresService.eliminarJugador(idFigurita);
-                res.status(200).json(result);
+                const result = JugadoresService.eliminarJugador(idFigurita);
+                
+                console.log('Eliminando jugador...');
+                res.status(200).json(await result);
             } catch (error) {
                 res.status(500).json(error);
             };

@@ -3,33 +3,43 @@ import { Posicion } from './models/index.js';
 
 class PosicionesRepository {
     async getPosiciones() {
-        const posiciones = await Posicion.findAll();
-
-        return posiciones;
+        try {
+            const posiciones = await Posicion.findAll();
+            return posiciones;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
-    
+
     async createPosicion({ descripcion }) {
-        const nuevaPosicion = await Posicion.create({
-            descripcion: descripcion
-        });
-        
-        return nuevaPosicion;
+        try {
+            const nuevaPosicion = await Posicion.create({ descripcion: descripcion });
+            return nuevaPosicion;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
-    
+
     async modifyPosicion(idPosicion, { descripcion }) {
-        const posicion = await Posicion.findOne({ where: { idPosicion } });
+        try {
+            const posicion = await Posicion.findOne({ where: { idPosicion } });
 
-        posicion.set({
-            descripcion: descripcion
-        });
-        await posicion.save();
+            posicion.set({ descripcion: descripcion });
+            await posicion.save();
 
-        return posicion;
+            return posicion;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async deletePosicion(idPosicion) {
-        const posiconEliminada = await Posicion.destroy({ where: { idPosicion } });
-        return posiconEliminada;
+        try {
+            const posiconEliminada = await Posicion.destroy({ where: { idPosicion } });
+            return posiconEliminada;
+        } catch (error) {
+            throw new Error(error);
+        };
     }
 };
 

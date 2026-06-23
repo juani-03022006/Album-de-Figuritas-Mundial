@@ -12,25 +12,44 @@ class SeleccionesService {
             const selecciones = await this.SeleccionesRepository.getSelecciones();
             return selecciones;
         } catch (error) {
-            console.error(error);
+            throw new Error(error.message);
         };
     };
 
+    async obtenerSeleccionPorNombrePais(nombrePais) {
+        try {
+            const seleccion = await this.SeleccionesRepository.getSeleccionPorNombrePais(nombrePais);
+            return seleccion;
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    }
+
     async crearSeleccion(datosSeleccion) {
         try {
-            datosSeleccion.pathBanderaPais = `uploads/selecciones/${datosSeleccion.banderaPais}`;
-            delete datosSeleccion.banderaPais;
-
-            const seleccionNueva = await this.SeleccionesRepository.createSeleccion(datosSeleccionNueva);
+            const seleccionNueva = await this.SeleccionesRepository.createSeleccion(datosSeleccion);
             return seleccionNueva;
         } catch (error) {
-            console.error(error);
+            throw new Error(error.message);
         };
     };
 
     async modificarSeleccion(idSeleccionModificada, datosSeleccionModificada) {
-        const seleccion = await this.SeleccionesRepository.modifySeleccion(idSeleccionModificada, datosSeleccionModificada);
-        return seleccion;
+        try {
+            const seleccion = await this.SeleccionesRepository.modifySeleccion(idSeleccionModificada, datosSeleccionModificada);
+            return seleccion;
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    };
+
+    async eliminarSelecciones() {
+        try {
+            const result = await this.SeleccionesRepository.deleteSelecciones();
+            return result;
+        } catch (error) {
+            throw new Error(error.message);
+        };
     };
 };
 

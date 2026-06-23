@@ -1,3 +1,5 @@
+import { buscarUrlBandera } from '../utils/buscarUrlBandera.js';
+
 class SeleccionesService {
     constructor(SeleccionesAPI) {
         if (!SeleccionesAPI || typeof SeleccionesAPI.createSeleccion !== 'function') {
@@ -12,16 +14,28 @@ class SeleccionesService {
             const selecciones = await this.SeleccionesAPI.getSelecciones();
             return selecciones;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
 
-    async crearSeleccion(datosSeleccion, fotoSeleccion) {
+    async obtenerSeleccionPorNombrePais(nombrePais) {
         try {
-            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion, fotoSeleccion);
+            const seleccion = await this.SeleccionesAPI.getSeleccionPorNombrePais(nombrePais);
+            return seleccion;
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    }
+
+    async crearSeleccion(datosSeleccion) {
+        try {
+            const urlBandera = buscarUrlBandera(`Flag of ${datosSeleccion.nombrePais}.svg`);
+            datosSeleccion.urlBandera = urlBandera;
+
+            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion);
             return nuevaSeleccion;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
 
@@ -30,7 +44,7 @@ class SeleccionesService {
             const seleccionModifcada = await this.SeleccionesAPI.modifySeleccion(idSeleccion, datosSeleccion);
             return seleccionModifcada;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
 };

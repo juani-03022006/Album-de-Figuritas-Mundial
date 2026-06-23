@@ -1,9 +1,9 @@
-function validarFigurita({ nroFigurita, pathToPic, tipo, idSeleccion }) {
+function validarFigurita({ nroFigurita, nombreFoto, tipo, idSeleccion }) {
     if (typeof nroFigurita !== 'number') {
         throw new Error('Número de figurita inválido.');
     };
 
-    if (typeof pathToPic !== 'string' || pathToPic.trim() === '') {
+    if (typeof nombreFoto !== 'string' || nombreFoto.trim() === '') {
         throw new Error('Nombre de la Foto de figurita inválida.');
     };
 

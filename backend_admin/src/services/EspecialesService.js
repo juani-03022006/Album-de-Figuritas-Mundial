@@ -1,10 +1,19 @@
 class EspecialesService {
     constructor(FiguritasAPI) {
-        if (!FiguritasAPI || typeof FiguritasAPI.getEspecialesPorSeleccion !== 'function') {
+        if (!FiguritasAPI || typeof FiguritasAPI.getEspeciales !== 'function') {
             throw new Error('El Repositorio de Figuritas es obligatorio!');
         };
 
         this.FiguritasAPI = FiguritasAPI;
+    };
+
+    async obtenerEspeciales() {
+        try {
+            const result = await this.FiguritasAPI.getEspeciales();
+            return result
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async obtenerEspecialesPorSeleccion(idSeleccion) {
@@ -12,16 +21,16 @@ class EspecialesService {
             const result = await this.FiguritasAPI.getEspecialesPorSeleccion(idSeleccion);
             return result;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 
-    async crearEspecial(datosEspecial, fotoEspecial) {
+    async crearEspecial(datosEspecial) {
         try {
-            const result = await this.FiguritasAPI.createEspecial(datosEspecial, fotoEspecial);
+            const result = await this.FiguritasAPI.createEspecial(datosEspecial);
             return result;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 

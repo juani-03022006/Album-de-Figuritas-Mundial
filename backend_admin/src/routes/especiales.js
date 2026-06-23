@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { uploadEspecial } from '../middleware/uploadFotoEspecial.js';
+import { middlewareValidacionFigurita } from '../middleware/validarFigurita.js';
+import { middlewareValidacionEspecial } from '../middleware/validarEspecial.js';
 import generarEspecialesController from '../controllers/EspecialesController.js';
 import EspecialesService from '../services/EspecialesService.js';
 import FiguritasAPI from '../apis/FiguritasAPI.js';
@@ -11,9 +12,10 @@ const especialesController = generarEspecialesController(especialesService);
 
 const routerEspeciales = Router();
 
+routerEspeciales.get('', especialesController.getEspeciales);
 routerEspeciales.get('/seleccion/:id', especialesController.getEspecialesPorSeleccion);
-routerEspeciales.post('/', uploadEspecial.single('fotoEspecial'), especialesController.createEspecial);
-routerEspeciales.put('/:id', especialesController.modifyEspecial);
-// routerEspeciales.delete('/:id', jugadoresController.deleteJugador);
+routerEspeciales.post('', middlewareValidacionFigurita, middlewareValidacionEspecial, especialesController.createEspecial);
+routerEspeciales.put('/:id', middlewareValidacionEspecial, especialesController.modifyEspecial);
+routerEspeciales.delete('/:id', especialesController.deleteEspecial);
 
 export default routerEspeciales;

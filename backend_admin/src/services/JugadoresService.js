@@ -1,10 +1,19 @@
 class JugadoresService {
     constructor(FiguritasAPI) {
-        if (!FiguritasAPI || typeof FiguritasAPI.createJugador !== 'function') {
+        if (!FiguritasAPI || typeof FiguritasAPI.getJugadores !== 'function') {
             throw new Error('El Repositorio de Figuritas es obligatorio!');
         };
 
         this.FiguritasAPI = FiguritasAPI;
+    };
+
+    async obtenerJugadores() {
+        try {
+            const result = await this.FiguritasAPI.getJugadores();
+            return result;
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     async obtenerJugadoresPorSeleccion(idSeleccion) {
@@ -12,16 +21,16 @@ class JugadoresService {
             const result = await this.FiguritasAPI.getJugadoresPorSeleccion(idSeleccion);
             return result;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 
-    async crearJugador(datosJugador, fotoJugador) {
+    async crearJugador(datosJugador) {
         try {
-            const result = await this.FiguritasAPI.createJugador(datosJugador, fotoJugador);
+            const result = await this.FiguritasAPI.createJugador(datosJugador);
             return result;
         } catch (error) {
-            console.error(error);
+            throw new Error(error);
         };
     };
 
