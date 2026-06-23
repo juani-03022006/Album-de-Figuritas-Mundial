@@ -98,7 +98,7 @@ function PersonFigurita({ team, figurita, isLandscape, fluid, isTecnico = false 
 
       <CountryPill team={team} />
 
-      <div className="absolute top-0 left-0 right-0 h-[58%] z-10">
+      <div className="absolute top-0 left-0 right-0 z-10">
         {fotoUrl && (
           <ImageWithFallback
             src={fotoUrl}
