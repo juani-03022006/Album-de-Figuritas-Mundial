@@ -2,6 +2,7 @@
   "name": "album-mundial-futbol-workspace",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "keycloak:up": "podman compose up -d",
     "keycloak:up:docker": "docker compose up -d",
@@ -13,7 +14,11 @@
     "dev:api": "npm run dev --prefix APIAlbumMundial",
     "dev:backend": "npm run dev --prefix backend_usuario",
     "dev:frontend": "npm run dev --prefix frontend_usuario -- --host 0.0.0.0",
-    "reset:api-db": "node scripts/reset-api-db.mjs"
+    "reset:api-db": "node scripts/reset-api-db.mjs",
+    "test": "npm run test --prefix backend_usuario && npm run test --prefix APIAlbumMundial && npm run test --prefix frontend_usuario",
+    "test:backend_usuario": "npm run test --prefix backend_usuario",
+    "test:api": "npm run test --prefix APIAlbumMundial",
+    "test:frontend_usuario": "npm run test --prefix frontend_usuario"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
