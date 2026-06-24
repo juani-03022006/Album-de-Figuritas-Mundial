@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import { getSelecciones, createSeleccion, deleteSeleccion } from '../api/apiSelecciones.js';
+
 
 export function useSelecciones() {
     const [selecciones, setSelecciones] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchSelecciones = async () => {
@@ -12,26 +13,40 @@ export function useSelecciones() {
 
                 const result = await getSelecciones();
 
-                if (!result.ok) throw new Error('Error al cargar las selecciones.');
-
-                const data = await result.json;
-                setSelecciones(data);
+                console.log(result);
+                setSelecciones(result);
             } catch (error) {
-                setError(error);
+                throw new Error(error);
             };
         };
 
         fetchSelecciones();
     }, []);
 
-    const handleSeleccionesChange = (nuevaSeleccion) => {
-        setSelecciones((prev) => [...prev, nuevaSeleccion]);
+    const handleSeleccionesChange = async (nuevaSeleccion) => {
+        try {
+            await createSeleccion(nuevaSeleccion);
+
+            setSelecciones((prev) => [...prev, nuevaSeleccion]);
+        } catch (error) {
+            throw new Error(error);
+        };
+    };
+
+    const handleSeleccionDelete = async (idSeleccion) => {
+        try {
+            await deleteSeleccion(idSeleccion);
+
+            setSelecciones((prev) => prev.filter((seleccion) => seleccion.idSeleccion !== idSeleccion));
+        } catch (error) {
+            throw new Error(error);
+        };
     };
 
     return {
         selecciones,
         loading,
-        error,
-        setSelecciones: handleSeleccionesChange
+        addSeleccion: handleSeleccionesChange,
+        deleteSeleccion: handleSeleccionDelete
     };
 };
