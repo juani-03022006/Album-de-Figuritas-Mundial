@@ -4,7 +4,7 @@ import { ListaSelecciones } from '../ListaSelecciones/ListaSelecciones.jsx';
 
 export function TablaSelecciones({ selecciones }) {
     const haySelecciones = selecciones.length !== 0;
-    const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Grupo', 'Acciones']
+    const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones']
 
     return (
         <>
@@ -14,7 +14,7 @@ export function TablaSelecciones({ selecciones }) {
                     {haySelecciones ? (
                         <>
                             <thead className="table-light">
-                                <tr>{tableHead.map((tableData) => <td>{tableData}</td>)}</tr>
+                                <tr>{tableHead.map((tableData) => <td key={tableData}>{tableData}</td>)}</tr>
                             </thead>
                             <tbody>
                                 {selecciones.map((seleccion) => (

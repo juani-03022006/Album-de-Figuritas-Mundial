@@ -1,4 +1,6 @@
+import { FIGUS_POR_SELECCION, NRO_EMPIEZA_GRUPO } from '../constants/albumConfig.js';
 import { buscarUrlBandera } from '../utils/buscarUrlBandera.js';
+import { calcularDesdeHasta } from '../utils/calcularDesdeHasta.js';
 
 class SeleccionesService {
     constructor(SeleccionesAPI) {
@@ -8,6 +10,17 @@ class SeleccionesService {
 
         this.SeleccionesAPI = SeleccionesAPI;
     };
+
+    async #seleccionesPorGrupo(grupo) {
+        try {
+            const selecciones = await this.obtenerSelecciones();
+            const seleccionesGrupo = selecciones.filter(seleccion => seleccion.grupo === grupo);
+
+            return seleccionesGrupo;
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    }
 
     async obtenerSelecciones() {
         try {
@@ -29,8 +42,14 @@ class SeleccionesService {
 
     async crearSeleccion(datosSeleccion) {
         try {
+            const equiposEnGrupo = (await this.#seleccionesPorGrupo(datosSeleccion.grupo)).length;
+
             const urlBandera = buscarUrlBandera(`Flag of ${datosSeleccion.nombrePais}.svg`);
             datosSeleccion.urlBandera = urlBandera;
+
+            const { nroDesde, nroHasta } = await calcularDesdeHasta(equiposEnGrupo, NRO_EMPIEZA_GRUPO[datosSeleccion.grupo], FIGUS_POR_SELECCION);
+            datosSeleccion.nroDesde = nroDesde;
+            datosSeleccion.nroHasta = nroHasta;
 
             const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion);
             return nuevaSeleccion;

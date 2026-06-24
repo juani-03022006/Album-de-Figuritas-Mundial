@@ -23,9 +23,10 @@ export function useSelecciones() {
 
     const handleSeleccionesChange = async (nuevaSeleccion) => {
         try {
-            await createSeleccion(nuevaSeleccion);
+            console.log(nuevaSeleccion);
+            const dataSeleccion = await createSeleccion(nuevaSeleccion);
 
-            setSelecciones((prev) => [...prev, nuevaSeleccion]);
+            await fetchSelecciones();
         } catch (error) {
             throw new Error(error);
         };

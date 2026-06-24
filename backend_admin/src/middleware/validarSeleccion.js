@@ -6,15 +6,7 @@ function validarSeleccion(datosSeleccion) {
     if (typeof datosSeleccion.nombrePais !== 'string' || datosSeleccion.nombrePais.trim() === '') {
         throw new Error('Nombre de Pais inválido.');
     };
-
-    if (typeof datosSeleccion.nroDesde !== 'number') {
-        throw new Error('Numero Desde es inválido.');
-    };
-
-    if (typeof datosSeleccion.nroHasta !== 'number') {
-        throw new Error('Numero Hasta es inválido.');
-    };
-
+    
     if (typeof datosSeleccion.colorPrincipal !== 'string' || datosSeleccion.colorPrincipal.trim() === '') {
         throw new Error('Color Principal es inválido.');
     };
