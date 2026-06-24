@@ -4,7 +4,7 @@ import { ALLOWED_ORIGINS } from './allowedOrigins.js';
 import routerSelecciones from './routes/selecciones.js';
 import routerPosiciones from './routes/posiciones.js';
 import routerFiguritas from './routes/figuritas.js';
-import { createAlbumRoutes } from './routes/album.js';
+// import { createAlbumRoutes } from './routes/album.js';
 
 
 export function createApp() {
@@ -25,4 +25,4 @@ export function createApp() {
     // app.use('/album', createAlbumRoutes(models));
 
     return app;
-}
+};

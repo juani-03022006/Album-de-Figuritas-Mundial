@@ -67,3 +67,5 @@ Seleccion.init(
         timestamps: false,
     }
 );
+
+export default Seleccion;

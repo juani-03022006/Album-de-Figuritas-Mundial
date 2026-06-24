@@ -11,14 +11,14 @@ import sequelize from '../sequelizeConnection.js';
 Seleccion.hasMany(Figurita, { foreignKey: 'idSeleccion' });
 Figurita.belongsTo(Seleccion, { foreignKey: 'idSeleccion' });
 
-Figurita.hasOne(Jugador, { foreignKey: 'idFigurita', as: 'jugador' });
-Jugador.belongsTo(Figurita, { foreignKey: 'idFigurita' });
+Figurita.hasOne(FiguritaJugador, { foreignKey: 'idFigurita', as: 'jugador' });
+FiguritaJugador.belongsTo(Figurita, { foreignKey: 'idFigurita' });
 
-Figurita.hasOne(FigEspeciales, { foreignKey: 'idFigurita', as: 'especial' });
-FigEspeciales.belongsTo(Figurita, { foreignKey: 'idFigurita' });
+Figurita.hasOne(FiguritaEspecial, { foreignKey: 'idFigurita', as: 'especial' });
+FiguritaEspecial.belongsTo(Figurita, { foreignKey: 'idFigurita' });
 
-Posicion.hasMany(Jugador, { foreignKey: 'idPosicion' });
-Jugador.belongsTo(Posicion, { foreignKey: 'idPosicion' });
+Posicion.hasMany(FiguritaJugador, { foreignKey: 'idPosicion' });
+FiguritaJugador.belongsTo(Posicion, { foreignKey: 'idPosicion' });
 
 Usuario.belongsToMany(Figurita, {
   through: UsuarioFigurita,
