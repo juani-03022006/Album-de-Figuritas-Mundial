@@ -1,6 +1,9 @@
 import { useSelecciones } from '../hooks/useSelecciones.js';
 import { useState } from 'react';
 import { Seleccion } from '../components/Seleccion/Seleccion.jsx';
+import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
+import { ListaSelecciones } from '../components/ListaSelecciones/ListaSelecciones.jsx';
+import { TablaSelecciones } from '../components/TablaSelecciones/TablaSelecciones.jsx';
 
 
 function SeleccionesSection() {
@@ -22,13 +25,11 @@ function SeleccionesSection() {
     };
 
     return (
-        <div>
-            <h2 className="fw-bold mb-1">Selecciones</h2>
-            <p className="text-muted mb-4">Gestioná los equipos del torneo</p>
+        <>
+            <TituloSubtitulo titulo="Selecciones" subtitulo="Gestioná los equipos del torneo" />
 
             <div className="row g-4">
-                {/* Form */}
-                <div className="col-md-4">
+                {/*     <div className="col-md-4">
                     <div className="card border-0 shadow-sm">
                         <div className="card-header bg-white fw-bold py-3">➕ Añadir Selección</div>
                         <div className="card-body">
@@ -69,43 +70,22 @@ function SeleccionesSection() {
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                {/* List */}
-                <div className="col-md-8">
+                <div className="col-md-12">
+                    Añadir Seleccion: 
+                    <button
+                        className="btn btn-sm btn-outline-primary"
+
+                    >
+                        Modificar
+                    </button>
                     <div className="card border-0 shadow-sm">
-                        <div className="card-header bg-white d-flex justify-content-between align-items-center py-3">
-                            <span className="fw-bold">Lista de Selecciones</span>
-                            <span className="badge bg-primary rounded-pill">{selecciones.length}</span>
-                        </div>
-                        <div className="table-responsive">
-                            <table className="table table-hover align-middle mb-0">
-                                <thead className="table-light">
-                                    <tr>
-                                        <th>Bandera</th>
-                                        <th>País</th>
-                                        <th>Grupo</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {selecciones.map((seleccion) => (
-                                        <tr key={seleccion.idSeleccion}>
-                                            <Seleccion seleccion={seleccion} />
-                                        </tr>
-                                    ))}
-                                    {selecciones.length === 0 && (
-                                        <tr>
-                                            <td colSpan={4} className="text-center text-muted py-4">No hay selecciones aún.</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
+                        <TablaSelecciones selecciones={selecciones} />
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

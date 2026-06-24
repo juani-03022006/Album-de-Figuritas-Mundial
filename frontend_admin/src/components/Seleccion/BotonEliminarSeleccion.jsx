@@ -1,7 +1,7 @@
 import { useSelecciones } from '../../hooks/useSelecciones.js';
 
 
-export function BotonEliminarSeleccion(idSeleccion) {
+export function BotonEliminarSeleccion({ idSeleccion }) {
     const { deleteSeleccion } = useSelecciones();
 
     return (

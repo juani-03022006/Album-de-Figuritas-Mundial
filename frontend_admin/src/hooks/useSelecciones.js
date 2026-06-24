@@ -12,8 +12,6 @@ export function useSelecciones() {
                 setLoading(true);
 
                 const result = await getSelecciones();
-
-                console.log(result);
                 setSelecciones(result);
             } catch (error) {
                 throw new Error(error);
