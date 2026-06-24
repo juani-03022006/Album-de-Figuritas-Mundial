@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../sequelizeConnection.js';
+import { sequelize } from '../sequelizeConnection.js';
 
 
 class Figurita extends Model { };
@@ -14,25 +14,25 @@ Figurita.init(
         nroFigurita: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
-        pathToPic: {
+        pathTopic: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         tipo: {
-            type: DataTypes.CHAR,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         idSeleccion: {
             type: DataTypes.INTEGER,
-        }
+            allowNull: false,
+        },
     },
     {
         sequelize,
         modelName: 'Figurita',
         tableName: 'figuritas',
-        timestamps: false
+        timestamps: false,
     }
 );
 

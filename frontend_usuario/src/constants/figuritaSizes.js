@@ -1,0 +1,7 @@
+export const PORTRAIT_WIDTH = 72;
+export const PORTRAIT_HEIGHT = 100;
+export const LANDSCAPE_WIDTH = 144;
+export const LANDSCAPE_HEIGHT = 100;
+
+export const PORTRAIT_ASPECT = `${PORTRAIT_WIDTH} / ${PORTRAIT_HEIGHT}`;
+export const LANDSCAPE_ASPECT = `${LANDSCAPE_WIDTH} / ${LANDSCAPE_HEIGHT}`;

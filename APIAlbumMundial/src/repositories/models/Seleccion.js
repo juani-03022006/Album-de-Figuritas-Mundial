@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../sequelizeConnection.js';
+import { sequelize } from '../sequelizeConnection.js';
 
 
 class Seleccion extends Model { };
@@ -64,8 +64,6 @@ Seleccion.init(
         sequelize,
         modelName: 'Seleccion',
         tableName: 'selecciones',
-        timestamps: false
+        timestamps: false,
     }
 );
-
-export default Seleccion;

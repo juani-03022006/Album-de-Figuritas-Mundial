@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../sequelizeConnection.js';
+import { sequelize } from '../sequelizeConnection.js';
 
 
 class FiguritaEspecial extends Model { };
@@ -14,17 +14,18 @@ FiguritaEspecial.init(
         nombre: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
         },
         idFigurita: {
             type: DataTypes.INTEGER,
-        }
+            allowNull: false,
+            unique: true,
+        },
     },
     {
         sequelize,
         modelName: 'FiguritaEspecial',
         tableName: 'figurita_especial',
-        timestamps: false
+        timestamps: false,
     }
 );
 

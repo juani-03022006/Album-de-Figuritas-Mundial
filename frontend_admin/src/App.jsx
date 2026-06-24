@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createContext, useContext, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
@@ -662,3 +663,19 @@ export default function App() {
 		</BrowserRouter>
 	);
 }
+=======
+import { useState } from 'react';
+import './App.css';
+
+
+export function App() {
+    return (
+        <>
+            <h1>Admin Album de Figuritas Mundial 2026</h1>
+            <section id="center">
+                <p>Esta pagina va a tener la pantalla de administración para añadir o modificar figuritas.</p>
+            </section>
+        </>
+    );
+};
+>>>>>>> backend_frontend_api_de_usuario
