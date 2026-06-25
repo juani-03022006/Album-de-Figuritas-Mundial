@@ -215,17 +215,17 @@ async function getSeleccionOrThrow(Seleccion, codigoSeleccion) {
   return seleccion;
 }
 
-async function getFiguritasBySeleccion({ Figurita, Jugador, FigEspeciales, Posicion, seleccion }) {
+async function getFiguritasBySeleccion({ Figurita, FiguritaJugador, FiguritaEspecial, Posicion, seleccion }) {
   return Figurita.findAll({
     where: { idSeleccion: seleccion.idSeleccion },
     include: [
       {
-        model: Jugador,
+        model: FiguritaJugador,
         as: 'jugador',
         include: [{ model: Posicion, as: 'posicion' }],
       },
       {
-        model: FigEspeciales,
+        model: FiguritaEspecial,
         as: 'especial',
       },
     ],
@@ -234,7 +234,7 @@ async function getFiguritasBySeleccion({ Figurita, Jugador, FigEspeciales, Posic
 }
 
 export async function getAlbumByUsuarioCodigo(codigoUsuario, models, perfilUsuario = {}) {
-  const { Usuario, Seleccion, Figurita, Jugador, FigEspeciales, Posicion, UsuarioFigurita } =
+  const { Usuario, Seleccion, Figurita, FiguritaJugador, FiguritaEspecial, Posicion, UsuarioFigurita } =
     models;
 
   const usuario = await findOrCreateUsuario(Usuario, codigoUsuario, perfilUsuario);
@@ -252,8 +252,8 @@ export async function getAlbumByUsuarioCodigo(codigoUsuario, models, perfilUsuar
     selecciones.map(async (seleccion) => {
       const figuritas = await getFiguritasBySeleccion({
         Figurita,
-        Jugador,
-        FigEspeciales,
+        FiguritaJugador,
+        FiguritaEspecial,
         Posicion,
         seleccion,
       });
@@ -269,7 +269,7 @@ export async function getAlbumByUsuarioCodigo(codigoUsuario, models, perfilUsuar
 }
 
 export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion, models, perfilUsuario = {}) {
-  const { Usuario, Seleccion, Figurita, Jugador, FigEspeciales, Posicion, UsuarioFigurita } =
+  const { Usuario, Seleccion, Figurita, FiguritaJugador, FiguritaEspecial, Posicion, UsuarioFigurita } =
     models;
 
   const usuario = await findOrCreateUsuario(Usuario, codigoUsuario, perfilUsuario);
@@ -278,8 +278,8 @@ export async function getSeleccionByUsuarioCodigo(codigoUsuario, codigoSeleccion
 
   const figuritas = await getFiguritasBySeleccion({
     Figurita,
-    Jugador,
-    FigEspeciales,
+    FiguritaJugador,
+    FiguritaEspecial,
     Posicion,
     seleccion,
   });

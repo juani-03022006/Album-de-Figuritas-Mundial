@@ -66,13 +66,14 @@ function MissingFigurita({ team, figurita, isLandscape, fluid }) {
       className="relative rounded-md overflow-hidden shrink-0 bg-neutral-500 border border-neutral-600/60 grayscale flex items-center justify-center mx-auto"
       style={sizeStyle}
     >
-      <FiguritaNumberBadge nroFigurita={getDisplayNumber(figurita)} />
-      <div className="flex flex-col items-center px-2 text-center font-black text-neutral-200" style={kanitStyle}>
-        <span className="text-[8px] leading-tight uppercase">Figurita faltante</span>
+      <FiguritaNumberBadge nroFigurita={figurita.nroFigurita} />
+      <div className="flex flex-col items-center font-black text-neutral-200" style={kanitStyle}>
+        <span className="text-lg leading-none mt-0.5">{figurita.nroFigurita}</span>
       </div>
     </div>
   );
 }
+
 
 function PersonFigurita({ team, figurita, isLandscape, fluid, isTecnico = false }) {
   const { jugador, fotoUrl } = figurita;

@@ -1,3 +1,4 @@
+import sequelize from '../repositories/sequelizeConnection.js';
 const PACKAGE_INTERVAL_HOURS = 4;
 const PACKAGE_INTERVAL_MS = PACKAGE_INTERVAL_HOURS * 60 * 60 * 1000;
 const FIGURITAS_PER_PACKAGE = 7;
@@ -161,17 +162,17 @@ function mapPackageFigurita(figurita, yaLaTenia) {
 }
 
 async function getRandomFiguritas(models) {
-  const { sequelize, Figurita, Jugador, FigEspeciales, Posicion, Seleccion } = models;
+  const { Figurita, FiguritaJugador, FiguritaEspecial, Posicion, Seleccion } = models;
 
   const figuritas = await Figurita.findAll({
     include: [
       {
-        model: Jugador,
+        model: FiguritaJugador,
         as: 'jugador',
         include: [{ model: Posicion, as: 'posicion' }],
       },
       {
-        model: FigEspeciales,
+        model: FiguritaEspecial,
         as: 'especial',
       },
       {
