@@ -1,13 +1,16 @@
-export const FIGUS_POR_SELECCION = 29;
-export const EQUIPOS_POR_GRUPO = 4;
+export const FIGUS_POR_SELECCION = 29
 
-const GROUPS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
-
-export const NRO_EMPIEZA_GRUPO = Object.fromEntries(
-  GROUPS.map((grupo, index) => [
-    grupo,
-    1 + index * EQUIPOS_POR_GRUPO * FIGUS_POR_SELECCION,
-  ])
-);
-
-export const GRUPOS_ORDENADOS = GROUPS;
+export const NRO_EMPIEZA_GRUPO = {
+    "A": 1,
+    "B": 120,
+    "C": 240,
+    "D": 360,
+    "E": 480,
+    "F": 600,
+    "G": 720,
+    "H": 840,
+    "I": 960,
+    "J": 1080,
+    "K": 1200,
+    "L": 1320 
+};

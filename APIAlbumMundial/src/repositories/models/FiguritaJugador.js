@@ -22,10 +22,6 @@ FiguritaJugador.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        peso: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
         club: {
             type: DataTypes.STRING,
             allowNull: true,

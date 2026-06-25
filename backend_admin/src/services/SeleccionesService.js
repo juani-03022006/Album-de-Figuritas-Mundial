@@ -2,6 +2,7 @@ import { FIGUS_POR_SELECCION, NRO_EMPIEZA_GRUPO } from '../constants/albumConfig
 import { buscarUrlBandera } from '../utils/buscarUrlBandera.js';
 import { calcularDesdeHasta } from '../utils/calcularDesdeHasta.js';
 
+
 class SeleccionesService {
     constructor(SeleccionesAPI) {
         if (!SeleccionesAPI || typeof SeleccionesAPI.createSeleccion !== 'function') {
@@ -42,24 +43,18 @@ class SeleccionesService {
 
     async crearSeleccion(datosSeleccion) {
         try {
-            const datos = { ...datosSeleccion };
+            datosSeleccion.urlBandera = buscarUrlBandera(`Flag of ${datosSeleccion.nombrePais}.svg`);
 
-            if (!datos.urlBandera) {
-                datos.urlBandera = buscarUrlBandera(`Flag of ${datos.nombrePais}.svg`);
-            }
+            const equiposEnGrupo = (await this.#seleccionesPorGrupo(datosSeleccion.grupo)).length;
+            const { nroDesde, nroHasta } = await calcularDesdeHasta(
+                equiposEnGrupo,
+                NRO_EMPIEZA_GRUPO[datosSeleccion.grupo],
+                FIGUS_POR_SELECCION
+            );
+            datosSeleccion.nroDesde = nroDesde;
+            datosSeleccion.nroHasta = nroHasta;
 
-            if (!Number.isFinite(Number(datos.nroDesde)) || !Number.isFinite(Number(datos.nroHasta))) {
-                const equiposEnGrupo = (await this.#seleccionesPorGrupo(datos.grupo)).length;
-                const { nroDesde, nroHasta } = await calcularDesdeHasta(
-                    equiposEnGrupo,
-                    NRO_EMPIEZA_GRUPO[datos.grupo],
-                    FIGUS_POR_SELECCION
-                );
-                datos.nroDesde = nroDesde;
-                datos.nroHasta = nroHasta;
-            }
-
-            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datos);
+            const nuevaSeleccion = await this.SeleccionesAPI.createSeleccion(datosSeleccion);
             return nuevaSeleccion;
         } catch (error) {
             throw new Error(error.message);

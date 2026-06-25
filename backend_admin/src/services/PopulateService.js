@@ -3,19 +3,10 @@ import { FIGUS_POR_SELECCION, NRO_EMPIEZA_GRUPO } from '../constants/albumConfig
 import { TEAM_VISUALS } from '../constants/teamVisuals.js';
 import { WORLD_CUP_2026_SQUADS } from '../constants/worldCup2026Squads.js';
 import { calcularDesdeHasta } from '../utils/calcularDesdeHasta.js';
+import { obtenerUrlEscudo, obtenerUrlFormacion, obtenerUrlTecnico } from '../utils/buscarUrlFiguritas.js';
 import { generarEscudo, generarFormacion, generarJugador, generarTecnico } from '../utils/generarDatosFiguritas.js';
+import { ordenarPlantelPorPosiciones } from '../utils/ordenarPlantelPorPosiciones.js';
 
-function ordenarPorGrupoYPais(entries) {
-    return [...entries].sort(([, a], [, b]) => {
-        const grupoCompare = String(a.grupo).localeCompare(String(b.grupo), 'es');
-        if (grupoCompare !== 0) return grupoCompare;
-        return String(a.nombrePais).localeCompare(String(b.nombrePais), 'es');
-    });
-};
-
-function ordenarPlantelPorNumero(plantel) {
-    return [...plantel].sort((a, b) => Number(a.numeroCamiseta) - Number(b.numeroCamiseta));
-};
 
 class PopulateService {
     constructor(PosicionesService, SeleccionesService, JugadoresService, EspecialesService) {
@@ -60,27 +51,23 @@ class PopulateService {
         try {
             console.log('Populando Selecciones...');
 
-            const equiposGrupos = {};
-            const seleccionesOrdenadas = ordenarPorGrupoYPais(Object.entries(TEAM_VISUALS));
+            const equiposGrupos = { "A": 0, "B": 0, "C": 0, "D": 0, "E": 0, "F": 0, "G": 0, "H": 0, "I": 0, "J": 0, "K": 0, "L": 0 };
 
-            for (const [codigo, datosSeleccionBase] of seleccionesOrdenadas) {
-                const datosSeleccion = { ...datosSeleccionBase, codigo };
-                console.log(`Generando a ${datosSeleccion.nombrePais} - Grupo ${datosSeleccion.grupo}...`);
+            for (const [nombrePais, datosSeleccion] of Object.entries(TEAM_VISUALS)) {
+                console.log(`Generando a ${nombrePais}...`);
 
-                const equiposEnGrupo = equiposGrupos[datosSeleccion.grupo] ?? 0;
+                const equiposEnGrupo = equiposGrupos[datosSeleccion.grupo];
                 const { nroDesde, nroHasta } = await calcularDesdeHasta(
                     equiposEnGrupo,
                     NRO_EMPIEZA_GRUPO[datosSeleccion.grupo],
                     FIGUS_POR_SELECCION
                 );
+                datosSeleccion.nroDesde = nroDesde;
+                datosSeleccion.nroHasta = nroHasta;
 
-                await this.SeleccionesService.crearSeleccion({
-                    ...datosSeleccion,
-                    nroDesde,
-                    nroHasta,
-                });
+                await this.SeleccionesService.crearSeleccion(datosSeleccion);
 
-                equiposGrupos[datosSeleccion.grupo] = equiposEnGrupo + 1;
+                equiposGrupos[datosSeleccion.grupo] += 1;
             };
 
             console.log('Selecciones Populadas!');
@@ -89,49 +76,20 @@ class PopulateService {
         };
     };
 
-    async #populateFiguritas() {
+    async #populateEspeciales() {
         try {
-            const posiciones = await this.PosicionesService.obtenerPosiciones();
-            const seleccionesOrdenadas = ordenarPorGrupoYPais(Object.entries(TEAM_VISUALS));
-
-            for (const [, datosVisuales] of seleccionesOrdenadas) {
-                const seleccion = WORLD_CUP_2026_SQUADS.find(
-                    item => item.nombre === datosVisuales.nombrePais
-                );
-
-                if (!seleccion) {
-                    throw new Error(`No se encontró plantel para ${datosVisuales.nombrePais}`);
-                }
-
-                console.log(`Populando figuritas de ${seleccion.nombre} - Grupo ${datosVisuales.grupo}`);
+            for (const [indiceSeleccion, seleccion] of WORLD_CUP_2026_SQUADS.entries()) {
+                console.log(`Populando especiales de ${seleccion.nombre}`);
                 const datosSeleccion = await this.SeleccionesService.obtenerSeleccionPorNombrePais(seleccion.nombre);
 
-                await this.EspecialesService.crearEspecial(await generarEscudo(datosSeleccion));
-                await this.EspecialesService.crearEspecial(await generarFormacion(datosSeleccion));
-                await this.EspecialesService.crearEspecial(
-                    await generarTecnico(datosSeleccion, seleccion.directorTecnico.nombreCompleto)
-                );
+                const datosEscudo = await generarEscudo(datosSeleccion);
+                await this.EspecialesService.crearEspecial(datosEscudo);
 
-                const plantelOrdenado = ordenarPlantelPorNumero(seleccion.plantel);
+                const datosFormacion = await generarFormacion(datosSeleccion);
+                await this.EspecialesService.crearEspecial(datosFormacion);
 
-                for (const [indiceJugador, jugador] of plantelOrdenado.entries()) {
-                    const posicion = posiciones.find(
-                        posicion => posicion.descripcion === jugador.posicionFifa
-                    );
-
-                    if (!posicion) {
-                        throw new Error(`No se encontró posición ${jugador.posicionFifa} para ${jugador.nombreCompletoFifa}`);
-                    }
-
-                    const datosJugador = await generarJugador(
-                        datosSeleccion,
-                        jugador,
-                        posicion.idPosicion,
-                        indiceJugador
-                    );
-
-                    await this.JugadoresService.crearJugador(datosJugador);
-                };
+                const datosTecnico = await generarTecnico(datosSeleccion, seleccion.directorTecnico.nombreCompleto);
+                await this.EspecialesService.crearEspecial(datosTecnico);
             };
         } catch (error) {
             console.log(error);
@@ -139,11 +97,43 @@ class PopulateService {
         };
     };
 
+    async #populateJugadores() {
+        try {
+            for (const [indiceSeleccion, seleccion] of WORLD_CUP_2026_SQUADS.entries()) {
+                console.log(`Populando jugadores de ${seleccion.nombre}`);
+                const datosSeleccion = await this.SeleccionesService.obtenerSeleccionPorNombrePais(seleccion.nombre);
+                const posiciones = await this.PosicionesService.obtenerPosiciones();
+
+                const plantelOrdenado = ordenarPlantelPorPosiciones(seleccion.plantel);
+                
+                for (const [indiceJugador, jugador] of plantelOrdenado.entries()) {
+                    const posicion = posiciones.find(
+                        posicion => posicion.descripcion === jugador.posicionFifa
+                    );
+                    const idPosicion = posicion.idPosicion;
+                    
+                    const datosJugador = await generarJugador(datosSeleccion, jugador, idPosicion, indiceJugador);
+                    await this.JugadoresService.crearJugador(datosJugador);
+                };
+            };
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    };
+
     async populateDB() {
         try {
-            await this.#populatePosiciones();
-            await this.#populateSelecciones();
-            await this.#populateFiguritas();
+            // Primero Posiciones
+            // await this.#populatePosiciones();
+
+            // Despues Selecciones
+            // await this.#populateSelecciones();
+
+            // Luego Especiales
+            await this.#populateEspeciales();
+
+            // Por ultimo jugadores
+            await this.#populateJugadores();
         } catch (error) {
             console.log(error);
             throw new Error(error.message);

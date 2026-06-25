@@ -1,22 +1,15 @@
 import { Figurita, FiguritaEspecial, FiguritaJugador, Posicion } from './models/index.js';
 
-function normalizarFiguritaPayload(datosFigurita) {
-    const { pathToPic, pathTopic, tipo, jugador, especial, ...rest } = datosFigurita;
-
-    return {
-        ...rest,
-        pathTopic: pathTopic ?? pathToPic,
-        tipo: String(tipo ?? '').trim().toLowerCase(),
-        ...(jugador ? { jugador } : {}),
-        ...(especial ? { especial } : {}),
-    };
-}
 
 class FiguritasRepository {
     async deleteFigurita(idFigurita) {
         try {
-            await FiguritaJugador.destroy({ where: { idFigurita } });
-            await FiguritaEspecial.destroy({ where: { idFigurita } });
+            const jugador = await FiguritaJugador.findOne({ where: { idFigurita: idFigurita } });
+
+            if (jugador) {
+                await jugador.destroy();
+            };
+
             const result = await Figurita.destroy({ where: { idFigurita } });
             return result;
         } catch (error) {
@@ -56,7 +49,7 @@ class FiguritasRepository {
 
     async createJugador(datosJugador) {
         try {
-            const nuevoJugador = await Figurita.create(normalizarFiguritaPayload(datosJugador), {
+            const nuevoJugador = await Figurita.create(datosJugador, {
                 include: [
                     { model: FiguritaJugador, as: 'jugador' }
                 ]
@@ -71,10 +64,9 @@ class FiguritasRepository {
     async modifyJugador(idJugador, datosNuevosJugador) {
         try {
             const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
-            if (!jugador) throw new Error(`No se encontró jugador ${idJugador}`);
 
             jugador.set(datosNuevosJugador);
-            await jugador.save();
+            jugador.save();
             return jugador;
         } catch (error) {
             throw new Error(error.message);
@@ -111,7 +103,7 @@ class FiguritasRepository {
 
     async createEspecial(datosEspecial) {
         try {
-            const nuevaEspecial = await Figurita.create(normalizarFiguritaPayload(datosEspecial), {
+            const nuevaEspecial = await Figurita.create(datosEspecial, {
                 include: [
                     { model: FiguritaEspecial, as: 'especial' }
                 ]
@@ -125,11 +117,10 @@ class FiguritasRepository {
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {
         try {
-            const especial = await FiguritaEspecial.findOne({ where: { id: idEspecial } });
-            if (!especial) throw new Error(`No se encontró figurita especial ${idEspecial}`);
+            const especial = await FiguritaEspecial.findOne({ where: { idEspecial } });
 
             especial.set(datosNuevosEspecial);
-            await especial.save();
+            especial.save();
             return especial;
         } catch (error) {
             throw new Error(error.message);

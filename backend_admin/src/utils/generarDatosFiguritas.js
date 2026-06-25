@@ -1,16 +1,11 @@
 import { obtenerUrlEscudo, obtenerUrlFormacion, obtenerUrlJugador, obtenerUrlTecnico } from './buscarUrlFiguritas.js';
 
-function numeroGlobal(datosSeleccion, posicionLocal) {
-    return Number(datosSeleccion.nroDesde) + Number(posicionLocal) - 1;
-};
 
 export async function generarEscudo(datosSeleccion) {
-    const nroFigurita = numeroGlobal(datosSeleccion, 1);
     const urlEscudo = await obtenerUrlEscudo(datosSeleccion.nombrePais);
 
     return {
-        idFigurita: nroFigurita,
-        nroFigurita,
+        nroFigurita: datosSeleccion.nroDesde,
         pathTopic: urlEscudo,
         tipo: 'escudo',
         idSeleccion: datosSeleccion.idSeleccion,
@@ -21,12 +16,10 @@ export async function generarEscudo(datosSeleccion) {
 };
 
 export async function generarFormacion(datosSeleccion) {
-    const nroFigurita = numeroGlobal(datosSeleccion, 2);
     const urlFormacion = await obtenerUrlFormacion(datosSeleccion.nombrePais);
 
     return {
-        idFigurita: nroFigurita,
-        nroFigurita,
+        nroFigurita: datosSeleccion.nroDesde + 1,
         pathTopic: urlFormacion,
         tipo: 'foto_seleccion',
         idSeleccion: datosSeleccion.idSeleccion,
@@ -37,12 +30,10 @@ export async function generarFormacion(datosSeleccion) {
 };
 
 export async function generarTecnico(datosSeleccion, nombreTecnico) {
-    const nroFigurita = numeroGlobal(datosSeleccion, 3);
     const urlTecnico = await obtenerUrlTecnico(datosSeleccion.nombrePais, nombreTecnico);
 
     return {
-        idFigurita: nroFigurita,
-        nroFigurita,
+        nroFigurita: datosSeleccion.nroDesde + 2,
         pathTopic: urlTecnico,
         tipo: 'tecnico',
         idSeleccion: datosSeleccion.idSeleccion,
@@ -52,13 +43,12 @@ export async function generarTecnico(datosSeleccion, nombreTecnico) {
     };
 };
 
-export async function generarJugador(datosSeleccion, jugador, idPosicion, indiceJugador = 0) {
-    const nroFigurita = numeroGlobal(datosSeleccion, 4 + indiceJugador);
+export async function generarJugador(datosSeleccion, jugador, idPosicion, indiceJugador) {
+    const nroFigurita = datosSeleccion.nroDesde + 2 + indiceJugador;
     const nombreCompleto = [jugador.nombre, jugador.apellido].filter(Boolean).join(' ');
     const urlJugador = await obtenerUrlJugador(datosSeleccion.nombrePais, nombreCompleto);
 
     return {
-        idFigurita: nroFigurita,
         nroFigurita,
         pathTopic: urlJugador,
         tipo: 'jugador',
@@ -67,7 +57,6 @@ export async function generarJugador(datosSeleccion, jugador, idPosicion, indice
             nombre: jugador.nombre,
             apellido: jugador.apellido,
             estatura: jugador.estaturaCm,
-            peso: jugador.peso ?? null,
             club: jugador.club ?? '',
             fechaNacimiento: jugador.fechaNacimiento,
             idPosicion

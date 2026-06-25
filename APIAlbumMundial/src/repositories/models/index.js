@@ -7,17 +7,46 @@ import Usuario from './Usuario.js';
 import UsuarioFigurita from './UsuarioFigurita.js';
 import sequelize from '../sequelizeConnection.js';
 
-Seleccion.hasMany(Figurita, { foreignKey: 'idSeleccion', as: 'figuritas' });
-Figurita.belongsTo(Seleccion, { foreignKey: 'idSeleccion', as: 'seleccion' });
 
-Figurita.hasOne(FiguritaJugador, { foreignKey: 'idFigurita', as: 'jugador' });
-FiguritaJugador.belongsTo(Figurita, { foreignKey: 'idFigurita', as: 'figurita' });
+// Figuritas del tipo jugador
+Figurita.hasOne(FiguritaJugador, {
+    foreignKey: 'idFigurita',
+    as: 'jugador'
+});
+FiguritaJugador.belongsTo(Figurita, {
+    foreignKey: 'idFigurita',
+    as: 'figurita'
+});
 
-Figurita.hasOne(FiguritaEspecial, { foreignKey: 'idFigurita', as: 'especial' });
-FiguritaEspecial.belongsTo(Figurita, { foreignKey: 'idFigurita', as: 'figurita' });
+// Figuritas del tipo Especial
+Figurita.hasOne(FiguritaEspecial, {
+    foreignKey: 'idFigurita',
+    as: 'especial'
+});
+FiguritaEspecial.belongsTo(Figurita, {
+    foreignKey: 'idFigurita',
+    as: 'figurita'
+});
 
-Posicion.hasMany(FiguritaJugador, { foreignKey: 'idPosicion', as: 'jugadores' });
-FiguritaJugador.belongsTo(Posicion, { foreignKey: 'idPosicion', as: 'posicion' });
+// Posicion del jugador
+Posicion.hasOne(FiguritaJugador, {
+    foreignKey: 'idPosicion',
+    as: 'posicion'
+});
+FiguritaJugador.belongsTo(Posicion, {
+    foreignKey: 'idPosicion',
+    as: 'posicion'
+});
+
+// Figuritas de cada selecion
+Seleccion.hasMany(Figurita, {
+    foreignKey: 'idSeleccion',
+    as: 'seleccion'
+});
+Figurita.belongsTo(Seleccion, {
+    foreignKey: 'idSeleccion',
+    as: 'seleccion'
+});
 
 Usuario.belongsToMany(Figurita, {
     through: UsuarioFigurita,
@@ -31,17 +60,6 @@ Figurita.belongsToMany(Usuario, {
     otherKey: 'idUsuario',
 });
 
-await sequelize.sync({ alter: true });
 
-export {
-    sequelize,
-    Figurita,
-    FiguritaEspecial,
-    FiguritaEspecial as FigEspeciales,
-    FiguritaJugador,
-    FiguritaJugador as Jugador,
-    Seleccion,
-    Posicion,
-    Usuario,
-    UsuarioFigurita,
-};
+await sequelize.sync();
+export { Figurita, FiguritaEspecial, FiguritaJugador, Seleccion, Posicion, Usuario, UsuarioFigurita };
