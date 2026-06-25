@@ -5,25 +5,26 @@ import { getSelecciones, createSeleccion, deleteSeleccion } from '../api/apiSele
 export function useSelecciones() {
     const [selecciones, setSelecciones] = useState([]);
     const [loading, setLoading] = useState(true);
+    
+    const fetchSelecciones = async () => {
+        try {
+            setLoading(true);
+
+            const result = await getSelecciones();
+            setSelecciones(result);
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            setLoading(false);
+        };
+    };
 
     useEffect(() => {
-        const fetchSelecciones = async () => {
-            try {
-                setLoading(true);
-
-                const result = await getSelecciones();
-                setSelecciones(result);
-            } catch (error) {
-                throw new Error(error);
-            };
-        };
-
         fetchSelecciones();
     }, []);
 
     const handleSeleccionesChange = async (nuevaSeleccion) => {
         try {
-            console.log(nuevaSeleccion);
             const dataSeleccion = await createSeleccion(nuevaSeleccion);
 
             await fetchSelecciones();

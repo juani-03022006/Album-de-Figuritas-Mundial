@@ -10,8 +10,6 @@ import { ModalNuevaSeleccion } from '../components/ModalNuevaSeleccion/ModalNuev
 
 function SeleccionesSection() {
     const { selecciones, loading, addSeleccion, deleteSeleccion } = useSelecciones();
-    const [form, setForm] = useState({ nombre: "", bandera: "", grupo: "" });
-    const [error, setError] = useState("");
 
     return (
         <>
@@ -22,7 +20,7 @@ function SeleccionesSection() {
                     <ModalNuevaSeleccion />
                     
                     <div className="card border-0 shadow-sm">
-                        <TablaSelecciones selecciones={selecciones} />
+                        <TablaSelecciones />
                     </div>
                 </div>
 

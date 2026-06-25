@@ -1,8 +1,10 @@
 import { Seleccion } from '../Seleccion/Seleccion.jsx';
 import { ListaSelecciones } from '../ListaSelecciones/ListaSelecciones.jsx';
+import { useSelecciones } from '../../hooks/useSelecciones.js';
 
 
-export function TablaSelecciones({ selecciones }) {
+export function TablaSelecciones() {
+    const { selecciones } = useSelecciones();
     const haySelecciones = selecciones.length !== 0;
     const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones']
 
