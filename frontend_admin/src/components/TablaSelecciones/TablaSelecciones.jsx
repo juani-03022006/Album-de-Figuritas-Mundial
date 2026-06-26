@@ -1,10 +1,10 @@
 import { Seleccion } from '../Seleccion/Seleccion.jsx';
 import { ListaSelecciones } from '../ListaSelecciones/ListaSelecciones.jsx';
-import { useSelecciones } from '../../hooks/useSelecciones.js';
+import { useSeleccionesContext } from '../../context/SeleccionesContext.jsx';
 
 
-export function TablaSelecciones() {
-    const { selecciones } = useSelecciones();
+export function TablaSelecciones({ onEditarClick }) {
+    const { selecciones } = useSeleccionesContext();
     const haySelecciones = selecciones.length !== 0;
     const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones']
 
@@ -21,7 +21,7 @@ export function TablaSelecciones() {
                             <tbody>
                                 {selecciones.map((seleccion) => (
                                     <tr key={seleccion.idSeleccion}>
-                                        <Seleccion seleccion={seleccion} />
+                                        <Seleccion seleccion={seleccion} onEditarClick={onEditarClick}/>
                                     </tr>
                                 ))}
                             </tbody>

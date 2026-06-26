@@ -1,9 +1,9 @@
 import { Form, Button } from 'react-bootstrap';
-import { useSeleccionForm } from '../../hooks/useSeleccionFormHook.js';
+import { useCreateSeleccionForm } from '../../hooks/useCreateSeleccionFormHook.js';
 
 
-export function FormSeleccion({ onSubmitSuccess, initialData = {} }) {
-    const { values, handleChange, handleSubmit } = useSeleccionForm(initialData, onSubmitSuccess);
+export function FormNuevaSeleccion({ onSubmitSuccess, initialData = {} }) {
+    const { values, handleChange, handleSubmit } = useCreateSeleccionForm(initialData, onSubmitSuccess);
     const grupos = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
 
     return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getSelecciones, createSeleccion, deleteSeleccion } from '../api/apiSelecciones.js';
+import { getSelecciones, createSeleccion, modifySeleccion } from '../api/apiSelecciones.js';
 
 
 export function useSelecciones() {
@@ -25,21 +25,20 @@ export function useSelecciones() {
 
     const handleSeleccionesChange = async (nuevaSeleccion) => {
         try {
-            const dataSeleccion = await createSeleccion(nuevaSeleccion);
-
+            await createSeleccion(nuevaSeleccion);
             await fetchSelecciones();
         } catch (error) {
             throw new Error(error);
         };
     };
 
-    const handleSeleccionDelete = async (idSeleccion) => {
+    const handleSeleccionChange = async (datosSeleccion) => {
         try {
-            await deleteSeleccion(idSeleccion);
-
-            setSelecciones((prev) => prev.filter((seleccion) => seleccion.idSeleccion !== idSeleccion));
+            console.log(datosSeleccion);
+            await modifySeleccion(datosSeleccion);
+            await fetchSelecciones();
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error.message);
         };
     };
 
@@ -47,6 +46,6 @@ export function useSelecciones() {
         selecciones,
         loading,
         addSeleccion: handleSeleccionesChange,
-        deleteSeleccion: handleSeleccionDelete
+        modifySeleccion: handleSeleccionChange
     };
 };

@@ -11,7 +11,7 @@ export const createSeleccion = async (seleccion) => {
     return result.data;
 }
 
-export const deleteSeleccion = async (idSeleccion) => {
-    const result = await axios.delete(`http://localhost:4000/selecciones/${idSeleccion}`);
+export const modifySeleccion = async (datosSeleccion) => {
+    const result = await axios.put(`http://localhost:4000/selecciones/${datosSeleccion.idSeleccion}`, datosSeleccion);
     return result.data;
 };

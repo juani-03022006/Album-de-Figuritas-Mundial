@@ -1,11 +1,11 @@
+import { useSeleccionesContext } from '../../context/SeleccionesContext.jsx';
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { FormSeleccion } from '../FormSeleccion/FormSeleccion.jsx';
-import { useSelecciones } from '../../hooks/useSelecciones.js';
+import { FormNuevaSeleccion } from '../FormsSeleccion/FormNuevaSeleccion.jsx';
 
 
 export function ModalNuevaSeleccion() {
-    const { addSeleccion } = useSelecciones();
+    const { addSeleccion } = useSeleccionesContext();
 
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
@@ -18,9 +18,9 @@ export function ModalNuevaSeleccion() {
                     <Modal.Title>Nueva Selección</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormSeleccion
-                        onSubmitSuccess={(datosFinales) => {
-                            addSeleccion(datosFinales);
+                    <FormNuevaSeleccion
+                        onSubmitSuccess={(datosSeleccion) => {
+                            addSeleccion(datosSeleccion);
                             handleClose();
                         }}
                     />

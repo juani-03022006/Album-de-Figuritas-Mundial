@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 
-export function useSeleccionForm(initialValues = {}, onSubmitCallback) {
+export function useCreateSeleccionForm(initialValues = {}, onSubmitCallback) {
     const [values, setValues] = useState({
         nombreSeleccion: initialValues.nombreSeleccion || '',
         nombrePais: initialValues.nombrePais || '',

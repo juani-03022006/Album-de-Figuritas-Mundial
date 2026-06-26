@@ -66,6 +66,7 @@ class SeleccionesService {
             const seleccionModifcada = await this.SeleccionesAPI.modifySeleccion(idSeleccion, datosSeleccion);
             return seleccionModifcada;
         } catch (error) {
+            console.log(error);
             throw new Error(error.message);
         };
     };
