@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getSelecciones, createSeleccion, modifySeleccion } from '../api/apiSelecciones.js';
+import { getSelecciones, createSeleccion, modifySeleccion } from '../apis/apiSelecciones.js';
 
 
 export function useSelecciones() {
