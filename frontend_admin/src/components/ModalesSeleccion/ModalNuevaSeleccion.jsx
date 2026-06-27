@@ -1,11 +1,11 @@
-import { useSeleccionesContext } from '../../context/SeleccionesContext.jsx';
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FormNuevaSeleccion } from '../FormsSeleccion/FormNuevaSeleccion.jsx';
+import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
 
 
 export function ModalNuevaSeleccion() {
-    const { addSeleccion } = useSeleccionesContext();
+    const { addSeleccion } = useAlbumContext();
 
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);

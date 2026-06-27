@@ -1,24 +1,24 @@
 import { createContext, useContext, useState } from 'react';
-import { useSelecciones } from '../hooks/useSelecciones.js';
+import { useAlbum } from '../hooks/useAlbum.js';
 
 
-const SeleccionesContext = createContext(null);
+const AlbumContext = createContext(null);
 
-export const SeleccionesProvider = ({ children }) => {
-    const value = useSelecciones();
+export const AlbumProvider = ({ children }) => {
+    const value = useAlbum();
 
     return (
-        <SeleccionesContext.Provider value={value}>
+        <AlbumContext.Provider value={value}>
             {children}
-        </SeleccionesContext.Provider>
+        </AlbumContext.Provider>
     );
 };
 
-export function useSeleccionesContext() {
-    const context = useContext(SeleccionesContext);
+export function useAlbumContext() {
+    const context = useContext(AlbumContext);
 
     if (context === null) {
-        throw new Error('useSeleccionesContext debe usarse dentro de un SeleccionesProvider');
+        throw new Error('useAlbumContext debe usarse dentro de un AlbumProvider');
     };
 
     return context;

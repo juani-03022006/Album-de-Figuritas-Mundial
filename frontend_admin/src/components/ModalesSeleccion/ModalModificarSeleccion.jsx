@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { useSeleccionesContext } from '../../context/SeleccionesContext.jsx';
 import { FormModificarSeleccion } from '../FormsSeleccion/FormModificarSeleccion.jsx';
+import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
 
 
 export function ModalModificarSeleccion({ isOpen, onClose, seleccion }) {
-    const { modifySeleccion } = useSeleccionesContext();
+    const { modifySeleccion } = useAlbumContext();
 
     const [formData, setFormData] = useState({
         nombreSeleccion: '',

@@ -1,10 +1,10 @@
 import { Seleccion } from '../Seleccion/Seleccion.jsx';
 import { ListaSelecciones } from '../ListaSelecciones/ListaSelecciones.jsx';
-import { useSeleccionesContext } from '../../context/SeleccionesContext.jsx';
+import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
 
 
 export function TablaSelecciones({ onEditarClick }) {
-    const { selecciones } = useSeleccionesContext();
+    const { selecciones } = useAlbumContext();
     const haySelecciones = selecciones.length !== 0;
     const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones']
 

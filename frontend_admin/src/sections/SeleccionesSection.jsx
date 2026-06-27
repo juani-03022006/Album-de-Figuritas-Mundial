@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { SeleccionesProvider } from '../context/SeleccionesContext.jsx';
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { ModalNuevaSeleccion } from '../components/ModalesSeleccion/ModalNuevaSeleccion.jsx';
 import { ModalModificarSeleccion } from '../components/ModalesSeleccion/ModalModificarSeleccion.jsx';
 import { TablaSelecciones } from '../components/TablaSelecciones/TablaSelecciones.jsx';
-import { useSelecciones } from '../hooks/useSelecciones.js';
 
 
 function SeleccionesSection() {
@@ -22,7 +20,7 @@ function SeleccionesSection() {
     };
 
     return (
-        <SeleccionesProvider>
+        <>
             <TituloSubtitulo titulo="Selecciones" subtitulo="Gestioná los equipos del torneo" />
 
             <div className="row g-4">
@@ -40,7 +38,7 @@ function SeleccionesSection() {
                 </div>
 
             </div >
-        </SeleccionesProvider>
+        </>
     );
 };
 

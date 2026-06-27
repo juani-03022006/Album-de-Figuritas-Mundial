@@ -1,79 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createContext, useContext, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
-import { useSeleccionesContext } from './context/SeleccionesContext.jsx';
+import { AlbumProvider, useAlbumContext } from './context/SeleccionesContext.jsx';
 import SeleccionesSection from './sections/SeleccionesSection.jsx';
+import PosicionesSection from './sections/PosicionesSection.jsx';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-const AlbumContext = createContext(null);
-
-function useAlbum() {
-	return useContext(AlbumContext);
-}
-
-// ─── Context Provider ─────────────────────────────────────────────────────────
-
-function AlbumProvider({ children }) {
-	const [selecciones, setSelecciones] = useState([
-		{}
-]);
-
-	const [posiciones, setPosiciones] = useState([
-		{ id: 1, nombre: "Portero" },
-		{ id: 2, nombre: "Defensa Central" },
-		{ id: 3, nombre: "Lateral Derecho" },
-		{ id: 4, nombre: "Lateral Izquierdo" },
-		{ id: 5, nombre: "Mediocampista" },
-		{ id: 6, nombre: "Extremo" },
-		{ id: 7, nombre: "Delantero" },
-	]);
-
-	const [jugadores, setJugadores] = useState([
-		{ id: 1, nombre: "Lionel Messi", numero: 10, seleccionId: 1, posicionId: 7 },
-		{ id: 2, nombre: "Kylian Mbappé", numero: 10, seleccionId: 2, posicionId: 7 },
-		{ id: 3, nombre: "Vinicius Jr.", numero: 7, seleccionId: 3, posicionId: 6 },
-	]);
-
-	const [especiales, setEspeciales] = useState([
-		{ id: 1, tipo: "escudo", seleccionId: 1 },
-		{ id: 2, tipo: "tecnico", seleccionId: 1, nombre: "Lionel Scaloni" },
-		{ id: 3, tipo: "formacion", seleccionId: 1, formacion: "4-3-3" },
-	]);
-
-	const agregarSeleccion = (s) =>
-		setSelecciones((prev) => [...prev, { ...s, id: Date.now() }]);
-	const eliminarSeleccion = (id) =>
-		setSelecciones((prev) => prev.filter((s) => s.id !== id));
-
-	const agregarPosicion = (p) =>
-		setPosiciones((prev) => [...prev, { ...p, id: Date.now() }]);
-	const eliminarPosicion = (id) =>
-		setPosiciones((prev) => prev.filter((p) => p.id !== id));
-
-	const agregarJugador = (j) =>
-		setJugadores((prev) => [...prev, { ...j, id: Date.now() }]);
-	const eliminarJugador = (id) =>
-		setJugadores((prev) => prev.filter((j) => j.id !== id));
-
-	const agregarEspecial = (e) =>
-		setEspeciales((prev) => [...prev, { ...e, id: Date.now() }]);
-	const eliminarEspecial = (id) =>
-		setEspeciales((prev) => prev.filter((e) => e.id !== id));
-
-	return (
-		<AlbumContext.Provider
-			value={{
-				selecciones, agregarSeleccion, eliminarSeleccion,
-				posiciones, agregarPosicion, eliminarPosicion,
-				jugadores, agregarJugador, eliminarJugador,
-				especiales, agregarEspecial, eliminarEspecial,
-			}}
-		>
-			{children}
-		</AlbumContext.Provider>
-	);
-}
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 
@@ -271,7 +202,7 @@ function Dashboard() {
 // ─── Page: Posiciones ─────────────────────────────────────────────────────────
 
 function Posiciones() {
-	const { posiciones, agregarPosicion, eliminarPosicion } = useAlbum();
+	const { posiciones, agregarPosicion, eliminarPosicion } = useAlbumContext();
 	const [nombre, setNombre] = useState("");
 	const [error, setError] = useState("");
 
@@ -653,7 +584,7 @@ export default function App() {
 					<Routes>
 						<Route path="/" element={<Dashboard />} />
 						<Route path="/selecciones" element={<SeleccionesSection />} />
-						<Route path="/posiciones" element={<Posiciones />} />
+						<Route path="/posiciones" element={<PosicionesSection />} />
 						<Route path="/jugadores" element={<Jugadores />} />
 						<Route path="/especiales" element={<Especiales />} />
 					</Routes>
