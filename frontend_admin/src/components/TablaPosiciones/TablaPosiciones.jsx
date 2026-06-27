@@ -1,27 +1,27 @@
-import { Seleccion } from '../Seleccion/Seleccion.jsx';
 import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
-import { ListaSelecciones } from './ListaSelecciones.jsx';
+import { Posicion } from '../Posicion/Posicion.jsx';
+import { ListaPosiciones } from './ListaPosiciones.jsx';
 
 
-export function TablaSelecciones({ onEditarClick }) {
-    const { selecciones } = useAlbumContext();
-    const haySelecciones = selecciones.length !== 0;
-    const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones']
+export function TablaPosiciones() {
+    const { posiciones } = useAlbumContext();
+    const hayPosiciones = posiciones.length !== 0;
+    const tableHead = ['#', 'Descripcion', 'Acciones']
 
     return (
         <>
-            <ListaSelecciones cantidadSelecciones={selecciones.length} />
+            <ListaPosiciones cantidadPosiciones={posiciones.length} />
             <div className="table-responsive">
                 <table className="table table-hover align-middle mb-0">
-                    {haySelecciones ? (
+                    {hayPosiciones ? (
                         <>
                             <thead className="table-light">
                                 <tr>{tableHead.map((tableData) => <td key={tableData}>{tableData}</td>)}</tr>
                             </thead>
                             <tbody>
-                                {selecciones.map((seleccion) => (
-                                    <tr key={seleccion.idSeleccion}>
-                                        <Seleccion seleccion={seleccion} onEditarClick={onEditarClick}/>
+                                {posiciones.map((posicion) => (
+                                    <tr key={posicion.idPosicion}>
+                                        <Posicion posicion={posicion} />
                                     </tr>
                                 ))}
                             </tbody>
@@ -29,7 +29,7 @@ export function TablaSelecciones({ onEditarClick }) {
                     ) : (
                         <tbody>
                             <tr>
-                                <td colSpan={4} className="text-center text-muted py-4">No hay selecciones aún.</td>
+                                <td colSpan={3} className="text-center text-muted py-4">No hay posiciones aún.</td>
                             </tr>
                         </tbody>
                     )}
