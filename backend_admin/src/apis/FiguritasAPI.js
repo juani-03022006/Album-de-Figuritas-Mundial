@@ -19,7 +19,8 @@ class FiguritasAPI {
     // Jugadores
     async getJugadores() {
         try {
-            const result = await axios.get(`${this.urlAPI}/figuritas/jugadores`)
+            const result = await axios.get(`${this.urlAPI}/figuritas/jugadores`);
+            return result.data;
         } catch (error) {
             throw new Error(error);
         };
