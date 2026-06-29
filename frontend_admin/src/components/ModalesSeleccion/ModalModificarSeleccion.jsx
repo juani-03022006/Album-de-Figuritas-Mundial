@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { FormModificarSeleccion } from '../FormsSeleccion/FormModificarSeleccion.jsx';
-import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
+import { useAlbumContext } from '../../context/AlbumContext.jsx';
 
 
 export function ModalModificarSeleccion({ isOpen, onClose, seleccion }) {
@@ -49,7 +49,7 @@ export function ModalModificarSeleccion({ isOpen, onClose, seleccion }) {
         event.preventDefault();
         if (!seleccion?.idSeleccion) return;
 
-        modifySeleccion({...formData, 'idSeleccion': seleccion.idSeleccion});
+        modifySeleccion({ ...formData, 'idSeleccion': seleccion.idSeleccion });
         onClose();
     };
 
@@ -75,4 +75,4 @@ export function ModalModificarSeleccion({ isOpen, onClose, seleccion }) {
             </Modal.Footer>
         </Modal>
     );
-}
+};

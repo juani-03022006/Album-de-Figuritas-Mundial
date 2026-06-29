@@ -1,9 +1,10 @@
-import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
+import './TablaPosiciones.css';
+import { useAlbumContext } from '../../context/AlbumContext.jsx';
 import { Posicion } from '../Posicion/Posicion.jsx';
 import { ListaPosiciones } from './ListaPosiciones.jsx';
 
 
-export function TablaPosiciones() {
+export function TablaPosiciones({ onEditarClick }) {
     const { posiciones } = useAlbumContext();
     const hayPosiciones = posiciones.length !== 0;
     const tableHead = ['#', 'Descripcion', 'Acciones']
@@ -20,8 +21,8 @@ export function TablaPosiciones() {
                             </thead>
                             <tbody>
                                 {posiciones.map((posicion) => (
-                                    <tr key={posicion.idPosicion}>
-                                        <Posicion posicion={posicion} />
+                                    <tr className='posicion-tr-height' key={posicion.idPosicion}>
+                                        <Posicion posicion={posicion} onEditarClick={onEditarClick} />
                                     </tr>
                                 ))}
                             </tbody>

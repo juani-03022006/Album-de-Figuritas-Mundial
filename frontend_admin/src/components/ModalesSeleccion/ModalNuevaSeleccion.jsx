@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FormNuevaSeleccion } from '../FormsSeleccion/FormNuevaSeleccion.jsx';
-import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
+import { useAlbumContext } from '../../context/AlbumContext.jsx';
 
 
 export function ModalNuevaSeleccion() {

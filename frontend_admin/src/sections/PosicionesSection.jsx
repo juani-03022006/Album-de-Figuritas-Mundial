@@ -1,48 +1,48 @@
 import './PosicionesSection.css';
 import { useState } from 'react';
-import { useAlbumContext } from '../context/SeleccionesContext.jsx';
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { TablaPosiciones } from '../components/TablaPosiciones/TablaPosiciones.jsx';
-import FormNuevaPosicion from '../components/FormsPosiciones/FormNuevaPosicion.jsx';
+import { ContainerFormNewPosicion } from '../components/FormsPosiciones/ContainerFormNewPosicion.jsx';
+import { ModalModificarPosicion } from '../components/ModalesPoscion/ModalModificarPosicion.jsx';
 
 
 function PosicionesSection() {
-    const { posiciones, addPosicion } = useAlbumContext();
-    const [formData, setFormData] = useState({
-        descripcion: ''
-    });
+    const [posicionParaEditar, setPosicionParaEditar] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
+    const handleSelectPosicion = (posicion) => {
+        setPosicionParaEditar(posicion);
+        setIsModalOpen(true)
     };
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		addPosicion(formData);
-	};
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setPosicionParaEditar(null);
+    };
 
-	return (
-		<div>
+    return (
+        <div>
             <TituloSubtitulo titulo={'Posiciones'} subtitulo={'Gestioná las posiciones de los jugadores'} />
 
-			<div className="row g-4 row-eq-height">
-				<div className="col-md-4">
-                    {/* Deberia haber un componente de form aca, no el form */}
-					<FormNuevaPosicion handleSubmit={handleSubmit} handleChange={handleChange} />
-				</div>
+            <div className="row g-4">
+                <ModalModificarPosicion
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    posicion={posicionParaEditar}
+                />
 
-				<div className="col-md-8">
-					<div className="card border-0 shadow-sm">
-						<TablaPosiciones />
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+                <div className='row-eq-height'>
+                    <ContainerFormNewPosicion />
+
+                    <div className="col-md-8">
+                        <div className="card border-0 shadow-sm">
+                            <TablaPosiciones onEditarClick={handleSelectPosicion}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default PosicionesSection;

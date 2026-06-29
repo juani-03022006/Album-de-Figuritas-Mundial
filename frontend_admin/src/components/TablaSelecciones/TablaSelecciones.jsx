@@ -1,5 +1,5 @@
 import { Seleccion } from '../Seleccion/Seleccion.jsx';
-import { useAlbumContext } from '../../context/SeleccionesContext.jsx';
+import { useAlbumContext } from '../../context/AlbumContext.jsx';
 import { ListaSelecciones } from './ListaSelecciones.jsx';
 
 

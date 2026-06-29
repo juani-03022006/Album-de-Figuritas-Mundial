@@ -62,6 +62,15 @@ export function useAlbum() {
             throw new Error(error.message);
         };
     };
+
+    const handlePosicionChange = async (datosPosicion) => {
+        try {
+            await modifyPosicion(datosPosicion);
+            await fetchPosiciones();
+        } catch (error) {
+            throw new Error(error.message);
+        };
+    };
     
     useEffect(() => {
         fetchSelecciones();
@@ -74,6 +83,7 @@ export function useAlbum() {
         loading,
         addSeleccion: handleSeleccionesChange,
         modifySeleccion: handleSeleccionChange,
-        addPosicion: handlePosicionesChange
+        addPosicion: handlePosicionesChange,
+        modifyPosicion: handlePosicionChange
     };
 };

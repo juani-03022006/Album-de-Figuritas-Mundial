@@ -1,4 +1,4 @@
-export function Posicion({ posicion }) {
+export function Posicion({ posicion, onEditarClick }) {
     return (
         <>
             <td className="text-muted">{posicion.idPosicion}</td>
@@ -6,9 +6,9 @@ export function Posicion({ posicion }) {
             <td>
                 <button
                     className="btn btn-sm btn-outline-primary"
-                    onClick={() => { }}
+                    onClick={() => onEditarClick(posicion)}
                 >
-                    Eliminar
+                    Modificar
                 </button>
             </td>
         </>
