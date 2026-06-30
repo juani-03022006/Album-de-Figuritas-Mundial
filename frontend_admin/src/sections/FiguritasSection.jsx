@@ -1,6 +1,3 @@
-import { useMemo, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useAlbumContext } from '../context/AlbumContext.jsx';
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { TablaFiguritas } from '../components/TablaFiguritas/TablaFiguritas.jsx';
 

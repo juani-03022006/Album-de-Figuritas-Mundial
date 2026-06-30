@@ -88,7 +88,7 @@ function Sidebar() {
         { to: "/", label: "Dashboard", icon: "🏠" },
         { to: "/selecciones", label: "Selecciones", icon: "🌍" },
         { to: "/posiciones", label: "Posiciones", icon: "📋" },
-        { to: "/jugadores", label: "Jugadores", icon: "⚽" },
+        { to: "/figuritas", label: "Figuritas", icon: "⚽" },
         { to: "/especiales", label: "Especiales", icon: "⭐" },
     ];
 
@@ -578,7 +578,7 @@ export default function App() {
                             <Route path="/" element={<Dashboard />} />
                             <Route path="/selecciones" element={<SeleccionesSection />} />
                             <Route path="/posiciones" element={<PosicionesSection />} />
-                            <Route path="/jugadores" element={<FiguritasSection />} />
+                            <Route path="/figuritas" element={<FiguritasSection />} />
                             <Route path="/especiales" element={<EspecialesSection />} />
                         </Routes>
                     </Layout>
