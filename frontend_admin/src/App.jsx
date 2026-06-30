@@ -5,6 +5,7 @@ import { AlbumProvider } from './context/AlbumContext.jsx';
 import SeleccionesSection from './sections/SeleccionesSection.jsx';
 import PosicionesSection from './sections/PosicionesSection.jsx';
 import EspecialesSection from './sections/EspecialesSection.jsx';
+import FiguritasSection from './sections/FiguritasSection.jsx';
 
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -577,7 +578,7 @@ export default function App() {
                             <Route path="/" element={<Dashboard />} />
                             <Route path="/selecciones" element={<SeleccionesSection />} />
                             <Route path="/posiciones" element={<PosicionesSection />} />
-                            <Route path="/jugadores" element={<Jugadores />} />
+                            <Route path="/jugadores" element={<FiguritasSection />} />
                             <Route path="/especiales" element={<EspecialesSection />} />
                         </Routes>
                     </Layout>

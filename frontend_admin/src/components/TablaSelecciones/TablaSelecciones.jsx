@@ -6,7 +6,7 @@ import { ListaSelecciones } from './ListaSelecciones.jsx';
 export function TablaSelecciones({ onEditarClick }) {
     const { selecciones } = useAlbumContext();
     const haySelecciones = selecciones.length !== 0;
-    const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones']
+    const tableHead = ['Bandera', 'Seleccion', 'País', 'Colores', 'Desde/Hasta', 'Grupo', 'Acciones'];
 
     return (
         <>

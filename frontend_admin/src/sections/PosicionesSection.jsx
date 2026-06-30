@@ -34,7 +34,7 @@ function PosicionesSection() {
                 <div className='row-eq-height'>
                     <ContainerFormNewPosicion />
 
-                    <div className="col-md-8">
+                    <div className="col-md-8 ps-2">
                         <div className="card border-0 shadow-sm">
                             <TablaPosiciones onEditarClick={handleSelectPosicion}/>
                         </div>

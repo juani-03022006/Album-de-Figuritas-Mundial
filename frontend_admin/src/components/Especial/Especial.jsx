@@ -1,6 +1,4 @@
 export function Especial({ tipoColor, tipoLabel, seleccion, especial }) {
-    console.log(tipoColor, tipoLabel)
-
     return (
         <>
             <td className="text-muted">{especial.id}</td>

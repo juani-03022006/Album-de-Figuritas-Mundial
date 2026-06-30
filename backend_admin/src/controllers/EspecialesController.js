@@ -8,7 +8,7 @@ function generarEspecialesController(EspecialesService) {
             try {
                 const especiales = EspecialesService.obtenerEspeciales();
 
-                console.log('Obteniendo especiales...');
+                console.log('Obteniendo las Especiales...');
                 res.status(200).json(await especiales);
             } catch (error) {
                 res.status(500).json(error);
@@ -20,7 +20,7 @@ function generarEspecialesController(EspecialesService) {
                 const idSeleccion = req.params.id;
                 const especialesDeSeleccion = EspecialesService.obtenerEspecialesPorSeleccion(idSeleccion);
                 
-                console.log('Obteniendo especiales...');
+                console.log('Obteniendo las Especiales...');
                 res.status(200).json(await especialesDeSeleccion);
             } catch (error) {
                 res.status(500).json(error);
@@ -32,7 +32,7 @@ function generarEspecialesController(EspecialesService) {
                 const datosEspecial = req.body;
                 const especial = EspecialesService.crearEspecial(datosEspecial);
                 
-                console.log('Añadiendo especial...');
+                console.log('Añadiendo Especial...');
                 res.status(200).json(await especial);
             } catch (error) {
                 res.status(500).json(error);
@@ -45,7 +45,7 @@ function generarEspecialesController(EspecialesService) {
                 const datosEspecial = req.body;
                 const result = EspecialesService.modificarEspecial(idEspecial, datosEspecial);
                 
-                console.log('Modificando especial...');
+                console.log('Modificando Especial...');
                 res.status(200).json(await result);
             } catch (error) {
                 res.status(500).json(error);
@@ -57,7 +57,7 @@ function generarEspecialesController(EspecialesService) {
                 const idFigurita = req.params.id;
                 const result = EspecialesService.eliminarEspecial(idFigurita);
                 
-                console.log('Eliminando especial...');
+                console.log('Eliminando Especial...');
                 res.status(200).json(await result);
             } catch (error) {
                 res.status(500).json(error);

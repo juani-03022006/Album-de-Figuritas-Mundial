@@ -7,7 +7,7 @@ function generarJugadoresController(JugadoresService) {
         getJugadores: async (req, res) => {
             try {
                 const jugadores = JugadoresService.obtenerJugadores();
-                console.log('Obteniendo jugadores...');
+                console.log('Obteniendo los Jugadores...');
 
                 res.status(200).json(await jugadores);
             } catch (error) {
@@ -20,7 +20,7 @@ function generarJugadoresController(JugadoresService) {
                 const idSeleccion = req.params.id;
 
                 const jugadoresDeSeleccion = JugadoresService.obtenerJugadoresPorSeleccion(idSeleccion);
-                console.log('Obteniendo jugadores...');
+                console.log('Obteniendo los Jugadores...');
 
                 res.status(200).json(await jugadoresDeSeleccion);
             } catch (error) {
@@ -33,7 +33,7 @@ function generarJugadoresController(JugadoresService) {
                 const datosJugador = req.body;
                 const jugador = JugadoresService.crearJugador(datosJugador);
 
-                console.log('Añadiendo jugador...');
+                console.log('Añadiendo Jugador...');
                 res.status(200).json(await jugador);
             } catch (error) {
                 res.status(500).json(error);
@@ -46,7 +46,7 @@ function generarJugadoresController(JugadoresService) {
                 const jugadorModificado = req.body;
                 const result = JugadoresService.modificarJugador(idJugador, jugadorModificado);
                 
-                console.log('Modificando jugador...');
+                console.log('Modificando Jugador...');
                 res.status(200).json(await result);
             } catch (error) {
                 res.status(500).json(error);
@@ -58,7 +58,7 @@ function generarJugadoresController(JugadoresService) {
                 const idFigurita = req.params.id;
                 const result = JugadoresService.eliminarJugador(idFigurita);
                 
-                console.log('Eliminando jugador...');
+                console.log('Eliminando Jugador...');
                 res.status(200).json(await result);
             } catch (error) {
                 res.status(500).json(error);

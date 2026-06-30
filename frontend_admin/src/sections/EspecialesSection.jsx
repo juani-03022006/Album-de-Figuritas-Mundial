@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAlbumContext } from '../context/AlbumContext.jsx';
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { TablaEspeciales } from '../components/TablaEspeciales/TablaEspeciales.jsx';
+import MiTablaGrid from './FiguritasSection.jsx';
 
 
 function EspecialesSection() {

@@ -15,3 +15,18 @@ export const modifyEspecial = async (datosEspecial) => {
     const result = await axios.put(`http://localhost:4000/figuritas/especiales/${datosEspecial.idEspecial}`, datosEspecial);
     return result.data;
 };
+
+export const getJugadores = async () => {
+    const result = await axios.get('http://localhost:4000/figuritas/jugadores');
+    return result.data;
+};
+
+export const createJugador = async (datosJugador) => {
+    const result = await axios.post('http://localhost:4000/figuritas/jugadores', datosJugador);
+    return result.data;
+};
+
+export const modifyJugador = async (datosJugador) => {
+    const result = await axios.put(`http://localhost:4000/figuritas/jugador/${datosJugador.idJugador}`, datosJugador);
+    return result.data;
+};

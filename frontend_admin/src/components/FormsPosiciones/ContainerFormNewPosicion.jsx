@@ -22,7 +22,7 @@ export function ContainerFormNewPosicion() {
     };
 
     return (
-        <div className="col-md-4">
+        <div className="col-md-4 pe-2">
             <FormNuevaPosicion
                 handleSubmit={handleFormSubmit}
                 handleChange={handleFormChange}
