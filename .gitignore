@@ -1,11 +1,6 @@
 node_modules/
-<<<<<<< HEAD
 DB/
-=======
 
-
-APIAlbumMundial/DB/*.db
->>>>>>> 929b8ebad62be771adff34a0d7c9d083985212a7
 
 .DS_Store
 npm-debug.log*
