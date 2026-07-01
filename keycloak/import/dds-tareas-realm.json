@@ -24,6 +24,14 @@
   "defaultRoles": [
     "usuario"
   ],
+  "groups": [
+    {
+      "name": "administradores_album",
+      "realmRoles": [
+        "admin"
+      ]
+    }
+  ],
   "clients": [
     {
       "clientId": "dds-tareas-node-backend",
@@ -43,11 +51,12 @@
         "http://localhost:4000/auth/callback"
       ],
       "webOrigins": [
-        "http://localhost:5173"
+        "http://localhost:5173",
+        "http://localhost:5000"
       ],
       "attributes": {
         "pkce.code.challenge.method": "plain",
-        "post.logout.redirect.uris": "http://localhost:5173/*##http://localhost:4000/*"
+        "post.logout.redirect.uris": "http://localhost:5173/*##http://localhost:5000/*##http://localhost:4000/*"
       },
       "defaultClientScopes": [
         "web-origins",
@@ -81,6 +90,28 @@
       ],
       "realmRoles": [
         "usuario"
+      ]
+    },
+    {
+      "username": "admin_album",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "Album",
+      "email": "admin@album.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Clave123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "usuario",
+        "admin"
+      ],
+      "groups": [
+        "/administradores_album"
       ]
     }
   ]

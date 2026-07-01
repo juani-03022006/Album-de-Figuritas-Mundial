@@ -9,6 +9,7 @@ import {
   KEYCLOAK_REDIRECT_URI,
   KEYCLOAK_REGISTRATION_ENDPOINT,
   KEYCLOAK_TOKEN_ENDPOINT,
+  ADMIN_FRONTEND_URL,
 } from '../config/keycloak.js';
 
 const pendingLogins = new Map();
@@ -84,17 +85,23 @@ class OAuthService {
   }
 
   crearUrlLogout({ next = 'frontend' } = {}) {
-    const postLogoutRedirectUri = next === 'register'
-      ? `${BACKEND_PUBLIC_URL}/register`
-      : FRONTEND_URL;
+  let postLogoutRedirectUri = FRONTEND_URL;
 
-    const params = new URLSearchParams({
-      client_id: KEYCLOAK_CLIENT_ID,
-      post_logout_redirect_uri: postLogoutRedirectUri,
-    });
-
-    return `${KEYCLOAK_LOGOUT_ENDPOINT}?${params.toString()}`;
+  if (next === 'register') {
+    postLogoutRedirectUri = `${BACKEND_PUBLIC_URL}/register`;
   }
+
+  if (next === 'admin') {
+    postLogoutRedirectUri = ADMIN_FRONTEND_URL;
+  }
+
+  const params = new URLSearchParams({
+    client_id: KEYCLOAK_CLIENT_ID,
+    post_logout_redirect_uri: postLogoutRedirectUri,
+  });
+
+  return `${KEYCLOAK_LOGOUT_ENDPOINT}?${params.toString()}`;
+}
 
   async intercambiarCodigoPorTokens({ code, state }) {
     limpiarLoginsExpirados();
