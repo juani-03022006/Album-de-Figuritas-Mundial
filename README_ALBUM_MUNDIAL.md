@@ -20,6 +20,11 @@ npm run dev
 ```bash
 docker compose up -d
 ```
+- Para detener el docker
+
+```bash
+docker compose down -v
+```
 
 - Para popular la base de datos con los datos del mundial del 2026 se debe ejecutar:
 
@@ -28,3 +33,5 @@ npm run populate
 ```
 
 - Se accede al login del album mediante la ruta http://localhost:5173/
+
+- Utiliza usuario: 'admin' y contraseña: '123', para acceder a la interfaz de administracion del Album, si lo desea.
