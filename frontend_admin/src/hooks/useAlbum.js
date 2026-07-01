@@ -99,7 +99,7 @@ export function useAlbum() {
     const fetchJugadores = async () => {
         try {
             const result = await getJugadores();
-            return result.data;
+            setJugadores(result);
         } catch (error) {
             throw new Error(error.message);
         };
@@ -108,10 +108,10 @@ export function useAlbum() {
     useEffect(() => {
         const cargarDatos = async () => {
             try {
-                fetchSelecciones();
-                fetchPosiciones();
-                fetchEspeciales();
-                fetchJugadores();
+                await fetchSelecciones();
+                await fetchPosiciones();
+                await fetchEspeciales();
+                await fetchJugadores();
             } catch (error) {
                 throw new Error(error.message);
             } finally {

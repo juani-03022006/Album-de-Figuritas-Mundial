@@ -1,7 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:4000';
-const USER_FRONTEND_URL = import.meta.env.VITE_USER_FRONTEND_URL || 'http://localhost:5173';
-const TOKEN_KEY = 'album_admin_access_token';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { AlbumProvider } from './context/AlbumContext.jsx';
@@ -10,6 +7,9 @@ import PosicionesSection from './sections/PosicionesSection.jsx';
 import EspecialesSection from './sections/EspecialesSection.jsx';
 import FiguritasSection from './sections/FiguritasSection.jsx';
 
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:4000';
+const USER_FRONTEND_URL = import.meta.env.VITE_USER_FRONTEND_URL || 'http://localhost:5173';
+const TOKEN_KEY = 'album_admin_access_token';
 
 
 function readTokenFromCallbackHash() {
@@ -21,17 +21,17 @@ function readTokenFromCallbackHash() {
 
     const params = new URLSearchParams(hash);
     return params.get('access_token');
-}
+};
 
 function clearCallbackUrl() {
     if (window.location.pathname === '/auth/callback') {
         window.history.replaceState({}, document.title, '/');
-    }
-}
+    };
+};
 
 function redirectToUserLogin() {
     window.location.replace(USER_FRONTEND_URL);
-}
+};
 
 async function fetchAdminUser(accessToken) {
     const response = await fetch(`${AUTH_URL}/api/me`, {
@@ -42,11 +42,11 @@ async function fetchAdminUser(accessToken) {
 
     if (!response.ok) {
         throw new Error('No se pudo validar la sesión de administrador');
-    }
+    };
 
     const data = await response.json();
     return data.usuario;
-}
+};
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -54,7 +54,7 @@ const AAlbumContext = createContext(null);
 
 function useAlbum() {
     return useContext(AAlbumContext);
-}
+};
 
 // ─── Context Provider ─────────────────────────────────────────────────────────
 
@@ -119,7 +119,7 @@ function AAlbumProvider({ children }) {
             {children}
         </AAlbumContext.Provider>
     );
-}
+};
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 
@@ -133,7 +133,7 @@ function Sidebar() {
     ];
 
     return (
-        
+
         <nav
             className="d-flex flex-column p-0 text-white"
             style={{
@@ -143,7 +143,7 @@ function Sidebar() {
                 flexShrink: 0,
             }}
         >
-            
+
             {/* Logo */}
             <div className="p-4 border-bottom border-white border-opacity-25 text-center">
                 <div style={{ fontSize: 36 }}>🏆</div>
@@ -185,7 +185,7 @@ function Sidebar() {
             </div>
         </nav>
     );
-}
+};
 
 // ─── Layout ───────────────────────────────────────────────────────────────────
 
@@ -203,10 +203,11 @@ function Layout({ children, handleLogout }) {
                     Cerrar sesión
                 </button>
             )}
+
             <main className="flex-grow-1 p-4 overflow-auto">{children}</main>
         </div>
     );
-}
+};
 
 // ─── Page: Dashboard ──────────────────────────────────────────────────────────
 
@@ -324,7 +325,7 @@ function Dashboard() {
             </button>
         </div>
     );
-}
+};
 
 // ─── Page: Jugadores ──────────────────────────────────────────────────────────
 
@@ -466,7 +467,7 @@ function Jugadores() {
             </div>
         </div>
     );
-}
+};
 
 // ─── Page: Especiales ─────────────────────────────────────────────────────────
 
@@ -616,77 +617,77 @@ function Especiales() {
             </div>
         </div>
     );
-}
+};
 
 // ─── App Root ─────────────────────────────────────────────────────────────────
 
 export default function App() {
-    const [isInitialized, setIsInitialized] = useState(false);
-    const [isAuthorized, setIsAuthorized] = useState(false);
+    // const [isInitialized, setIsInitialized] = useState(false);
+    // const [isAuthorized, setIsAuthorized] = useState(false);
 
-    useEffect(() => {
-        let isMounted = true;
+    // useEffect(() => {
+    //     let isMounted = true;
 
-        async function validateSession() {
-            const callbackToken = readTokenFromCallbackHash();
+    //     async function validateSession() {
+    //         const callbackToken = readTokenFromCallbackHash();
 
-            if (callbackToken) {
-                localStorage.setItem(TOKEN_KEY, callbackToken);
-                clearCallbackUrl();
-            }
+    //         if (callbackToken) {
+    //             localStorage.setItem(TOKEN_KEY, callbackToken);
+    //             clearCallbackUrl();
+    //         }
 
-            const token = callbackToken || localStorage.getItem(TOKEN_KEY);
+    //         const token = callbackToken || localStorage.getItem(TOKEN_KEY);
 
-            if (!token) {
-                redirectToUserLogin();
-                return;
-            }
+    //         if (!token) {
+    //             redirectToUserLogin();
+    //             return;
+    //         }
 
-            try {
-                const user = await fetchAdminUser(token);
+    //         try {
+    //             const user = await fetchAdminUser(token);
 
-                if (!user.roles?.includes('admin')) {
-                    throw new Error('El usuario no tiene rol admin');
-                }
+    //             if (!user.roles?.includes('admin')) {
+    //                 throw new Error('El usuario no tiene rol admin');
+    //             }
 
-                if (!isMounted) return;
-                setIsAuthorized(true);
-            } catch {
-                localStorage.removeItem(TOKEN_KEY);
-                redirectToUserLogin();
-                return;
-            } finally {
-                if (isMounted) {
-                    setIsInitialized(true);
-                }
-            }
-        }
+    //             if (!isMounted) return;
+    //             setIsAuthorized(true);
+    //         } catch {
+    //             localStorage.removeItem(TOKEN_KEY);
+    //             redirectToUserLogin();
+    //             return;
+    //         } finally {
+    //             if (isMounted) {
+    //                 setIsInitialized(true);
+    //             }
+    //         }
+    //     }
 
-        validateSession();
+    //     validateSession();
 
-        return () => {
-            isMounted = false;
-        };
-    }, []);
+    //     return () => {
+    //         isMounted = false;
+    //     };
+    // }, []);
 
-    function handleLogout() {
-        localStorage.removeItem(TOKEN_KEY);
-        window.location.href = `${AUTH_URL}/logout`;
-    }
+    // function handleLogout() {
+    //     localStorage.removeItem(TOKEN_KEY);
+    //     window.location.href = `${AUTH_URL}/logout`;
+    // }
 
-    if (!isInitialized || !isAuthorized) {
-        return (
-            <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light text-secondary">
-                Validando sesión de administrador...
-            </div>
-        );
-    }
+    // if (!isInitialized || !isAuthorized) {
+    //     return (
+    //         <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light text-secondary">
+    //             Validando sesión de administrador...
+    //         </div>
+    //     );
+    // }
 
     return (
         <BrowserRouter>
             <AlbumProvider>
                 <AAlbumProvider>
-                    <Layout handleLogout={handleLogout}>
+                    <Layout>
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
                             <Route path="/selecciones" element={<SeleccionesSection />} />
@@ -700,4 +701,4 @@ export default function App() {
             </AlbumProvider>
         </BrowserRouter>
     );
-}
+};

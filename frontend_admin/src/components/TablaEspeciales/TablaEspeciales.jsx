@@ -1,5 +1,4 @@
 import { useAlbumContext } from '../../context/AlbumContext.jsx';
-import { Especial } from '../Especial/Especial.jsx';
 import { ListaEspeciales } from './ListaEspeciales.jsx';
 
 

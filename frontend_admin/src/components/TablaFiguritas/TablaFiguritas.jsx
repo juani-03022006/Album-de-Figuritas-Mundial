@@ -2,12 +2,16 @@ import { useMemo, useState } from 'react';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { useAlbumContext } from '../../context/AlbumContext.jsx';
 import { TituloSubtitulo } from '../TituloSubtitulo/TituloSubtitulo.jsx';
+import { NavegadorSelecciones } from './NavegadorSelecciones.jsx';
+import { FilaEspeciales } from './FilaEspeciales.jsx';
 
 
 export function TablaFiguritas({ onFiguritaClick }) {
     const { selecciones, especiales, jugadores } = useAlbumContext();
     const [selectedSeleccion, setSelectedSeleccion] = useState(0);
     const haySelecciones = selecciones.length !== 0;
+    const hayJugadores = jugadores.length !== 0;
+    const hayEspeciales = especiales.length !== 0;
 
     const seleccionesOrdenadas = useMemo(() => {
         if (!selecciones) return [];
@@ -21,7 +25,7 @@ export function TablaFiguritas({ onFiguritaClick }) {
     // Handler para el Dropdown (mismo de antes)
     const handleSeleccionChange = (event) => {
         const valorSeleccionado = Number(event.target.value);
-        setSelectedSeleccion(indiceSeleccion);  
+        setSelectedSeleccion(valorSeleccionado);
     };
 
     // Funciones para navegar hacia atrás y adelante
@@ -37,68 +41,24 @@ export function TablaFiguritas({ onFiguritaClick }) {
         };
     };
 
-    // =========================================================================
-    // const [especialesSeleccion, setEspecialesSeleccion] = useState([]);
-    const [jugadoresSeleccion, setJugadoresSeleccion] = useState([]);
-
     const especialesSeleccion = especiales.filter(especial => especial.figurita.idSeleccion === seleccionesOrdenadas[selectedSeleccion].idSeleccion);
-
-    // =========================================================================
+    const jugadoresSeleccion = jugadores.filter(jugador => jugador.figurita.idSeleccion === seleccionesOrdenadas[selectedSeleccion].idSeleccion);
 
     return (
         <>
-            {haySelecciones ? (
+            {haySelecciones && hayJugadores && hayEspeciales ? (
                 <>
                     {/* SECTOR DE CONTROL: CONTROLES DE PAGINACIÓN Y DROPDOWN */}
-                    <Row className="justify-content-center align-items-end mb-4 g-2">
-                        {/* Botón Atrás (<) */}
-                        <Col xs="auto">
-                            <Button
-                                variant="outline-secondary"
-                                onClick={handlePrev}
-                                // Se deshabilita si no hay selección o si es la primera
-                                disabled={selectedSeleccion <= 0}
-                            >
-                                &lt; Anterior
-                            </Button>
-                        </Col>
-
-                        {/* Dropdown Central */}
-                        <Col md={4} xs={6}>
-                            <Form.Group controlId="selectSeleccion">
-                                <Form.Label className="fw-bold d-block text-center">Selección Actual</Form.Label>
-                                <Form.Select
-                                    value={selectedSeleccion}
-                                    onChange={handleSeleccionChange}
-                                >
-                                    {seleccionesOrdenadas.map((seleccion, index) => (
-                                        <option key={seleccion.idSeleccion} value={index}>
-                                            Grupo {seleccion.grupo} - {seleccion.nombreSeleccion}
-                                        </option>
-                                    ))}
-                                </Form.Select>
-                            </Form.Group>
-                        </Col>
-
-                        {/* Botón Siguiente (>) */}
-                        <Col xs="auto">
-                            <Button
-                                variant="outline-secondary"
-                                onClick={handleNext}
-                                disabled={selectedSeleccion === seleccionesOrdenadas.length - 1}
-                            >
-                                Siguiente &gt;
-                            </Button>
-                        </Col>
-
-                    </Row>
+                    <NavegadorSelecciones
+                        handlePrev={handlePrev}
+                        handleNext={handleNext}
+                        handleSeleccionChange={handleSeleccionChange}
+                        selectedSeleccion={selectedSeleccion}
+                        seleccionesOrdenadas={seleccionesOrdenadas}
+                    />
                     <Container className='card border-0 shadow-sm'>
 
-                        <Row className="text-center fw-bold p-2">
-                            <Col md={4} className='p-3'>Celda 1/3 (A)</Col>
-                            <Col md={4} className='p-3'>Celda 1/3 (B)</Col>
-                            <Col md={4} className='p-3'>Celda 1/3 (C)</Col>
-                        </Row>
+                        <FilaEspeciales especialesSeleccion={especialesSeleccion} />
 
                         <Row className="text-center p-2">
                             <Col md={3} className='p-3' >Celda 1/4</Col>
