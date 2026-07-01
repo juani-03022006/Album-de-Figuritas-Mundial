@@ -1,7 +1,7 @@
 node_modules/
 
 
-APIAlbumMundial/DBs/*.db
+APIAlbumMundial/DB/*.db
 
 .DS_Store
 npm-debug.log*
