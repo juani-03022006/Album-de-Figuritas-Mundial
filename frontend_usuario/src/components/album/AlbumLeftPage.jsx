@@ -41,7 +41,7 @@ export function AlbumLeftPage({ team }) {
                           className="w-6 h-4 object-cover border border-black/10"
                         />
                         <p
-                          className="font-bold text-[8px] leading-tight max-w-[80px]"
+                          className="font-bold text-[10px] leading-tight max-w-[90px]"
                           style={{ color: team.colores.accent2 }}
                         >
                           {team.asociacion}

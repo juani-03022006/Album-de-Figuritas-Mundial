@@ -698,7 +698,7 @@ export default function App() {
         <BrowserRouter>
             <AlbumProvider>
                 <AAlbumProvider>
-                    <Layout>
+                    <Layout handleLogout={handleLogout}>
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
                             <Route path="/selecciones" element={<SeleccionesSection />} />
