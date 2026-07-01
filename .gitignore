@@ -1,9 +1,5 @@
 node_modules/
-
-
-APIAlbumMundial/src/DB/*.db
-APIAlbumMundial/src/DB/*.sqlite
-APIAlbumMundial/src/DB/*.sqlite3
+DB/
 
 .DS_Store
 npm-debug.log*
