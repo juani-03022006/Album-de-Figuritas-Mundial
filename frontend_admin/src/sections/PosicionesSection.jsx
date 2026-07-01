@@ -1,14 +1,26 @@
 import './PosicionesSection.css';
 import { useState } from 'react';
+import { Container, Spinner } from 'react-bootstrap';
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { TablaPosiciones } from '../components/TablaPosiciones/TablaPosiciones.jsx';
 import { ContainerFormNewPosicion } from '../components/FormsPosiciones/ContainerFormNewPosicion.jsx';
 import { ModalModificarPosicion } from '../components/ModalesPoscion/ModalModificarPosicion.jsx';
+import { useAlbumContext } from '../context/AlbumContext.jsx';
 
 
 function PosicionesSection() {
     const [posicionParaEditar, setPosicionParaEditar] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { loading } = useAlbumContext();
+
+    if (loading) {
+        return (
+            <Container className="text-center my-5">
+                <Spinner animation="border" variant="primary" />
+                <h5>Conectando con el servidor...</h5>
+            </Container>
+        );
+    };
 
     const handleSelectPosicion = (posicion) => {
         setPosicionParaEditar(posicion);

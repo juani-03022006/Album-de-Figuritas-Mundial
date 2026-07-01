@@ -1,5 +1,7 @@
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { TablaFiguritas } from '../components/TablaFiguritas/TablaFiguritas.jsx';
+import { useAlbumContext } from '../context/AlbumContext.jsx';
+import { Container, Spinner } from 'react-bootstrap';
 
 
 function FiguritasSection() {

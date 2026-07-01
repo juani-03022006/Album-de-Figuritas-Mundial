@@ -14,14 +14,10 @@ export function useAlbum() {
     // Para selecciones
     const fetchSelecciones = async () => {
         try {
-            setLoading(true);
-
             const result = await getSelecciones();
             setSelecciones(result);
         } catch (error) {
             throw new Error(error);
-        } finally {
-            setLoading(false);
         };
     };
     
@@ -46,14 +42,10 @@ export function useAlbum() {
     // Para posiciones
     const fetchPosiciones = async () => {
         try {
-            setLoading(true);
-
             const result = await getPosiciones();
             setPosiciones(result);
         } catch (error) {
             throw new Error(error.message);
-        } finally {
-            setLoading(false);
         };
     };
 
@@ -78,14 +70,10 @@ export function useAlbum() {
     // Para Especiales
     const fetchEspeciales = async () => {
         try {
-            setLoading(true);
-
             const result = await getEspeciales();
             setEspeciales(result);
         } catch (error) {
             throw new Error(error.message);
-        } finally {
-            setLoading(false);
         };
     };
 
@@ -110,22 +98,28 @@ export function useAlbum() {
     // Para Jugadores
     const fetchJugadores = async () => {
         try {
-            setLoading(true);
-
             const result = await getJugadores();
             return result.data;
         } catch (error) {
             throw new Error(error.message);
-        } finally {
-            setLoading(false);
         };
     };
     
     useEffect(() => {
-        fetchSelecciones();
-        fetchPosiciones();
-        fetchEspeciales();
-        fetchJugadores();
+        const cargarDatos = async () => {
+            try {
+                fetchSelecciones();
+                fetchPosiciones();
+                fetchEspeciales();
+                fetchJugadores();
+            } catch (error) {
+                throw new Error(error.message);
+            } finally {
+                setLoading(false);
+            };
+        };
+        
+        cargarDatos();
     }, []);
     
     return {
