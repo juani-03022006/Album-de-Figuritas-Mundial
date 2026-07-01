@@ -1,19 +1,18 @@
 import oauthService from '../services/oauthService.js';
 import { decodeJwt } from 'jose';
 import { FRONTEND_URL, ADMIN_FRONTEND_URL } from '../config/keycloak.js';
+import { isAdminPayload } from '../services/rolesService.js';
 
-function getRolesFromToken(accessToken) {
+function tokenIsAdmin(accessToken) {
   try {
-    const payload = decodeJwt(accessToken);
-    return payload.realm_access?.roles ?? [];
+    return isAdminPayload(decodeJwt(accessToken));
   } catch {
-    return [];
+    return false;
   }
 }
 
 function buildFrontendCallbackUrl(tokens) {
-  const roles = getRolesFromToken(tokens.access_token);
-  const destino = roles.includes('admin') ? ADMIN_FRONTEND_URL : FRONTEND_URL;
+  const destino = tokenIsAdmin(tokens.access_token) ? ADMIN_FRONTEND_URL : FRONTEND_URL;
 
   const params = new URLSearchParams({
     access_token: tokens.access_token,

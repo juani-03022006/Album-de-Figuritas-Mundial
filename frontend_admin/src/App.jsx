@@ -2,6 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:4000';
 const USER_FRONTEND_URL = import.meta.env.VITE_USER_FRONTEND_URL || 'http://localhost:5173';
 const TOKEN_KEY = 'album_admin_access_token';
+const ADMIN_USERNAMES = (import.meta.env.VITE_ADMIN_USERNAMES || 'admin_album')
+    .split(',')
+    .map((username) => username.trim())
+    .filter(Boolean);
 import { createContext, useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { AlbumProvider } from './context/AlbumContext.jsx';
@@ -31,6 +35,11 @@ function clearCallbackUrl() {
 
 function redirectToUserLogin() {
     window.location.replace(USER_FRONTEND_URL);
+}
+
+
+function isAdminUser(user) {
+    return user?.roles?.includes('admin') || ADMIN_USERNAMES.includes(user?.username);
 }
 
 async function fetchAdminUser(accessToken) {
@@ -645,7 +654,7 @@ export default function App() {
             try {
                 const user = await fetchAdminUser(token);
 
-                if (!user.roles?.includes('admin')) {
+                if (!isAdminUser(user)) {
                     throw new Error('El usuario no tiene rol admin');
                 }
 
