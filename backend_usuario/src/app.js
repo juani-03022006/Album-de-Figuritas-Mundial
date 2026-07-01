@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import { FRONTEND_URL } from './config/keycloak.js';
+import { ADMIN_FRONTEND_URL, FRONTEND_URL } from './config/keycloak.js';
 
 export function createApp() {
   const app = express();
 
   app.use(cors({
-    origin: FRONTEND_URL,
+    origin: [FRONTEND_URL, ADMIN_FRONTEND_URL],
     credentials: true,
   }));
   app.use(express.json());

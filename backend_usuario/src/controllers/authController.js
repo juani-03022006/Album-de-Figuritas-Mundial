@@ -41,11 +41,7 @@ export function createAuthController() {
     },
 
     logout(req, res) {
-      const nextPermitidos = ['register', 'frontend', 'admin'];
-      const next = nextPermitidos.includes(req.query.next)
-        ? req.query.next
-        : 'frontend';
-
+      const next = req.query.next === 'register' ? 'register' : 'frontend';
       const logoutUrl = oauthService.crearUrlLogout({ next });
 
       res.redirect(logoutUrl);
