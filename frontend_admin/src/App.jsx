@@ -7,9 +7,14 @@ import PosicionesSection from './sections/PosicionesSection.jsx';
 import EspecialesSection from './sections/EspecialesSection.jsx';
 import FiguritasSection from './sections/FiguritasSection.jsx';
 
+
 const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:4000';
 const USER_FRONTEND_URL = import.meta.env.VITE_USER_FRONTEND_URL || 'http://localhost:5173';
 const TOKEN_KEY = 'album_admin_access_token';
+const ADMIN_USERNAMES = (import.meta.env.VITE_ADMIN_USERNAMES || 'admin_album')
+    .split(',')
+    .map((username) => username.trim())
+    .filter(Boolean);
 
 
 function readTokenFromCallbackHash() {
@@ -32,6 +37,11 @@ function clearCallbackUrl() {
 function redirectToUserLogin() {
     window.location.replace(USER_FRONTEND_URL);
 };
+
+
+function isAdminUser(user) {
+    return user?.roles?.includes('admin') || ADMIN_USERNAMES.includes(user?.username);
+}
 
 async function fetchAdminUser(accessToken) {
     const response = await fetch(`${AUTH_URL}/api/me`, {
@@ -622,66 +632,67 @@ function Especiales() {
 // ─── App Root ─────────────────────────────────────────────────────────────────
 
 export default function App() {
-    // const [isInitialized, setIsInitialized] = useState(false);
-    // const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isInitialized, setIsInitialized] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
 
-    // useEffect(() => {
-    //     let isMounted = true;
+    useEffect(() => {
+        let isMounted = true;
 
-    //     async function validateSession() {
-    //         const callbackToken = readTokenFromCallbackHash();
+        async function validateSession() {
+            const callbackToken = readTokenFromCallbackHash();
 
-    //         if (callbackToken) {
-    //             localStorage.setItem(TOKEN_KEY, callbackToken);
-    //             clearCallbackUrl();
-    //         }
+            if (callbackToken) {
+                localStorage.setItem(TOKEN_KEY, callbackToken);
+                clearCallbackUrl();
+            }
 
-    //         const token = callbackToken || localStorage.getItem(TOKEN_KEY);
+            const token = callbackToken || localStorage.getItem(TOKEN_KEY);
 
-    //         if (!token) {
-    //             redirectToUserLogin();
-    //             return;
-    //         }
+            if (!token) {
+                redirectToUserLogin();
+                return;
+            }
 
-    //         try {
-    //             const user = await fetchAdminUser(token);
+            try {
+                const user = await fetchAdminUser(token);
 
-    //             if (!user.roles?.includes('admin')) {
-    //                 throw new Error('El usuario no tiene rol admin');
-    //             }
 
-    //             if (!isMounted) return;
-    //             setIsAuthorized(true);
-    //         } catch {
-    //             localStorage.removeItem(TOKEN_KEY);
-    //             redirectToUserLogin();
-    //             return;
-    //         } finally {
-    //             if (isMounted) {
-    //                 setIsInitialized(true);
-    //             }
-    //         }
-    //     }
+                if (!isAdminUser(user)) {
+                    throw new Error('El usuario no tiene rol admin');
+                }
 
-    //     validateSession();
+                if (!isMounted) return;
+                setIsAuthorized(true);
+            } catch {
+                localStorage.removeItem(TOKEN_KEY);
+                redirectToUserLogin();
+                return;
+            } finally {
+                if (isMounted) {
+                    setIsInitialized(true);
+                }
+            }
+        }
 
-    //     return () => {
-    //         isMounted = false;
-    //     };
-    // }, []);
+        validateSession();
 
-    // function handleLogout() {
-    //     localStorage.removeItem(TOKEN_KEY);
-    //     window.location.href = `${AUTH_URL}/logout`;
-    // }
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
-    // if (!isInitialized || !isAuthorized) {
-    //     return (
-    //         <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light text-secondary">
-    //             Validando sesión de administrador...
-    //         </div>
-    //     );
-    // }
+    function handleLogout() {
+        localStorage.removeItem(TOKEN_KEY);
+        window.location.href = `${AUTH_URL}/logout`;
+    }
+
+    if (!isInitialized || !isAuthorized) {
+        return (
+            <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light text-secondary">
+                Validando sesión de administrador...
+            </div>
+        );
+    }
 
     return (
         <BrowserRouter>

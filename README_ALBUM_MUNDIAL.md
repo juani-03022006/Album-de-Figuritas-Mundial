@@ -20,10 +20,16 @@ npm run dev
 ```bash
 docker compose up -d
 ```
-- Para detener el docker
+- Para detener el docker borrando datos persistidos
 
 ```bash
-docker compose down -v
+docker compose down -v 
+```
+
+- Para detener el docker sin borrar datos
+
+```bash
+docker stop keycloak-dds
 ```
 
 - Para popular la base de datos con los datos del mundial del 2026 se debe ejecutar:

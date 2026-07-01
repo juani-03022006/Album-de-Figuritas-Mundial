@@ -7,6 +7,7 @@ import {
   KEYCLOAK_JWKS_URI,
   KEYCLOAK_USER_ID_CLAIM,
 } from '../config/keycloak.js';
+import { getRolesFromPayload } from '../services/rolesService.js';
 
 const JWKS = createRemoteJWKSet(new URL(KEYCLOAK_JWKS_URI));
 
@@ -58,6 +59,7 @@ export default async function tokenExtractor(req, res, next) {
 
     const { payload } = await jwtVerify(token, JWKS, verifyOptions);
     const usuarioId = getUsuarioId(payload);
+    const roles = getRolesFromPayload(payload);
 
     if (!usuarioId) {
       return res.status(401).json({
@@ -72,7 +74,7 @@ export default async function tokenExtractor(req, res, next) {
       nombre: payload.given_name,
       apellido: payload.family_name,
       email: payload.email,
-      roles: payload.realm_access?.roles ?? [],
+      roles,
       claims: payload,
     };
 
