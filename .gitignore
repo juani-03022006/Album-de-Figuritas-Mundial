@@ -1,7 +1,5 @@
 node_modules/
-.env
-.env.local
-.env.*.local
+
 
 APIAlbumMundial/src/DB/*.db
 APIAlbumMundial/src/DB/*.sqlite

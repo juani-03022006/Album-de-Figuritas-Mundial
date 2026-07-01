@@ -6,6 +6,7 @@ export const KEYCLOAK_CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID || 'dds-tareas-
 export const KEYCLOAK_REDIRECT_URI =
   process.env.KEYCLOAK_REDIRECT_URI || 'http://localhost:4000/auth/callback';
 
+export const ADMIN_FRONTEND_URL = process.env.ADMIN_FRONTEND_URL || 'http://localhost:5000';
 export const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 export const BACKEND_PUBLIC_URL =
   process.env.BACKEND_PUBLIC_URL || `http://localhost:${process.env.PORT || 4000}`;

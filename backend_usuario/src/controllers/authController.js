@@ -1,7 +1,20 @@
 import oauthService from '../services/oauthService.js';
-import { FRONTEND_URL } from '../config/keycloak.js';
+import { decodeJwt } from 'jose';
+import { FRONTEND_URL, ADMIN_FRONTEND_URL } from '../config/keycloak.js';
+
+function getRolesFromToken(accessToken) {
+  try {
+    const payload = decodeJwt(accessToken);
+    return payload.realm_access?.roles ?? [];
+  } catch {
+    return [];
+  }
+}
 
 function buildFrontendCallbackUrl(tokens) {
+  const roles = getRolesFromToken(tokens.access_token);
+  const destino = roles.includes('admin') ? ADMIN_FRONTEND_URL : FRONTEND_URL;
+
   const params = new URLSearchParams({
     access_token: tokens.access_token,
     token_type: tokens.token_type || 'Bearer',
@@ -12,7 +25,7 @@ function buildFrontendCallbackUrl(tokens) {
     params.set('id_token', tokens.id_token);
   }
 
-  return `${FRONTEND_URL}/auth/callback#${params.toString()}`;
+  return `${destino}/auth/callback#${params.toString()}`;
 }
 
 export function createAuthController() {
@@ -28,9 +41,12 @@ export function createAuthController() {
     },
 
     logout(req, res) {
-      const logoutUrl = oauthService.crearUrlLogout({
-        next: req.query.next === 'register' ? 'register' : 'frontend',
-      });
+      const nextPermitidos = ['register', 'frontend', 'admin'];
+      const next = nextPermitidos.includes(req.query.next)
+        ? req.query.next
+        : 'frontend';
+
+      const logoutUrl = oauthService.crearUrlLogout({ next });
 
       res.redirect(logoutUrl);
     },

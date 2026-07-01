@@ -4,17 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "keycloak:up": "podman compose up -d",
     "keycloak:up:docker": "docker compose up -d",
-    "keycloak:down": "podman compose down",
     "keycloak:down:docker": "docker compose down",
-    "keycloak:logs": "podman logs -f keycloak-dds",
-    "setup": "node scripts/prepare-env.mjs && npm install --prefix APIAlbumMundial && npm install --prefix backend_usuario && npm install --prefix frontend_usuario",
-    "dev": "concurrently -n API,BACKEND,FRONTEND -c blue,green,magenta \"npm run dev --prefix APIAlbumMundial\" \"npm run dev --prefix backend_usuario\" \"npm run dev --prefix frontend_usuario -- --host 0.0.0.0\"",
-    "dev:api": "npm run dev --prefix APIAlbumMundial",
-    "dev:backend": "npm run dev --prefix backend_usuario",
-    "dev:frontend": "npm run dev --prefix frontend_usuario -- --host 0.0.0.0",
-    "reset:api-db": "node scripts/reset-api-db.mjs"
+    "setup": "node scripts/prepare-env.mjs && npm install --prefix APIAlbumMundial && npm install --prefix backend_usuario && npm install --prefix frontend_usuario && npm install --prefix backend_admin && npm install --prefix frontend_admin",
+    "dev": "concurrently -n APIAlbumMundial,BACKEND_USUARIO,FRONTEND_USUARIO,BACKEND_ADMIN,FRONTEND_ADMIN -c blue,green,magenta,red,pink \"npm run dev --prefix APIAlbumMundial\" \"npm run dev --prefix backend_usuario\" \"npm run dev --prefix frontend_usuario -- --host 0.0.0.0\" \"npm run dev --prefix backend_admin\" \"npm run dev --prefix frontend_admin -- --host 0.0.0.0\"",
+    "populate": "npm run populate --prefix backend_admin"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
