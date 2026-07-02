@@ -1,7 +1,7 @@
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.5.0
-    container_name: keycloak-dds
+    container_name: keycloak-album-figuritas
     command: start-dev --import-realm --hostname=http://localhost:8081 --hostname-strict=false
     ports:
       - "8081:8080"

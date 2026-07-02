@@ -24,7 +24,7 @@ function CountryPill({ team }) {
         alt={team.nombre}
         className="w-3 h-2 object-cover rounded-sm border border-white/40"
       />
-      <span className="text-[6px] font-black text-white leading-none tracking-wider mt-0.5" style={kanitStyle}>
+      <span className="text-[7px] font-black text-white leading-none tracking-wider mt-0.5" style={kanitStyle}>
         {team.grupo ? `G ${team.grupo}` : ''}
       </span>
     </div>
@@ -34,7 +34,7 @@ function CountryPill({ team }) {
 function FiguritaNumberBadge({ nroFigurita, className = '' }) {
   return (
     <span
-      className={`absolute left-1 top-1 z-30 min-w-[14px] h-[14px] px-0.5 rounded-full bg-black/70 border border-white/30 text-[7px] font-black text-white flex items-center justify-center leading-none ${className}`}
+      className={`absolute left-1 top-1 z-30 min-w-[14px] h-[14px] px-0.5 rounded-full bg-black/70 border border-white/30 text-[10px] font-black text-white flex items-center justify-center leading-none ${className}`}
       style={kanitStyle}
     >
       {nroFigurita}
@@ -68,7 +68,7 @@ function MissingFigurita({ team, figurita, isLandscape, fluid }) {
     >
       <FiguritaNumberBadge nroFigurita={figurita.nroFigurita} />
       <div className="flex flex-col items-center font-black text-neutral-200" style={kanitStyle}>
-        <span className="text-lg leading-none mt-0.5">{figurita.nroFigurita}</span>
+        <span className="text-[25px] text-lg leading-none mt-0.5">{figurita.nroFigurita}</span>
       </div>
     </div>
   );
@@ -119,12 +119,12 @@ function PersonFigurita({ team, figurita, isLandscape, fluid, isTecnico = false 
             Director Técnico
           </p>
         )}
-        <p className="text-[6px] font-black leading-tight uppercase truncate" style={kanitStyle} title={fullName}>
+        <p className="text-[8.5px] font-black leading-tight uppercase truncate" style={kanitStyle} title={fullName}>
           {fullName}
         </p>
-        <p className="text-[4px] leading-tight truncate opacity-90">{statsLine}</p>
-        <p className="text-[4px] leading-tight truncate uppercase opacity-90">{jugador.posicion}</p>
-        <p className="text-[4px] leading-tight truncate uppercase opacity-80">{jugador.club}</p>
+        <p className="text-[7px] leading-tight truncate opacity-90">{statsLine}</p>
+        <p className="text-[7px] leading-tight truncate uppercase opacity-90">{jugador.posicion}</p>
+        <p className="text-[7px] leading-tight truncate uppercase opacity-80">{jugador.club}</p>
       </div>
     </div>
   );
@@ -153,7 +153,7 @@ function SpecialFigurita({ team, figurita, isLandscape, fluid }) {
 
       {isLandscape ? (
         <>
-          <div className="relative z-10 w-[30%] flex flex-col items-center justify-center border-r border-white/20 bg-black/10">
+          <div className="relative z-10  flex flex-col items-center justify-center border-r border-white/20 bg-black/10">
             <span className="text-[8px] font-black text-white" style={kanitStyle}>
               {team.grupo ? `G ${team.grupo}` : ''}
             </span>
