@@ -1,14 +1,14 @@
 import { Button, Modal } from 'react-bootstrap';
 
 
-export function Especial({handleShow, src, alt, orientation = 'portrait' }) {
+export function Especial({handleShow, especial, alt, orientation = 'portrait' }) {
     const ratio = orientation === 'portrait' ? 'ratio-3x4' : 'ratio-4x3';
 
     return (
         <>
             <Button
                 variant="link"
-                onClick={handleShow}
+                onClick={() => handleShow(especial)}
                 className="p-0 border-0 bg-transparent overflow-hidden rounded shadow-sm focus-ring focus-ring-dark"
                 style={{ maxHeight: '170px', height: '100%', display: 'block' }}
                 aria-label={alt || "Ver imagen completa"}
@@ -16,7 +16,7 @@ export function Especial({handleShow, src, alt, orientation = 'portrait' }) {
                 <div className={`${ratio} position-relative`}>
                     <img
                         height='150px'
-                        src={src}
+                        src={especial.figurita.pathTopic}
                         alt={alt}
                     />
                 </div>

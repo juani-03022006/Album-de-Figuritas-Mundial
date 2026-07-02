@@ -30,7 +30,6 @@ function createEspecialesController(EspecialesService) {
                 const result = await EspecialesService.crearEspecial(nuevaEspecial);
                 res.status(200).json(result);
             } catch (error) {
-                console.log(error);
                 res.status(500).json(error);
             };
         },

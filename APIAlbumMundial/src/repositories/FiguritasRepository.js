@@ -117,7 +117,15 @@ class FiguritasRepository {
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {
         try {
-            const especial = await FiguritaEspecial.findOne({ where: { idEspecial } });
+            const especial = await Figurita.findOne({
+                include: { 
+                    model: FiguritaEspecial, as: 'especial',
+                    where: { id: idEspecial },
+                    required: true
+                }
+            });
+
+            console.log(especial)
 
             especial.set(datosNuevosEspecial);
             especial.save();

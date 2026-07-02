@@ -12,7 +12,7 @@ export const createEspecial = async (datosEspecial) => {
 };
 
 export const modifyEspecial = async (datosEspecial) => {
-    const result = await axios.put(`http://localhost:4100/figuritas/especiales/${datosEspecial.idEspecial}`, datosEspecial);
+    const result = await axios.put(`http://localhost:4100/figuritas/especiales/${datosEspecial.id}`, datosEspecial);
     return result.data;
 };
 

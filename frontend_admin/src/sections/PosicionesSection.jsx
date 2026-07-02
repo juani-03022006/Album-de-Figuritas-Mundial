@@ -4,7 +4,7 @@ import { Container, Spinner } from 'react-bootstrap';
 import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.jsx';
 import { TablaPosiciones } from '../components/TablaPosiciones/TablaPosiciones.jsx';
 import { ContainerFormNewPosicion } from '../components/FormsPosiciones/ContainerFormNewPosicion.jsx';
-import { ModalModificarPosicion } from '../components/ModalesPoscion/ModalModificarPosicion.jsx';
+import { ModalModificarPosicion } from '../components/ModalesPosicion/ModalModificarPosicion.jsx';
 import { useAlbumContext } from '../context/AlbumContext.jsx';
 
 
@@ -33,7 +33,7 @@ function PosicionesSection() {
     };
 
     return (
-        <div>
+        <>
             <TituloSubtitulo titulo={'Posiciones'} subtitulo={'Gestioná las posiciones de los jugadores'} />
 
             <div className="row g-4">
@@ -53,7 +53,7 @@ function PosicionesSection() {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

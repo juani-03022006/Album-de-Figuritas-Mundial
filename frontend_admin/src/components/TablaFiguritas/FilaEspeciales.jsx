@@ -2,13 +2,13 @@ import { Row, Col } from 'react-bootstrap';
 import { Especial } from '../Figurita/Especial.jsx';
 
 
-export function FilaEspeciales({ especialesSeleccion }) {
+export function FilaEspeciales({ especialesSeleccion, handleShow }) {
     return (
         <Row className="text-center fw-bold p-2">
             <Col md={4} className='p-3 d-flex flex-column align-items-center justify-content-center'>
                 <Especial
-                    handleShow={() => {}}
-                    src={especialesSeleccion[0].figurita.pathTopic}
+                    handleShow={handleShow}
+                    especial={especialesSeleccion[0]}
                     alt={especialesSeleccion[0].nombre}
                     orientation={'landscape'}
                 />
@@ -16,8 +16,8 @@ export function FilaEspeciales({ especialesSeleccion }) {
             </Col>
             <Col md={4} className='p-3 d-flex flex-column align-items-center justify-content-center'>
                 <Especial
-                    handleShow={() => {}}
-                    src={especialesSeleccion[2].figurita.pathTopic}
+                    handleShow={handleShow}
+                    especial={especialesSeleccion[2]}
                     alt={especialesSeleccion[2].nombre}
                     orientation={'portrait'}
                 />
@@ -25,8 +25,8 @@ export function FilaEspeciales({ especialesSeleccion }) {
             </Col>
             <Col md={4} className='p-3 d-flex flex-column align-items-center justify-content-center'>
                 <Especial
-                    handleShow={() => {}}
-                    src={especialesSeleccion[1].figurita.pathTopic}
+                    handleShow={handleShow}
+                    especial={especialesSeleccion[1]}
                     alt={especialesSeleccion[1].nombre}
                     orientation={'landscape'}
                 />

@@ -39,6 +39,7 @@ class EspecialesService {
             const especialModificada = await this.FiguritasRepository.modifyEspecial(idEspecialModificada, datosNuevosEspecial);
             return especialModificada;
         } catch (error) {
+            console.log(error);
             throw new Error(error);
         };
     };

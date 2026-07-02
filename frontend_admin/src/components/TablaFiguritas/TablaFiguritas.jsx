@@ -4,6 +4,7 @@ import { useAlbumContext } from '../../context/AlbumContext.jsx';
 import { TituloSubtitulo } from '../TituloSubtitulo/TituloSubtitulo.jsx';
 import { NavegadorSelecciones } from './NavegadorSelecciones.jsx';
 import { FilaEspeciales } from './FilaEspeciales.jsx';
+import { FilasJugadores } from './FilasJugadores.jsx';
 
 
 export function TablaFiguritas({ onFiguritaClick }) {
@@ -58,21 +59,12 @@ export function TablaFiguritas({ onFiguritaClick }) {
                     />
                     <Container className='card border-0 shadow-sm'>
 
-                        <FilaEspeciales especialesSeleccion={especialesSeleccion} />
+                        <FilaEspeciales 
+                            especialesSeleccion={especialesSeleccion}
+                            handleShow={onFiguritaClick}    
+                        />
 
-                        <Row className="text-center p-2">
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                        </Row>
-
-                        <Row className="text-center p-2">
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                            <Col md={3} className='p-3' >Celda 1/4</Col>
-                        </Row>
+                        <FilasJugadores jugadoresSeleccion={jugadoresSeleccion} />
                     </Container>
                 </>
             ) : (
