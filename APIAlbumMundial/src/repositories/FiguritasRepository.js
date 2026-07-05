@@ -1,4 +1,5 @@
 import { Figurita, FiguritaEspecial, FiguritaJugador, Posicion } from './models/index.js';
+import sequelize from './sequelizeConnection.js';
 
 
 class FiguritasRepository {
@@ -116,22 +117,20 @@ class FiguritasRepository {
     };
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {
+        const t = sequelize.transaction();
+
         try {
-            const especial = await Figurita.findOne({
-                include: { 
-                    model: FiguritaEspecial, as: 'especial',
-                    where: { id: idEspecial },
-                    required: true
-                }
-            });
+            const especial = await FiguritaEspecial.findOne({ where: { id: idEspecial }});
+            const idFigurita = especial.idFigurita;
+            
+            const figurita = await Figurita.findOne({ where: { idFigurita }});
 
-            console.log(especial)
+            console.log(datosNuevosEspecial)
+            // especial.set(datosNuevosEspecial);
 
-            especial.set(datosNuevosEspecial);
-            especial.save();
-            return especial;
         } catch (error) {
-            throw new Error(error.message);
+            await t.rollback();
+            throw error;
         };
     };
 };

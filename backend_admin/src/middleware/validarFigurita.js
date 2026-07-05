@@ -3,9 +3,7 @@ const TIPOS_VALIDOS = new Set([
     'escudo',
     'foto_seleccion',
     'tecnico',
-    'especial',
-    'j',
-    'e',
+    'especial'
 ]);
 
 function validarFigurita({ nroFigurita, pathTopic, pathToPic, tipo, idSeleccion }) {
@@ -29,7 +27,7 @@ function validarFigurita({ nroFigurita, pathTopic, pathToPic, tipo, idSeleccion 
 
 export const middlewareValidacionFigurita = (req, res, next) => {
     try {
-        validarFigurita(req.body);
+        validarFigurita(req.body.figurita);
         next();
     } catch (error) {
         res.status(400).json({ error: error.message });

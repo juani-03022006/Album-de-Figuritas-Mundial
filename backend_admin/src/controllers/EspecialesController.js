@@ -42,7 +42,6 @@ function generarEspecialesController(EspecialesService) {
         modifyEspecial: async (req, res) => {
             try {
                 const idEspecial = req.params.id;
-                console.log(idEspecial)
                 const datosEspecial = req.body;
                 const result = EspecialesService.modificarEspecial(idEspecial, datosEspecial);
                 

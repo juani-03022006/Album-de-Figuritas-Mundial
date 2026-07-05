@@ -6,7 +6,7 @@ function validarEspecial({ nombre }) {
 
 export const middlewareValidacionEspecial = (req, res, next) => {
     try {
-        validarEspecial(req.body.especial);
+        validarEspecial(req.body);
         next();
     } catch (error) {
         res.status(400).json({ error: error });
