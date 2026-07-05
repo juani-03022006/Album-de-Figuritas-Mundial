@@ -117,17 +117,22 @@ class FiguritasRepository {
     };
 
     async modifyEspecial(idEspecial, datosNuevosEspecial) {
-        const t = sequelize.transaction();
+        const t = await sequelize.transaction();
 
         try {
-            const especial = await FiguritaEspecial.findOne({ where: { id: idEspecial }});
+            const especial = await FiguritaEspecial.findOne({ where: { id: idEspecial } });
             const idFigurita = especial.idFigurita;
+
+            const figurita = await Figurita.findOne({ where: { idFigurita } });
+
+            especial.set(datosNuevosEspecial);
+            figurita.set(datosNuevosEspecial.figurita);
+
+            await especial.save({ transaction: t });
+            await figurita.save({ transaction: t });
             
-            const figurita = await Figurita.findOne({ where: { idFigurita }});
-
-            console.log(datosNuevosEspecial)
-            // especial.set(datosNuevosEspecial);
-
+            await t.commit();
+            return especial;
         } catch (error) {
             await t.rollback();
             throw error;

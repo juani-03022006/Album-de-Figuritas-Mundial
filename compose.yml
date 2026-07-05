@@ -10,7 +10,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin123
     volumes:
       - keycloak_data:/opt/keycloak/data
-      - ./keycloak/import:/opt/keycloak/data/import:ro
+      - ./keycloak/import:/opt/keycloak/data/import:ro,z
 
 volumes:
   keycloak_data:

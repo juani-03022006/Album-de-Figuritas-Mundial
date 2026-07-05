@@ -86,9 +86,9 @@ export function useAlbum() {
         };
     };
 
-    const handleEspecialChange = async (datosEspecial) => {
+    const handleEspecialChange = async (idEspecial, datosEspecial) => {
         try {
-            await modifyEspecial(datosEspecial);
+            await modifyEspecial(idEspecial, datosEspecial);
             await fetchEspeciales();
         } catch (error) {
             throw new Error(error.message);

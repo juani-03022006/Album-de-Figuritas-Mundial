@@ -31,24 +31,15 @@ export function ModalModificarEspecial({ isOpen, onClose, especial }) {
         event.preventDefault();
         if (!especial?.figurita.idFigurita) return;
 
-        console.log({
-                id: especial.id,
-                pathTopic: formData.pathTopic,
-                tipo: especial.figurita.tipo,
-                idSeleccion: especial.figurita.idSeleccion,
-                especial: {
-                    nombre: formData.nombre
-                }
-            })
-
         modifyEspecial(
+            especial.id,
             {
-                id: especial.id,
-                pathTopic: formData.pathTopic,
-                tipo: especial.figurita.tipo,
-                idSeleccion: especial.figurita.idSeleccion,
-                especial: {
-                    nombre: formData.nombre
+                nombre: formData.nombre,
+                figurita: {
+                    id: especial.id,
+                    pathTopic: formData.pathTopic,
+                    tipo: especial.figurita.tipo,
+                    idSeleccion: especial.figurita.idSeleccion,
                 }
             }
         );
