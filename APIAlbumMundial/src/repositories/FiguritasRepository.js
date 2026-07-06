@@ -14,7 +14,7 @@ class FiguritasRepository {
             const result = await Figurita.destroy({ where: { idFigurita } });
             return result;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     }
 
@@ -29,7 +29,7 @@ class FiguritasRepository {
 
             return jugadores;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -44,33 +44,43 @@ class FiguritasRepository {
 
             return jugadores;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
     async createJugador(datosJugador) {
         try {
-            const nuevoJugador = await Figurita.create(datosJugador, {
+            const nuevoJugador = await FiguritaJugador.create(datosJugador, {
                 include: [
-                    { model: FiguritaJugador, as: 'jugador' }
+                    { model: Figurita, as: 'figurita' }
                 ]
             });
 
             return nuevoJugador;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
     async modifyJugador(idJugador, datosNuevosJugador) {
+        const t = await sequelize.transaction();
+
         try {
             const jugador = await FiguritaJugador.findOne({ where: { idJugador } });
+            const idFigurita = jugador.idFigurita;
+            const figurita = await Figurita.findOne({ where: { idFigurita } });
 
             jugador.set(datosNuevosJugador);
-            jugador.save();
-            return jugador;
+            figurita.set(datosNuevosJugador.figurita);
+
+            await jugador.save({ transaction: t });
+            await figurita.save({ transaction: t });
+
+            await t.commit();
+            return { ...jugador, figurita: figurita };
         } catch (error) {
-            throw new Error(error.message);
+            await t.rollback();
+            throw error;
         };
     };
 
@@ -84,7 +94,7 @@ class FiguritasRepository {
 
             return especiales;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -98,21 +108,21 @@ class FiguritasRepository {
 
             return especiales;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
     async createEspecial(datosEspecial) {
         try {
-            const nuevaEspecial = await Figurita.create(datosEspecial, {
+            const nuevaEspecial = await FiguritaEspecial.create(datosEspecial, {
                 include: [
-                    { model: FiguritaEspecial, as: 'especial' }
+                    { model: Figurita, as: 'figurita' }
                 ]
             });
 
             return nuevaEspecial;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -122,7 +132,6 @@ class FiguritasRepository {
         try {
             const especial = await FiguritaEspecial.findOne({ where: { id: idEspecial } });
             const idFigurita = especial.idFigurita;
-
             const figurita = await Figurita.findOne({ where: { idFigurita } });
 
             especial.set(datosNuevosEspecial);
@@ -130,9 +139,9 @@ class FiguritasRepository {
 
             await especial.save({ transaction: t });
             await figurita.save({ transaction: t });
-            
+
             await t.commit();
-            return especial;
+            return { ...especial, figurita: figurita };
         } catch (error) {
             await t.rollback();
             throw error;

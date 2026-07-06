@@ -25,7 +25,7 @@ class SeleccionRepository {
             const seleccionNueva = await Seleccion.create(datosSeleccion);
             return seleccionNueva;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
