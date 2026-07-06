@@ -35,7 +35,7 @@ export function useAlbum() {
             await modifySeleccion(datosSeleccion);
             await fetchSelecciones();
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
     
@@ -45,7 +45,7 @@ export function useAlbum() {
             const result = await getPosiciones();
             setPosiciones(result);
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -54,7 +54,7 @@ export function useAlbum() {
             await createPosicion(datosPosicion);
             await fetchPosiciones();
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -63,7 +63,7 @@ export function useAlbum() {
             await modifyPosicion(datosPosicion);
             await fetchPosiciones();
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -73,7 +73,7 @@ export function useAlbum() {
             const result = await getEspeciales();
             setEspeciales(result);
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -82,7 +82,7 @@ export function useAlbum() {
             await createEspecial(datosEspecial);
             await fetchEspeciales();
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -91,7 +91,7 @@ export function useAlbum() {
             await modifyEspecial(idEspecial, datosEspecial);
             await fetchEspeciales();
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -101,7 +101,25 @@ export function useAlbum() {
             const result = await getJugadores();
             setJugadores(result);
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
+        };
+    };
+
+    const handleJugadoresChange = async (datosJugador) => {
+        try {
+            await createJugador(datosJugador);
+            await fetchJugadores();
+        } catch (error) {
+            throw error;
+        };
+    };
+
+    const handleJugadorChange = async (idJugador, datosJugador) => {
+        try {
+            await modifyJugador(idJugador, datosJugador);
+            await fetchJugadores();
+        } catch (error) {
+            throw error;
         };
     };
     
@@ -113,7 +131,7 @@ export function useAlbum() {
                 await fetchEspeciales();
                 await fetchJugadores();
             } catch (error) {
-                throw new Error(error.message);
+                throw error;
             } finally {
                 setLoading(false);
             };
@@ -133,6 +151,8 @@ export function useAlbum() {
         addPosicion: handlePosicionesChange,
         modifyPosicion: handlePosicionChange,
         addEspecial: handleEspecialesChange,
-        modifyEspecial: handleEspecialChange
+        modifyEspecial: handleEspecialChange,
+        addJugador: handleJugadoresChange,
+        modifyJugador: handleJugadorChange
     };
 };

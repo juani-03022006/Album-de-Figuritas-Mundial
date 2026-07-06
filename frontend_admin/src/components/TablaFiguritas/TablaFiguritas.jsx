@@ -7,7 +7,7 @@ import { FilaEspeciales } from './FilaEspeciales.jsx';
 import { FilasJugadores } from './FilasJugadores.jsx';
 
 
-export function TablaFiguritas({ onFiguritaClick }) {
+export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
     const { selecciones, especiales, jugadores } = useAlbumContext();
     const [selectedSeleccion, setSelectedSeleccion] = useState(0);
     const haySelecciones = selecciones.length !== 0;
@@ -22,14 +22,11 @@ export function TablaFiguritas({ onFiguritaClick }) {
         });
     }, [selecciones]);
 
-
-    // Handler para el Dropdown (mismo de antes)
     const handleSeleccionChange = (event) => {
         const valorSeleccionado = Number(event.target.value);
         setSelectedSeleccion(valorSeleccionado);
     };
 
-    // Funciones para navegar hacia atrás y adelante
     const handlePrev = () => {
         if (selectedSeleccion > 0) {
             setSelectedSeleccion(selectedSeleccion - 1);
@@ -49,7 +46,6 @@ export function TablaFiguritas({ onFiguritaClick }) {
         <>
             {haySelecciones && hayJugadores && hayEspeciales ? (
                 <>
-                    {/* SECTOR DE CONTROL: CONTROLES DE PAGINACIÓN Y DROPDOWN */}
                     <NavegadorSelecciones
                         handlePrev={handlePrev}
                         handleNext={handleNext}
@@ -61,10 +57,13 @@ export function TablaFiguritas({ onFiguritaClick }) {
 
                         <FilaEspeciales 
                             especialesSeleccion={especialesSeleccion}
-                            handleShow={onFiguritaClick}    
+                            handleShow={onEspecialClick}    
                         />
 
-                        <FilasJugadores jugadoresSeleccion={jugadoresSeleccion} />
+                        <FilasJugadores 
+                            jugadoresSeleccion={jugadoresSeleccion}
+                            handleShow={onJugadorClick}
+                        />
                     </Container>
                 </>
             ) : (

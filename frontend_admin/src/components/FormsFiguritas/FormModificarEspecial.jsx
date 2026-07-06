@@ -3,9 +3,9 @@ import { Form, Button, Row } from 'react-bootstrap';
 
 export function FormModificarEspecial({ formData, onChange, onSubmit }) {
     return (
-        <Form id='form-modificar-posicion' onSubmit={onSubmit}>
+        <Form id='form-modificar-especial' onSubmit={onSubmit}>
             <Row className='mb-3'>
-                <Form.Group controlId='nombre'>
+                <Form.Group className='mb-2' controlId='nombre'>
                     <Form.Label>Nombre de la Figurita</Form.Label>
                     <Form.Control
                         type='text'
@@ -16,7 +16,7 @@ export function FormModificarEspecial({ formData, onChange, onSubmit }) {
                     />
                 </Form.Group>
 
-                <Form.Group controlId='pathTopic'>
+                <Form.Group className='mb-2' controlId='pathTopic'>
                     <Form.Label>URL de la Foto de la Figurita</Form.Label>
                     <Form.Control
                         type='text'

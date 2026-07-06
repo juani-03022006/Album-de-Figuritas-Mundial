@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { useAlbumContext } from '../../context/AlbumContext.jsx';
 import { FormModificarEspecial } from '../FormsFiguritas/FormModificarEspecial.jsx';
 
+
 export function ModalModificarEspecial({ isOpen, onClose, especial }) {
     const { modifyEspecial } = useAlbumContext();
     const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ export function ModalModificarEspecial({ isOpen, onClose, especial }) {
             {
                 nombre: formData.nombre,
                 figurita: {
-                    id: especial.id,
+                    idFigurita: especial.idFigurita,
                     pathTopic: formData.pathTopic,
                     tipo: especial.figurita.tipo,
                     idSeleccion: especial.figurita.idSeleccion,
@@ -62,7 +63,7 @@ export function ModalModificarEspecial({ isOpen, onClose, especial }) {
                 <Button variant='secondary' onClick={onClose}>
                     Cancelar
                 </Button>
-                <Button variant='success' type='submit' form='form-modificar-posicion'>
+                <Button variant='success' type='submit' form='form-modificar-especial'>
                     Guardar Cambios
                 </Button>
             </Modal.Footer>

@@ -4,13 +4,16 @@ import { TituloSubtitulo } from '../components/TituloSubtitulo/TituloSubtitulo.j
 import { TablaFiguritas } from '../components/TablaFiguritas/TablaFiguritas.jsx';
 import { useAlbumContext } from '../context/AlbumContext.jsx';
 import { ModalModificarEspecial } from '../components/ModalesFiguritas/ModalModificarEspecial.jsx';
+import { ModalModificarJugador } from '../components/ModalesFiguritas/ModalModificarJugador.jsx';
 
 
 function FiguritasSection() {
     const { loading } = useAlbumContext();
     const [especialParaEditar, setEspecialParaEditar] = useState(null);
     const [isEspecialModificarModalOpen, setEspecialModificarModalOpen] = useState(false);
-    
+    const [jugadorParaEditar, setJugadorParaEditar] = useState(null);
+    const [isJugadorModificarModalOpen, setJugadorModificarModalOpen] = useState(false);
+
     if (loading) {
         return (
             <Container className="text-center my-5">
@@ -20,14 +23,24 @@ function FiguritasSection() {
         );
     };
 
-    const handleSelectEspecial = (posicion) => {
-        setEspecialParaEditar(posicion);
+    const handleSelectEspecial = (especial) => {
+        setEspecialParaEditar(especial);
         setEspecialModificarModalOpen(true)
     };
 
     const handleCloseModalModifyEspecial = () => {
         setEspecialModificarModalOpen(false);
         setEspecialParaEditar(null);
+    };
+
+    const handleSelectJugador = (jugador) => {
+        setJugadorParaEditar(jugador);
+        setJugadorModificarModalOpen(true)
+    };
+
+    const handleCloseModalModifyJugador = () => {
+        setJugadorModificarModalOpen(false);
+        setJugadorParaEditar(null);
     };
 
     return (
@@ -41,8 +54,17 @@ function FiguritasSection() {
                     especial={especialParaEditar}
                 />
 
+                <ModalModificarJugador
+                    isOpen={isJugadorModificarModalOpen}
+                    onClose={handleCloseModalModifyJugador}
+                    jugador={jugadorParaEditar}
+                />
+
                 <div className='col-md-12'>
-                    <TablaFiguritas onFiguritaClick={handleSelectEspecial}/>
+                    <TablaFiguritas
+                        onEspecialClick={handleSelectEspecial}
+                        onJugadorClick={handleSelectJugador}
+                    />
                 </div>
             </div>
         </>
