@@ -5,6 +5,7 @@ import { TituloSubtitulo } from '../TituloSubtitulo/TituloSubtitulo.jsx';
 import { NavegadorSelecciones } from './NavegadorSelecciones.jsx';
 import { FilaEspeciales } from './FilaEspeciales.jsx';
 import { FilasJugadores } from './FilasJugadores.jsx';
+import { useNavigate } from 'react-router-dom';
 
 
 export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
@@ -13,6 +14,7 @@ export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
     const haySelecciones = selecciones.length !== 0;
     const hayJugadores = jugadores.length !== 0;
     const hayEspeciales = especiales.length !== 0;
+    const navigate = useNavigate();
 
     const seleccionesOrdenadas = useMemo(() => {
         if (!selecciones) return [];
@@ -68,7 +70,12 @@ export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
                 </>
             ) : (
                 <Container className="text-center my-5">
-                    <h5>Todavía no hay Selecciones...</h5> <Button>Añadir Selección</Button>
+                    <h5>Todavía no hay Selecciones...</h5>
+                    <Button
+                        onClick={() => navigate('/selecciones')}
+                    >
+                        Añadir Selección
+                    </Button>
                 </Container>
             )}
         </>
