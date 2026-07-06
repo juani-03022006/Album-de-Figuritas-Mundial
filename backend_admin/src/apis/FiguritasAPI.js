@@ -12,7 +12,7 @@ class FiguritasAPI {
             const result = await axios.delete(`${this.urlAPI}/figuritas/${idFigurita}`);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -22,7 +22,7 @@ class FiguritasAPI {
             const result = await axios.get(`${this.urlAPI}/figuritas/jugadores`);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -31,7 +31,7 @@ class FiguritasAPI {
             const result = await axios.get(`${this.urlAPI}/figuritas/jugadores/seleccion/${idSeleccion}`);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     }
 
@@ -40,7 +40,7 @@ class FiguritasAPI {
             const result = await axios.post(`${this.urlAPI}/figuritas/jugadores`, datosJugador);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -49,7 +49,7 @@ class FiguritasAPI {
             const result = await axios.put(`${this.urlAPI}/figuritas/jugadores/${idJugador}`, datosJugador);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -59,7 +59,7 @@ class FiguritasAPI {
             const result = await axios.get(`${this.urlAPI}/figuritas/especiales`);
             return result.data
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -68,7 +68,7 @@ class FiguritasAPI {
             const result = await axios.get(`${this.urlAPI}/figuritas/especiales/seleccion/${idSeleccion}`);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -77,7 +77,7 @@ class FiguritasAPI {
             const result = await axios.post(`${this.urlAPI}/figuritas/especiales/`, datosEspecial);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -86,7 +86,7 @@ class FiguritasAPI {
             const result = await axios.put(`${this.urlAPI}/figuritas/especiales/${idEspecial}`, datosEspecial);
             return result.data;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 };

@@ -12,7 +12,7 @@ class JugadoresService {
             const result = await this.FiguritasAPI.getJugadores();
             return result;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -21,7 +21,7 @@ class JugadoresService {
             const result = await this.FiguritasAPI.getJugadoresPorSeleccion(idSeleccion);
             return result;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -30,7 +30,7 @@ class JugadoresService {
             const result = await this.FiguritasAPI.createJugador(datosJugador);
             return result;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -39,7 +39,7 @@ class JugadoresService {
             const jugadorModificado = await this.FiguritasAPI.modifyJugador(idJugadorModificado, datosNuevosJugador);
             return jugadorModificado;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -48,7 +48,7 @@ class JugadoresService {
             const result = await this.FiguritasAPI.deleteFigurita(idFigurita);
             return result;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 };

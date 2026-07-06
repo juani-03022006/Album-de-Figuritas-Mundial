@@ -30,7 +30,7 @@ class EspecialesService {
             const result = await this.FiguritasAPI.createEspecial(datosEspecial);
             return result;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 

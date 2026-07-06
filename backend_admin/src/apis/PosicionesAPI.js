@@ -11,7 +11,7 @@ class PosicionesAPI {
             const result = await axios.get(`${this.urlAPI}/posiciones/`);
             return result.data;
         } catch (error) {
-            console.error(error);
+            throw error
         };
     };
     
@@ -20,7 +20,7 @@ class PosicionesAPI {
             const result = await axios.post(`${this.urlAPI}/posiciones/`, datosNuevaPosicion);
             return result.data;
         } catch (error) {
-            console.error(error);
+            throw error
         };
     };
 
@@ -29,7 +29,7 @@ class PosicionesAPI {
             const result = await axios.put(`${this.urlAPI}/posiciones/${idPosicion}`, datosPosicion);
             return result.data;
         } catch (error) {
-            console.error(error);
+            throw error
         };
     };
 };

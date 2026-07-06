@@ -30,7 +30,7 @@ function validarJugador({ nombre, apellido, estatura, peso, club, fechaNacimient
 
 export const middlewareValidacionJugador = (req, res, next) => {
     try {
-        validarJugador(req.body.jugador);
+        validarJugador(req.body);
         next();
     } catch (error) {
         res.status(400).json({ error: error.message });

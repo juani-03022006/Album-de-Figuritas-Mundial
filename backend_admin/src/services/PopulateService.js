@@ -117,26 +117,26 @@ class PopulateService {
                 };
             };
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
     async populateDB() {
         try {
             // Primero Posiciones
-            await this.#populatePosiciones();
+            // await this.#populatePosiciones();
 
             // Despues Selecciones
-            await this.#populateSelecciones();
+            // await this.#populateSelecciones();
 
             // Luego Especiales
-            await this.#populateEspeciales();
+            // await this.#populateEspeciales();
 
             // Por ultimo jugadores
             await this.#populateJugadores();
         } catch (error) {
             console.log(error);
-            throw new Error(error.message);
+            throw error;
         };
     };
 };
