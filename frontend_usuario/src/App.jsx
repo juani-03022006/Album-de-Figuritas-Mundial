@@ -123,7 +123,7 @@ export function App() {
             onClick={logout}
             className="rounded-full bg-white px-3 py-1 font-bold uppercase tracking-wide text-neutral-950 transition hover:bg-white/90"
           >
-            Salir
+            Cerrar sesión
           </button>
         </div>
       )}
