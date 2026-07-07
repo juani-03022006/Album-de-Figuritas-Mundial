@@ -6,6 +6,7 @@ import SeleccionesSection from './sections/SeleccionesSection.jsx';
 import PosicionesSection from './sections/PosicionesSection.jsx';
 import FiguritasSection from './sections/FiguritasSection.jsx';
 import SidebarSection from './sections/SidebarSection.jsx';
+import DashboardSection from './sections/DashboardSection.jsx';
 
 
 const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:4000';
@@ -342,11 +343,11 @@ export default function App() {
                 <AAlbumProvider>
                     <Layout handleLogout={handleLogout}>
                         <Routes>
-                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/" element={<DashboardSection />} />
                             <Route path="/selecciones" element={<SeleccionesSection />} />
                             <Route path="/posiciones" element={<PosicionesSection />} />
                             <Route path="/figuritas" element={<FiguritasSection />} />
-                            <Route path="/auth/callback" element={<Dashboard />} />
+                            <Route path="/auth/callback" element={<DashboardSection />} />
                         </Routes>
                     </Layout>
                 </AAlbumProvider>

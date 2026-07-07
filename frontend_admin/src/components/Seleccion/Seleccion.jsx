@@ -5,7 +5,10 @@ export function Seleccion({ seleccion, onEditarClick }) {
     return (
         <>
             <td>
-                <img src={seleccion.urlBandera} height='30px' />
+                <img 
+                    src={seleccion.urlBandera}
+                    style={{ height: '30px', width: 'auto', borderRadius: '4px' }}
+                    />
             </td>
             <td className="fw-semibold">{seleccion.nombreSeleccion}</td>
             <td className="fw-semibold">{seleccion.nombrePais}</td>
