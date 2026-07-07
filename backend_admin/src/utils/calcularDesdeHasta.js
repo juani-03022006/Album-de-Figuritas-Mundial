@@ -1,20 +1,20 @@
 function calcularDesdeHastaPrimerGrupo(equiposEnGrupo, nroEmpiezaGrupo, figusPorSeleccion) {
     if (equiposEnGrupo === 0) {
-        const nroDesde = nroEmpiezaGrupo;
-        const nroHasta = nroEmpiezaGrupo + figusPorSeleccion - 1;
+        const nroDesde = 1;
+        const nroHasta = nroDesde + figusPorSeleccion - 1;
 
         return { nroDesde, nroHasta };
     };
 
-    const nroDesde = nroEmpiezaGrupo + ((figusPorSeleccion + 1) * equiposEnGrupo) - 1;
-    const nroHasta = nroDesde + figusPorSeleccion;
+    const nroDesde = nroEmpiezaGrupo + (figusPorSeleccion * equiposEnGrupo);
+    const nroHasta = nroDesde + figusPorSeleccion - 1;
 
     return { nroDesde, nroHasta };
 };
 
 function calcularDesdeHastaOtrosGrupos(equiposEnGrupo, nroEmpiezaGrupo, figusPorSeleccion) {
-    const nroDesde = nroEmpiezaGrupo + ((figusPorSeleccion + 1) * equiposEnGrupo);
-    const nroHasta = nroDesde + figusPorSeleccion;
+    const nroDesde = nroEmpiezaGrupo + (figusPorSeleccion * equiposEnGrupo);
+    const nroHasta = nroDesde + figusPorSeleccion - 1;
 
     return { nroDesde, nroHasta };
 };

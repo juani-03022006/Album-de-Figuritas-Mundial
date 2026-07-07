@@ -12,7 +12,7 @@ class PosicionesService {
             const posiciones = await this.PosicionesRepository.getPosiciones();
             return posiciones;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -21,7 +21,7 @@ class PosicionesService {
             const nuevaPosicion = await this.PosicionesRepository.createPosicion(datosPosicionNueva);
             return nuevaPosicion;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -30,7 +30,7 @@ class PosicionesService {
             const posicion = await this.PosicionesRepository.modifyPosicion(idPosicionModificada, posicionModificada);
             return posicion;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -39,7 +39,7 @@ class PosicionesService {
             const posicion = await this.PosicionesRepository.deletePosicion(idPosicion);
             return posicion;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     }
 };

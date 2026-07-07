@@ -8,18 +8,30 @@ class PosicionesService {
     };
 
     async obtenerPosiciones() {
-        const result = await this.PosicionesAPI.getPosiciones();
-        return result;
+        try {
+            const result = await this.PosicionesAPI.getPosiciones();
+            return result;
+        } catch (error) {
+            throw error;
+        };
     };
 
     async crearPosicion(datosPosicion) {
-        const result = await this.PosicionesAPI.createPosicion(datosPosicion);
-        return result;
+        try {
+            const result = await this.PosicionesAPI.createPosicion(datosPosicion);
+            return result;
+        } catch (error) {
+            throw error;
+        };
     };
 
     async modificarPosicion(idPosicion, datosPosicion) {
-        const result = await this.PosicionesAPI.modifyPosicion(idPosicion, datosPosicion);
-        return result;
+        try {
+            const result = await this.PosicionesAPI.modifyPosicion(idPosicion, datosPosicion);
+            return result;
+        } catch (error) {
+            throw error;
+        };
     };
 };
 

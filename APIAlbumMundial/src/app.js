@@ -7,6 +7,7 @@ import routerFiguritas from './routes/figuritas.js';
 import { createAlbumRoutes } from './routes/album.js';
 import * as models from './repositories/models/index.js';
 
+
 export function createApp() {
     const app = express();
 
