@@ -6,6 +6,7 @@ import { NavegadorSelecciones } from './NavegadorSelecciones.jsx';
 import { FilaEspeciales } from './FilaEspeciales.jsx';
 import { FilasJugadores } from './FilasJugadores.jsx';
 import { useNavigate } from 'react-router-dom';
+import { AltaFiguritas } from './AltaFiguritas.jsx';
 
 
 export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
@@ -55,14 +56,20 @@ export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
                         selectedSeleccion={selectedSeleccion}
                         seleccionesOrdenadas={seleccionesOrdenadas}
                     />
+
+                    <AltaFiguritas 
+                        isMaxEspeciales={especialesSeleccion.length === 3}
+                        isMaxJugadores={jugadoresSeleccion.length === 26}
+                    />
+
                     <Container className='card border-0 shadow-sm'>
 
-                        <FilaEspeciales 
+                        <FilaEspeciales
                             especialesSeleccion={especialesSeleccion}
-                            handleShow={onEspecialClick}    
+                            handleShow={onEspecialClick}
                         />
 
-                        <FilasJugadores 
+                        <FilasJugadores
                             jugadoresSeleccion={jugadoresSeleccion}
                             handleShow={onJugadorClick}
                         />
