@@ -26,6 +26,7 @@ function SeleccionesSection() {
             <div className="row g-4">
                 <div className="col-md-12">
                     <ModalNuevaSeleccion />
+                    
                     <ModalModificarSeleccion
                         isOpen={isModalOpen}
                         onClose={handleCloseModal}
