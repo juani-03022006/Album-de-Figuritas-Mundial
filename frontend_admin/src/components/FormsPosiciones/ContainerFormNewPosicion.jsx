@@ -6,7 +6,7 @@ import FormNuevaPosicion from '../FormsPosiciones/FormNuevaPosicion.jsx'
 
 export function ContainerFormNewPosicion() {
     const { posiciones, addPosicion } = useAlbumContext();
-        const [formData, setFormData] = useState({ descripcion: '' });
+    const [formData, setFormData] = useState({ descripcion: '' });
 
     const handleFormChange = (event) => {
         const { name, value } = event.target;

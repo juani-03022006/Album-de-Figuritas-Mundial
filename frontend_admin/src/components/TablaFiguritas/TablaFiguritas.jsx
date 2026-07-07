@@ -1,17 +1,20 @@
 import { useMemo, useState } from 'react';
-import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useAlbumContext } from '../../context/AlbumContext.jsx';
-import { TituloSubtitulo } from '../TituloSubtitulo/TituloSubtitulo.jsx';
 import { NavegadorSelecciones } from './NavegadorSelecciones.jsx';
 import { FilaEspeciales } from './FilaEspeciales.jsx';
 import { FilasJugadores } from './FilasJugadores.jsx';
-import { useNavigate } from 'react-router-dom';
-import { AltaFiguritas } from './AltaFiguritas.jsx';
+import { BotonesAltaFiguritas } from './BotonesAltaFiguritas.jsx';
+import { ModalAddEspecial } from '../ModalesFiguritas/ModalAddEspecial.jsx';
+import { ModalAddJugador } from '../ModalesFiguritas/ModalAddJugador.jsx';
 
 
-export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
+export function TablaFiguritas({ onEspecialClick, onJugadorClick}) {
     const { selecciones, especiales, jugadores } = useAlbumContext();
-    const [selectedSeleccion, setSelectedSeleccion] = useState(0);
+    const [idSelectedSeleccion, setIdSelectedSeleccion] = useState(1);
+    const [isNewJugadorModalOpen, setNewJugadorModalOpen] = useState(false);
+    const [isNewEspecialModalOpen, setNewEspecialModalOpen] = useState(false);
     const haySelecciones = selecciones.length !== 0;
     const hayJugadores = jugadores.length !== 0;
     const hayEspeciales = especiales.length !== 0;
@@ -27,39 +30,69 @@ export function TablaFiguritas({ onEspecialClick, onJugadorClick }) {
 
     const handleSeleccionChange = (event) => {
         const valorSeleccionado = Number(event.target.value);
-        setSelectedSeleccion(valorSeleccionado);
+        setIdSelectedSeleccion(valorSeleccionado + 1);
     };
 
     const handlePrev = () => {
-        if (selectedSeleccion > 0) {
-            setSelectedSeleccion(selectedSeleccion - 1);
+        if (idSelectedSeleccion > 0) {
+            setIdSelectedSeleccion(idSelectedSeleccion - 1);
         };
     };
 
     const handleNext = () => {
-        if (selectedSeleccion < seleccionesOrdenadas.length - 1) {
-            setSelectedSeleccion(selectedSeleccion + 1);
+        if (idSelectedSeleccion < seleccionesOrdenadas.length - 1) {
+            setIdSelectedSeleccion(idSelectedSeleccion + 1);
         };
     };
 
-    const especialesSeleccion = especiales.filter(especial => especial.figurita.idSeleccion === seleccionesOrdenadas[selectedSeleccion].idSeleccion);
-    const jugadoresSeleccion = jugadores.filter(jugador => jugador.figurita.idSeleccion === seleccionesOrdenadas[selectedSeleccion].idSeleccion);
+    const handleModalNewEspecial = () => {
+        setNewEspecialModalOpen(true);
+    };
+
+    const handleCloseModalNewEspecial = () => {
+        setNewEspecialModalOpen(false);
+    };
+
+    const handleModalNewJugador = () => {
+        setNewJugadorModalOpen(true);
+    };
+
+    const handleCloseModalNewJugador = () => {
+        setNewJugadorModalOpen(false);
+    };
+
+    const especialesSeleccion = especiales.filter(especial => especial.figurita.idSeleccion === seleccionesOrdenadas[idSelectedSeleccion - 1].idSeleccion);
+    const jugadoresSeleccion = jugadores.filter(jugador => jugador.figurita.idSeleccion === seleccionesOrdenadas[idSelectedSeleccion - 1].idSeleccion);
 
     return (
         <>
-            {haySelecciones && hayJugadores && hayEspeciales ? (
+            {haySelecciones ? (
                 <>
+                    <ModalAddEspecial
+                        isOpen={isNewEspecialModalOpen}
+                        onClose={handleCloseModalNewEspecial}
+                        idSeleccion={idSelectedSeleccion}
+                    />
+
+                    <ModalAddJugador
+                        isOpen={isNewJugadorModalOpen}
+                        onClose={handleCloseModalNewJugador}
+                        idSeleccion={idSelectedSeleccion}
+                    />
+
                     <NavegadorSelecciones
                         handlePrev={handlePrev}
                         handleNext={handleNext}
                         handleSeleccionChange={handleSeleccionChange}
-                        selectedSeleccion={selectedSeleccion}
+                        selectedSeleccion={idSelectedSeleccion - 1}
                         seleccionesOrdenadas={seleccionesOrdenadas}
                     />
 
-                    <AltaFiguritas 
+                    <BotonesAltaFiguritas
                         isMaxEspeciales={especialesSeleccion.length === 3}
                         isMaxJugadores={jugadoresSeleccion.length === 26}
+                        onAddEspecial={handleModalNewEspecial}
+                        onAddJugador={handleModalNewJugador}
                     />
 
                     <Container className='card border-0 shadow-sm'>
