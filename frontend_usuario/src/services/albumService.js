@@ -11,10 +11,7 @@ function getAuthConfig(accessToken) {
   };
 }
 
-/**
- * Carga el álbum completo como estructura de navegación.
- * Con login usa /apiUsuario/me/album; sin login conserva la ruta de desarrollo por usuario explícito.
- */
+
 export async function fetchUserAlbum(userId, accessToken = null) {
   const endpoint = accessToken
     ? `${API_BASE_URL}/me/album`
@@ -24,9 +21,7 @@ export async function fetchUserAlbum(userId, accessToken = null) {
   return normalizeAlbumResponse(data);
 }
 
-/**
- * Carga una sola selección. Esta ruta dispara la resolución lazy de imágenes en backend.
- */
+
 export async function fetchUserSelection(userId, codigoSeleccion, accessToken = null) {
   const endpoint = accessToken
     ? `${API_BASE_URL}/me/selecciones/${codigoSeleccion}`
@@ -57,7 +52,6 @@ export function normalizeSeleccion(seleccion) {
     })
     .map((figurita, index) => ({
       ...figurita,
-      // La grilla del álbum siempre usa posiciones internas 1-29 por selección.
       nroLocal: Number.isFinite(figurita.nroLocal) ? figurita.nroLocal : index + 1,
     }));
 
