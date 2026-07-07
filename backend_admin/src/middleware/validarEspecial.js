@@ -9,6 +9,6 @@ export const middlewareValidacionEspecial = (req, res, next) => {
         validarEspecial(req.body);
         next();
     } catch (error) {
-        res.status(400).json({ error: error });
+        res.status(400).json({ error: error.message });
     };
 };
