@@ -12,7 +12,7 @@ export function createAuthRoutes() {
   router.get('/logout', controller.logout);
   router.get('/auth/callback', controller.callback);
 
-  // Rutas didácticas de la guía: permiten probar token y roles.
+
   router.get('/api/me', tokenExtractor, requiereUsuario, controller.me);
   router.get('/api/admin', tokenExtractor, requiereRol('admin'), controller.admin);
 

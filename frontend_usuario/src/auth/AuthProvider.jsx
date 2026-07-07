@@ -101,9 +101,7 @@ export function AuthProvider({ children }) {
     setUser(null);
     setIsAuthenticated(false);
 
-    // Keycloak no permite abrir registro si hay una sesión SSO activa
-    // con otro usuario. Primero cerramos la sesión de Keycloak y luego
-    // volvemos automáticamente al flujo de registro.
+ 
     window.location.href = `${AUTH_BASE_URL}/logout?next=register`;
   }, []);
 

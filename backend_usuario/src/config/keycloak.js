@@ -22,11 +22,10 @@ export const KEYCLOAK_REGISTRATION_ENDPOINT =
 export const KEYCLOAK_LOGOUT_ENDPOINT =
   `${KEYCLOAK_ISSUER}/protocol/openid-connect/logout`;
 
-// En la guía de la cátedra se usa audience "account" para validar tokens del realm.
-// Si tu token no trae ese aud, poné KEYCLOAK_AUDIENCE=none durante desarrollo.
+
 export const KEYCLOAK_AUDIENCE = process.env.KEYCLOAK_AUDIENCE || 'none';
 
-// Este claim debe coincidir con el código de usuario que entiende la API.
+
 export const KEYCLOAK_USER_ID_CLAIM =
   process.env.KEYCLOAK_USER_ID_CLAIM || 'preferred_username';
 

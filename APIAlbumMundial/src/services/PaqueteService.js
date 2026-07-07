@@ -227,7 +227,7 @@ export async function abrirPaqueteByUsuarioCodigo(codigoUsuario, models, perfilU
       },
     });
 
-    // Evita que algunos linters marquen la variable como no usada cuando created es false.
+
     void registro;
     resultado.push(mapPackageFigurita(figurita, !created));
   }
