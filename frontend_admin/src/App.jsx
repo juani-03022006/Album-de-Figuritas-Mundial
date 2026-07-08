@@ -59,81 +59,6 @@ async function fetchAdminUser(accessToken) {
     return data.usuario;
 };
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-const AAlbumContext = createContext(null);
-
-function useAlbum() {
-    return useContext(AAlbumContext);
-};
-
-// ─── Context Provider ─────────────────────────────────────────────────────────
-
-function AAlbumProvider({ children }) {
-    const [selecciones, setSelecciones] = useState([
-        { id: 1, nombre: "Argentina", bandera: "🇦🇷", grupo: "A" },
-        { id: 2, nombre: "Francia", bandera: "🇫🇷", grupo: "B" },
-        { id: 3, nombre: "Brasil", bandera: "🇧🇷", grupo: "C" },
-    ]);
-
-    const [posiciones, setPosiciones] = useState([
-        { id: 1, nombre: "Portero" },
-        { id: 2, nombre: "Defensa Central" },
-        { id: 3, nombre: "Lateral Derecho" },
-        { id: 4, nombre: "Lateral Izquierdo" },
-        { id: 5, nombre: "Mediocampista" },
-        { id: 6, nombre: "Extremo" },
-        { id: 7, nombre: "Delantero" },
-    ]);
-
-    const [jugadores, setJugadores] = useState([
-        { id: 1, nombre: "Lionel Messi", numero: 10, seleccionId: 1, posicionId: 7 },
-        { id: 2, nombre: "Kylian Mbappé", numero: 10, seleccionId: 2, posicionId: 7 },
-        { id: 3, nombre: "Vinicius Jr.", numero: 7, seleccionId: 3, posicionId: 6 },
-    ]);
-
-    const [especiales, setEspeciales] = useState([
-        { id: 1, tipo: "escudo", seleccionId: 1 },
-        { id: 2, tipo: "tecnico", seleccionId: 1, nombre: "Lionel Scaloni" },
-        { id: 3, tipo: "formacion", seleccionId: 1, formacion: "4-3-3" },
-    ]);
-
-    const agregarSeleccion = (s) =>
-        setSelecciones((prev) => [...prev, { ...s, id: Date.now() }]);
-    const eliminarSeleccion = (id) =>
-        setSelecciones((prev) => prev.filter((s) => s.id !== id));
-
-    const agregarPosicion = (p) =>
-        setPosiciones((prev) => [...prev, { ...p, id: Date.now() }]);
-    const eliminarPosicion = (id) =>
-        setPosiciones((prev) => prev.filter((p) => p.id !== id));
-
-    const agregarJugador = (j) =>
-        setJugadores((prev) => [...prev, { ...j, id: Date.now() }]);
-    const eliminarJugador = (id) =>
-        setJugadores((prev) => prev.filter((j) => j.id !== id));
-
-    const agregarEspecial = (e) =>
-        setEspeciales((prev) => [...prev, { ...e, id: Date.now() }]);
-    const eliminarEspecial = (id) =>
-        setEspeciales((prev) => prev.filter((e) => e.id !== id));
-
-    return (
-        <AAlbumContext.Provider
-            value={{
-                selecciones, agregarSeleccion, eliminarSeleccion,
-                posiciones, agregarPosicion, eliminarPosicion,
-                jugadores, agregarJugador, eliminarJugador,
-                especiales, agregarEspecial, eliminarEspecial,
-            }}
-        >
-            {children}
-        </AAlbumContext.Provider>
-    );
-};
-
-// ─── Layout ───────────────────────────────────────────────────────────────────
-
 function Layout({ children, handleLogout }) {
     return (
         <div className="d-flex" style={{ minHeight: "100vh", background: "#f0f4f8" }}>
@@ -154,125 +79,6 @@ function Layout({ children, handleLogout }) {
     );
 };
 
-// ─── Page: Dashboard ──────────────────────────────────────────────────────────
-
-function Dashboard() {
-    const { jugadores, especiales, selecciones, posiciones } = useAlbum();
-    const navigate = useNavigate();
-
-    const getSeleccion = (id) => selecciones.find((s) => s.id === id);
-    const getPosicion = (id) => posiciones.find((p) => p.id === id);
-
-    const totalFiguritas = jugadores.length + especiales.length;
-
-    return (
-        <div>
-            <h2 className="fw-bold mb-1">Dashboard</h2>
-            <p className="text-muted mb-4">Resumen de la base de datos del álbum</p>
-
-            {/* Stats */}
-            <div className="row g-3 mb-4">
-                {[
-                    { label: "Total Figuritas", value: totalFiguritas, color: "primary", icon: "🖼️" },
-                    { label: "Jugadores", value: jugadores.length, color: "success", icon: "⚽" },
-                    { label: "Especiales", value: especiales.length, color: "warning", icon: "⭐" },
-                    { label: "Selecciones", value: selecciones.length, color: "info", icon: "🌍" },
-                ].map((s) => (
-                    <div className="col-6 col-md-3" key={s.label}>
-                        <div className="card border-0 shadow-sm h-100">
-                            <div className="card-body d-flex align-items-center gap-3">
-                                <div
-                                    className={`rounded-circle bg-${s.color} bg-opacity-10 d-flex align-items-center justify-content-center`}
-                                    style={{ width: 48, height: 48, fontSize: 22, flexShrink: 0 }}
-                                >
-                                    {s.icon}
-                                </div>
-                                <div>
-                                    <div className="fw-bold fs-4 lh-1">{s.value}</div>
-                                    <div className="text-muted" style={{ fontSize: 13 }}>{s.label}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Table */}
-            <div className="card border-0 shadow-sm">
-                <div className="card-header bg-white d-flex justify-content-between align-items-center py-3">
-                    <h5 className="mb-0 fw-bold">Registro completo de figuritas</h5>
-                    <span className="badge bg-primary rounded-pill">{totalFiguritas} registros</span>
-                </div>
-                <div className="table-responsive">
-                    <table className="table table-hover align-middle mb-0">
-                        <thead className="table-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Tipo</th>
-                                <th>Nombre / Descripción</th>
-                                <th>Selección</th>
-                                <th>Posición</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {jugadores.map((j) => (
-                                <tr key={`j-${j.id}`}>
-                                    <td className="text-muted fw-semibold">{j.numero}</td>
-                                    <td><span className="badge bg-primary">Jugador</span></td>
-                                    <td className="fw-semibold">{j.nombre}</td>
-                                    <td>
-                                        {getSeleccion(j.seleccionId)
-                                            ? `${getSeleccion(j.seleccionId).bandera} ${getSeleccion(j.seleccionId).nombre}`
-                                            : "—"}
-                                    </td>
-                                    <td>{getPosicion(j.posicionId)?.nombre || "—"}</td>
-                                </tr>
-                            ))}
-                            {especiales.map((e) => (
-                                <tr key={`e-${e.id}`}>
-                                    <td className="text-muted">—</td>
-                                    <td>
-                                        <span className="badge" style={{ background: "#7c3aed" }}>
-                                            {e.tipo === "escudo" ? "Escudo" : e.tipo === "tecnico" ? "Técnico" : "Formación"}
-                                        </span>
-                                    </td>
-                                    <td className="fw-semibold">
-                                        {e.tipo === "tecnico" ? e.nombre : e.tipo === "formacion" ? e.formacion : "Escudo oficial"}
-                                    </td>
-                                    <td>
-                                        {getSeleccion(e.seleccionId)
-                                            ? `${getSeleccion(e.seleccionId).bandera} ${getSeleccion(e.seleccionId).nombre}`
-                                            : "—"}
-                                    </td>
-                                    <td>—</td>
-                                </tr>
-                            ))}
-                            {totalFiguritas === 0 && (
-                                <tr>
-                                    <td colSpan={5} className="text-center text-muted py-5">
-                                        No hay figuritas registradas aún.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {/* FAB */}
-            <button
-                className="btn btn-primary rounded-circle shadow-lg position-fixed"
-                style={{ bottom: 32, right: 32, width: 56, height: 56, fontSize: 28, lineHeight: 1, zIndex: 1050 }}
-                title="Añadir Jugador"
-                onClick={() => navigate("/figuritas")}
-            >
-                +
-            </button>
-        </div>
-    );
-};
-
-// ─── App Root ─────────────────────────────────────────────────────────────────
 
 export default function App() {
     const [isInitialized, setIsInitialized] = useState(false);
@@ -340,17 +146,15 @@ export default function App() {
     return (
         <BrowserRouter>
             <AlbumProvider>
-                <AAlbumProvider>
-                    <Layout handleLogout={handleLogout}>
-                        <Routes>
-                            <Route path="/" element={<DashboardSection />} />
-                            <Route path="/selecciones" element={<SeleccionesSection />} />
-                            <Route path="/posiciones" element={<PosicionesSection />} />
-                            <Route path="/figuritas" element={<FiguritasSection />} />
-                            <Route path="/auth/callback" element={<DashboardSection />} />
-                        </Routes>
-                    </Layout>
-                </AAlbumProvider>
+                <Layout handleLogout={handleLogout}>
+                    <Routes>
+                        <Route path="/" element={<DashboardSection />} />
+                        <Route path="/selecciones" element={<SeleccionesSection />} />
+                        <Route path="/posiciones" element={<PosicionesSection />} />
+                        <Route path="/figuritas" element={<FiguritasSection />} />
+                        <Route path="/auth/callback" element={<DashboardSection />} />
+                    </Routes>
+                </Layout>
             </AlbumProvider>
         </BrowserRouter>
     );
