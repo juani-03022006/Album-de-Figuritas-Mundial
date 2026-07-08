@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { middlewareValidacionFigurita } from '../middleware/validarFigurita.js';
-import { middlewareValidacionJugador } from '../middleware/validarJugador.js';
+import { middlewareValidacionFigurita } from './middleware/validarFigurita.js';
+import { middlewareValidacionJugador } from './middleware/validarJugador.js';
 import createJugadoresController from '../controllers/JugadoresController.js';
 import JugadoresService from '../services/JugadoresService.js'
 import FiguritasRepository from '../repositories/FiguritasRepository.js';

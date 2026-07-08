@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { middlewareValidacionSeleccion } from '../middleware/validarSeleccion.js';
+import { middlewareValidacionSeleccion } from './middleware/validarSeleccion.js';
 import createSeleccionesController from '../controllers/SeleccionesController.js';
 import SeleccionesService from '../services/SeleccionesService.js';
 import SeleccionRepository from '../repositories/SeleccionesRepository.js';

@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { middlewareValidacionFigurita } from '../middleware/validarFigurita.js'
-import { middlewareValidacionEspecial } from '../middleware/validarEspecial.js';
+import { middlewareValidacionFigurita } from './middleware/validarFigurita.js'
+import { middlewareValidacionEspecial } from './middleware/validarEspecial.js';
 import createEspecialesController from '../controllers/EspecialesController.js';
 import EspecialesService from '../services/EspecialesService.js';
 import FiguritasRepository from '../repositories/FiguritasRepository.js';
