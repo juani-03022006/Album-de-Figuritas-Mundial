@@ -5,109 +5,60 @@ import {
   getSeleccionByUsuarioCodigo,
 } from '../services/albumService.js';
 
+function responderError(res, error) {
+  return res.status(error.statusCode || 500).json({
+    message: error.message || 'Error interno del servidor',
+    details: error.details,
+  });
+}
+
+async function responderServicio(res, servicio) {
+  try {
+    const data = await servicio();
+    return res.json(data);
+  } catch (error) {
+    return responderError(res, error);
+  }
+}
+
 export function createAlbumController() {
   return {
-    async getAlbum(req, res) {
-      try {
-        const album = await getAlbumByUsuarioCodigo(req.params.usuarioId);
-        res.json(album);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    getAlbum(req, res) {
+      return responderServicio(res, () => getAlbumByUsuarioCodigo(req.params.usuarioId));
     },
 
-    async getSeleccion(req, res) {
-      try {
-        const seleccion = await getSeleccionByUsuarioCodigo(
-          req.params.usuarioId,
-          req.params.codigoSeleccion
-        );
-        res.json(seleccion);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    getSeleccion(req, res) {
+      return responderServicio(res, () =>
+        getSeleccionByUsuarioCodigo(req.params.usuarioId, req.params.codigoSeleccion)
+      );
     },
 
-    async getMyAlbum(req, res) {
-      try {
-        const album = await getAlbumByUsuarioCodigo(req.user.usuarioId, req.user);
-        res.json(album);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    getMyAlbum(req, res) {
+      return responderServicio(res, () => getAlbumByUsuarioCodigo(req.user.usuarioId, req.user));
     },
 
-    async getMySeleccion(req, res) {
-      try {
-        const seleccion = await getSeleccionByUsuarioCodigo(
-          req.user.usuarioId,
-          req.params.codigoSeleccion,
-          req.user
-        );
-        res.json(seleccion);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    getMySeleccion(req, res) {
+      return responderServicio(res, () =>
+        getSeleccionByUsuarioCodigo(req.user.usuarioId, req.params.codigoSeleccion, req.user)
+      );
     },
 
-    async getEstadoPaquete(req, res) {
-      try {
-        const estado = await getEstadoPaqueteByUsuarioCodigo(req.params.usuarioId);
-        res.json(estado);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    getEstadoPaquete(req, res) {
+      return responderServicio(res, () => getEstadoPaqueteByUsuarioCodigo(req.params.usuarioId));
     },
 
-    async abrirPaquete(req, res) {
-      try {
-        const paquete = await abrirPaqueteByUsuarioCodigo(req.params.usuarioId);
-        res.json(paquete);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    abrirPaquete(req, res) {
+      return responderServicio(res, () => abrirPaqueteByUsuarioCodigo(req.params.usuarioId));
     },
 
-    async getMyEstadoPaquete(req, res) {
-      try {
-        const estado = await getEstadoPaqueteByUsuarioCodigo(req.user.usuarioId, req.user);
-        res.json(estado);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    getMyEstadoPaquete(req, res) {
+      return responderServicio(res, () =>
+        getEstadoPaqueteByUsuarioCodigo(req.user.usuarioId, req.user)
+      );
     },
 
-    async abrirMyPaquete(req, res) {
-      try {
-        const paquete = await abrirPaqueteByUsuarioCodigo(req.user.usuarioId, req.user);
-        res.json(paquete);
-      } catch (error) {
-        res.status(error.statusCode || 500).json({
-          message: error.message || 'Error interno del servidor',
-          details: error.details,
-        });
-      }
+    abrirMyPaquete(req, res) {
+      return responderServicio(res, () => abrirPaqueteByUsuarioCodigo(req.user.usuarioId, req.user));
     },
   };
 }
