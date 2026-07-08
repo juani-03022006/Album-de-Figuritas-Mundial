@@ -12,7 +12,7 @@ class EspecialesService {
             const especiales = await this.FiguritasRepository.getEspeciales();
             return especiales;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     }
 
@@ -21,7 +21,7 @@ class EspecialesService {
             const especiales = await this.FiguritasRepository.getEspecialesPorSeleccion(idSeleccion);
             return especiales;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -30,7 +30,7 @@ class EspecialesService {
             const nuevaEspecial = await this.FiguritasRepository.createEspecial(datosEspecial);
             return nuevaEspecial;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -39,8 +39,7 @@ class EspecialesService {
             const especialModificada = await this.FiguritasRepository.modifyEspecial(idEspecialModificada, datosNuevosEspecial);
             return especialModificada;
         } catch (error) {
-            console.log(error);
-            throw new Error(error);
+            throw error;
         };
     };
 };
