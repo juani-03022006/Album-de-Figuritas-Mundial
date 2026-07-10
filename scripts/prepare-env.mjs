@@ -20,9 +20,3 @@ for (const [examplePath, envPath] of copies) {
   fs.copyFileSync(examplePath, envPath);
   console.log(`[setup] Creado ${envPath} desde ${examplePath}.`);
 }
-
-const apiDbDir = path.join('APIAlbumMundial', 'src', 'DB');
-if (!fs.existsSync(apiDbDir)) {
-  fs.mkdirSync(apiDbDir, { recursive: true });
-  console.log(`[setup] Creada carpeta ${apiDbDir}.`);
-}
