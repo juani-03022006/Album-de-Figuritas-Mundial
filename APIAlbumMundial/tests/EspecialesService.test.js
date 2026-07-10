@@ -45,8 +45,19 @@ describe('Especiales Service', async () => {
             })
         };
 
-        especialesService = new EspecialesService(MockFiguritasRepo)
-    })
+        especialesService = new EspecialesService(MockFiguritasRepo);
+    });
+
+    describe('Validaciones del Constructor', () => {
+        it('Deberia lanzar un error si se instancia sin un repositorio', () => {
+            expect(() => new EspecialesService(null)).toThrow('El Repositorio de figuritas es obligatorio!');
+        });
+
+        it('Deberia lanzar un error si el repositorio no tiene las funciones esperadas', () => {
+            const mockRepoInvalido = { unMetodoCualquiero: () => { } };
+            expect(() => new EspecialesService(mockRepoInvalido)).toThrow('El Repositorio de figuritas es obligatorio!');
+        });
+    });
 
     it('Obtener especiales deberia devolver todas las especiales si hay en la base de datos', async () => {
         const especiales = await especialesService.obtenerEspeciales();

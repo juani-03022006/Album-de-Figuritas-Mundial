@@ -12,7 +12,7 @@ class JugadoresService {
             const jugadores = await this.FiguritasRepository.getJugadores();
             return jugadores;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -21,7 +21,7 @@ class JugadoresService {
             const jugadores = await this.FiguritasRepository.getJugadoresPorSeleccion(idSeleccion);
             return jugadores;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -30,7 +30,7 @@ class JugadoresService {
             const nuevoJugador = await this.FiguritasRepository.createJugador(datosJugador);
             return nuevoJugador;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 
@@ -39,7 +39,7 @@ class JugadoresService {
             const jugadorModificado = await this.FiguritasRepository.modifyJugador(idJugadorModificado, datosNuevosJugador);
             return jugadorModificado;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         };
     };
 };

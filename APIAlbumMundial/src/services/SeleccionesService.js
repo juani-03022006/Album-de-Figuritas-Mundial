@@ -12,7 +12,7 @@ class SeleccionesService {
             const selecciones = await this.SeleccionesRepository.getSelecciones();
             return selecciones;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -21,7 +21,7 @@ class SeleccionesService {
             const seleccion = await this.SeleccionesRepository.getSeleccionPorNombrePais(nombrePais);
             return seleccion;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     }
 
@@ -30,7 +30,7 @@ class SeleccionesService {
             const seleccionNueva = await this.SeleccionesRepository.createSeleccion(datosSeleccion);
             return seleccionNueva;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -39,7 +39,7 @@ class SeleccionesService {
             const seleccion = await this.SeleccionesRepository.modifySeleccion(idSeleccionModificada, datosSeleccionModificada);
             return seleccion;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 
@@ -48,7 +48,7 @@ class SeleccionesService {
             const result = await this.SeleccionesRepository.deleteSelecciones();
             return result;
         } catch (error) {
-            throw new Error(error.message);
+            throw error;
         };
     };
 };
